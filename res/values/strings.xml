@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CoocooCinema</string>
+    <string name="main_title">Афиша кинотеатров</string>
+    
+    
+    <string name="settings_label">Настройки</string>
+    <string name="settings_shortcut">s</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_for_afisha">Настройки для афиши</string>
+    <string name="cities_title">Выбрать город</string>
+    <string name="cities_summary">Выберите в всплывающем списке</string>
+    <string name="cities_dialog">Выберите город</string>
+    <string name="cities_cancel">Отмена</string>
+    
+    
+    <string name="about_label">Про програму</string>
+    <string name="about_title">Про програму</string>
+    <string name="about_text">Тест</string>
+    
+    <string name="exit_label">Выход</string>
+</resources>
