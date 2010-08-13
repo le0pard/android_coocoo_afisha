@@ -34,11 +34,13 @@ android:layout_height="2px" />
  android:layout_width="50dip"
  android:layout_height="wrap_content"
  android:src="@drawable/theaters_button" />
-<Button
- android:id="@+id/ok_button"
- android:layout_width="fill_parent"
- android:layout_height="wrap_content"
- android:text="Ok" />
+<TextView
+  android:text="@string/last_update"
+  android:layout_height="wrap_content"
+  android:layout_width="wrap_content"
+  android:layout_gravity="center"
+  android:padding="3sp" 
+  android:textSize="12sp" />
 </TableRow>
 </TableLayout>
 
