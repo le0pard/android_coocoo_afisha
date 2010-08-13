@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">CoocooCinema</string>
     <string name="main_title">Афиша кинотеатров</string>
+    <string name="current_city_title">Текущий город: </string>
     
     
     <string name="settings_label">Настройки</string>
