@@ -3,6 +3,7 @@ package ua.in.leopard.androidCoocooAfisha;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,13 +29,13 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         exitButton.setOnClickListener(this);
     	
         current_city=(TextView)findViewById(R.id.current_city);
-        current_city.setText(getString(R.string.current_city_title) + EditPreferences.getCity(this));
+        current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
     }
     
     @Override
     protected void onResume() {
        super.onResume();
-       current_city.setText(getString(R.string.current_city_title) + EditPreferences.getCity(this));
+       current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
     }
 
     @Override
@@ -44,9 +45,14 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		Intent i;
 		switch (v.getId()) {
+		  case R.id.cinemas_button:
+	         i = new Intent(this, Cinemas.class);
+	         startActivity(i);
+	         break;
 	      case R.id.about_button:
-	         Intent i = new Intent(this, About.class);
+	         i = new Intent(this, About.class);
 	         startActivity(i);
 	         break;
 	      case R.id.exit_button:

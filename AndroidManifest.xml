@@ -15,6 +15,7 @@
     <activity android:name="About" android:label="@string/about_title" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon"></activity>
 
 <activity android:name="EditPreferences" android:label="@string/settings_title"></activity>
+<activity android:label="@string/cinemas_title" android:name="Cinemas"></activity>
 </application>
 
 

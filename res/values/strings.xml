@@ -7,6 +7,8 @@
     <string name="cinemas_label">Список фильмов</string>
     <string name="theaters_label">Список кинотеатров</string>
     
+    <string name="cinemas_title">Список фильмов</string>
+    
     <string name="settings_label">Настройки</string>
     <string name="settings_shortcut">s</string>
     <string name="settings_title">Настройки</string>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+>
+<TableLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content" 
+android:stretchColumns="4">
+<TableRow>
+<ProgressBar android:id="@+id/progress"
+style="?android:attr/progressBarStyleHorizontal"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:layout_span="5" />
+</TableRow>
+<View
+android:layout_height="2px" />
+<TableRow>
+<ImageButton
+ android:id="@+id/back_button"
+ android:layout_width="50dip"
+ android:layout_height="wrap_content"
+ android:src="@drawable/back_button" />
+<ImageButton
+ android:id="@+id/update_button"
+ android:layout_width="50dip"
+ android:layout_height="wrap_content"
+ android:src="@drawable/update_button" />
+<ImageButton
+ android:id="@+id/theaters_button"
+ android:layout_width="50dip"
+ android:layout_height="wrap_content"
+ android:src="@drawable/theaters_button" />
+<Button
+ android:id="@+id/ok_button"
+ android:layout_width="fill_parent"
+ android:layout_height="wrap_content"
+ android:text="Ok" />
+</TableRow>
+</TableLayout>
+
+<ScrollView
+android:layout_width="fill_parent"
+android:layout_height="wrap_content">
+  <TableLayout
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:stretchColumns="0">
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#000000"/>
+    <TextView android:text="#000000"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#440000" />
+    <TextView android:text="#440000"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#884400" />
+    <TextView android:text="#884400"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#aa8844" />
+    <TextView android:text="#aa8844"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#ffaa88" />
+    <TextView android:text="#ffaa88"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#ffffaa" />
+    <TextView android:text="#ffffaa"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  <TableRow>
+    <View
+    android:layout_height="80px"
+    android:background="#ffffff" />
+    <TextView android:text="#ffffff"
+    android:paddingLeft="4px"
+    android:layout_gravity="center_vertical" />
+  </TableRow>
+  </TableLayout>
+</ScrollView>
+</LinearLayout>
