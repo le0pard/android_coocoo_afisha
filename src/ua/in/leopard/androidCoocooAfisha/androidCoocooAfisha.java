@@ -18,19 +18,23 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        View cinemasButton = findViewById(R.id.cinemas_button);
+        cinemasButton.setOnClickListener(this);
+        View theatersButton = findViewById(R.id.theaters_button);
+        theatersButton.setOnClickListener(this);
         View aboutButton = findViewById(R.id.about_button);
         aboutButton.setOnClickListener(this);
         View exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(this);
     	
         current_city=(TextView)findViewById(R.id.current_city);
-        current_city.setText(getString(R.string.current_city_title) + EditPreferences.getCityId(this));
+        current_city.setText(getString(R.string.current_city_title) + EditPreferences.getCity(this));
     }
     
     @Override
     protected void onResume() {
        super.onResume();
-       current_city.setText(getString(R.string.current_city_title) + EditPreferences.getCityId(this));
+       current_city.setText(getString(R.string.current_city_title) + EditPreferences.getCity(this));
     }
 
     @Override

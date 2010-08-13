@@ -27,6 +27,16 @@
          android:layout_marginBottom="25dip"
          android:textSize="18sp" />
       <Button
+         android:id="@+id/cinemas_button"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/cinemas_label" />
+       <Button
+         android:id="@+id/theaters_button"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/theaters_label" />
+      <Button
          android:id="@+id/about_button"
          android:layout_width="fill_parent"
          android:layout_height="wrap_content"

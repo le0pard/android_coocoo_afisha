@@ -4,6 +4,8 @@
     <string name="main_title">Афиша кинотеатров</string>
     <string name="current_city_title">Текущий город: </string>
     
+    <string name="cinemas_label">Список фильмов</string>
+    <string name="theaters_label">Список кинотеатров</string>
     
     <string name="settings_label">Настройки</string>
     <string name="settings_shortcut">s</string>
