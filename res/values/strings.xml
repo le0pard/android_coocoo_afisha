@@ -6,9 +6,12 @@
     
     <string name="cinemas_label">Список фильмов</string>
     <string name="theaters_label">Список кинотеатров</string>
+    <string name="last_update">Последнее обновление: </string>
     
     <string name="cinemas_title">Список фильмов</string>
-    <string name="last_update">Последнее обновление: </string>
+    
+    
+    <string name="theaters_title">Список кинотеатров</string>
     
     <string name="settings_label">Настройки</string>
     <string name="settings_shortcut">s</string>

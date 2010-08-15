@@ -27,6 +27,8 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         aboutButton.setOnClickListener(this);
         View exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(this);
+        
+        //JsonClient.getData("http://bash.leopard.in.ua/json.json");
     	
         current_city=(TextView)findViewById(R.id.current_city);
         current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
@@ -49,6 +51,10 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		  case R.id.cinemas_button:
 	         i = new Intent(this, Cinemas.class);
+	         startActivity(i);
+	         break;
+		  case R.id.theaters_button:
+	         i = new Intent(this, Theaters.class);
 	         startActivity(i);
 	         break;
 	      case R.id.about_button:

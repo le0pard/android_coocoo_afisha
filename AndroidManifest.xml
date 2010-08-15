@@ -16,8 +16,12 @@
 
 <activity android:name="EditPreferences" android:label="@string/settings_title"></activity>
 <activity android:label="@string/cinemas_title" android:name="Cinemas"></activity>
+<activity android:name="Theaters" android:label="@string/theaters_title"></activity>
 </application>
 
 
 <uses-sdk android:targetSdkVersion="8" android:minSdkVersion="8"></uses-sdk>
+
+
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest> 
