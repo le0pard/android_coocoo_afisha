@@ -11,7 +11,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,11 +18,14 @@ import android.util.Log;
 
 public class JsonClient {
 	
-	public static void getData(String url){
+	public static JSONObject getData(String url){
 		HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpget = new HttpGet(url);
+        httpget.setHeader("Accept", "application/json");
+        httpget.setHeader("Content-type", "application/json");
         
         HttpResponse response;
+        JSONObject return_data = null;
         try {
             response = httpclient.execute(httpget);
             // Examine the response status
@@ -42,21 +44,7 @@ public class JsonClient {
                 Log.v("JsonClient",result);
  
                 // A Simple JSONObject Creation
-                JSONObject json=new JSONObject(result);
-                Log.v("JsonClient","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
- 
-                // A Simple JSONObject Parsing
-                JSONArray nameArray=json.names();
-                JSONArray valArray=json.toJSONArray(nameArray);
-                for(int i=0;i<valArray.length();i++)
-                {
-                    Log.v("JsonClient","<jsonname"+i+">\n"+nameArray.getString(i)+"\n</jsonname"+i+">\n"
-                            +"<jsonvalue"+i+">\n"+valArray.getString(i)+"\n</jsonvalue"+i+">");
-                }
- 
-                // A Simple JSONObject Value Pushing
-                json.put("sample key", "sample value");
-                Log.v("JsonClient","<jsonobject>\n"+json.toString()+"\n</jsonobject>");
+                return_data=new JSONObject(result);
  
                 // Closing the input stream will trigger connection release
                 instream.close();
@@ -76,6 +64,8 @@ public class JsonClient {
             e.printStackTrace();
             Log.v("JsonClient","JSONException");
         }
+        
+        return return_data;
 	}
 	
 	private static String convertStreamToString(InputStream is) {

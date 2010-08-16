@@ -28,8 +28,8 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         View exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(this);
         
-        //JsonClient.getData("http://bash.leopard.in.ua/json.json");
-    	
+        dataCollector.getAfishaData();
+        
         current_city=(TextView)findViewById(R.id.current_city);
         current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
     }

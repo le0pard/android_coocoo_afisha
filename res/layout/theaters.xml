@@ -9,13 +9,6 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content" 
 android:stretchColumns="4">
-<TableRow>
-<ProgressBar android:id="@+id/progress"
-style="?android:attr/progressBarStyleHorizontal"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:layout_span="5" />
-</TableRow>
 <View
 android:layout_height="2px" />
 <TableRow>
