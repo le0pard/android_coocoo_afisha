@@ -4,16 +4,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 public class dataCollector {
-	private static final String AFISHA_URL="http://bash.leopard.in.ua/json.json";
+	private final Context myContext;
 	
-	public static void getAfishaData(){
-		dataCollector.getDataFromJSON(JsonClient.getData(AFISHA_URL));
+	public dataCollector(Context context) {
+		this.myContext = context;
 	}
 	
-	public static void getDataFromJSON(JSONObject js_obj){
+	public void getTheatersData(){
+		this.getDataFromJSON(JsonClient.getData(EditPreferences.getTheaterUrl(this.myContext)));
+	}
+	
+	public void getDataFromJSON(JSONObject js_obj){
 		try {
 			JSONArray nameArray=js_obj.names();
 			JSONArray valArray = js_obj.toJSONArray(nameArray);
