@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -19,13 +18,13 @@ import android.util.Log;
 public class JsonClient {
 	
 	public static JSONObject getData(String url){
+		JSONObject return_data = null;
 		HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpget = new HttpGet(url);
         httpget.setHeader("Accept", "application/json");
         httpget.setHeader("Content-type", "application/json");
         
         HttpResponse response;
-        JSONObject return_data = null;
         try {
             response = httpclient.execute(httpget);
             // Examine the response status
@@ -63,6 +62,9 @@ public class JsonClient {
             // TODO Auto-generated catch block
             e.printStackTrace();
             Log.v("JsonClient","JSONException");
+        } catch (Exception e) { 
+        	e.printStackTrace();
+        	Log.v("JsonClient","Exception");
         }
         
         return return_data;

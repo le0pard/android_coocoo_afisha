@@ -15,19 +15,25 @@ public class DataCollector {
 	}
 	
 	public void getTheatersData(){
-		this.getDataFromJSON(JsonClient.getData(EditPreferences.getTheaterUrl(this.myContext)));
+		this.getTheatersDataFromJSON(JsonClient.getData(EditPreferences.getTheaterUrl(this.myContext)));
 	}
 	
-	public void getDataFromJSON(JSONObject js_obj){
+	public void getTheatersDataFromJSON(JSONObject js_obj){
 		try {
 			JSONArray theaters_array = js_obj.getJSONArray("theaters");
 			if (!theaters_array.equals(null)){
+				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+				int city_id = Integer.valueOf(EditPreferences.getCityId(this.myContext)).intValue();
 				for (int i = 0; i < theaters_array.length(); ++i) {
 				    JSONObject row = theaters_array.getJSONObject(i);
-				    
-				    int id = row.getInt("id");
-				    String title = row.getString("title");
-				    Log.i("dataCollector", "id: " + Integer.toString(id) + ", title: " + title);
+				    if (city_id == row.getInt("city_id")){
+				    	DatabaseHelperObject.setTheater(
+				    			row.getInt("id"), city_id, 
+				    			row.getString("title"), 
+				    			row.getString("link"), 
+				    			row.getString("address"), 
+				    			row.getString("phone"));
+				    }
 				}
 			}
 		} catch (JSONException e) {
