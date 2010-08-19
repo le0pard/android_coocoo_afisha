@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class androidCoocooAfisha extends Activity implements OnClickListener {
 	private TextView current_city;
-	private dataCollector dataCollectorObject;
+	private DataCollector dataCollectorObject;
 	
     /** Called when the activity is first created. */
     @Override
@@ -30,7 +30,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         View exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(this);
              
-        dataCollectorObject = new dataCollector(this);
+        dataCollectorObject = new DataCollector(this);
         dataCollectorObject.getTheatersData();
         
         current_city=(TextView)findViewById(R.id.current_city);
