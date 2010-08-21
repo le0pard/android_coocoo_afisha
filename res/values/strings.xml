@@ -22,6 +22,10 @@
     <string name="cities_dialog">Выберите город</string>
     <string name="cities_cancel">Отмена</string>
     
+    <string name="dialog_title">Обновление данных</string>
+    <string name="dialog_message">Пожалуйста, подождите...</string>
+    <string name="dialog_message_1">Обновление кинотеатров...</string>
+    
     
     <string name="about_label">Про програму</string>
     <string name="about_title">Про програму</string>

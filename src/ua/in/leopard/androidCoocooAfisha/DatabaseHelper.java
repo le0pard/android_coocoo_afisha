@@ -89,8 +89,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_LINK,
 				THEATERS_TABLE_ADDRESS,
 				THEATERS_TABLE_PHONE
-				}, "id = " + id,
-				null, null, null, THEATERS_TABLE_TITLE, "1");
+				}, "id = ?",
+				new String[] {Integer.toString(id)}, null, null, THEATERS_TABLE_TITLE, "1");
 		
 		result.moveToFirst();
 		TheaterDB theater_row = null;
@@ -109,30 +109,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 		return theater_row;
 	}
-	
-	public int getTheaterCount(int id){
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor result = db.query(THEATERS_TABLE, 
-				new String[] {
-				THEATERS_TABLE_EXT_ID, 
-				THEATERS_TABLE_CITY_ID, 
-				THEATERS_TABLE_TITLE,
-				THEATERS_TABLE_LINK,
-				THEATERS_TABLE_ADDRESS,
-				THEATERS_TABLE_PHONE
-				}, "id = " + id,
-				null, null, null, THEATERS_TABLE_TITLE);		
-		result.moveToFirst();
-		int th_count = result.getCount();
-		result.close();
-		db.close();
-		return th_count;
-	}
 
 	
 	public void setTheater(TheaterDB theater_row){
-		if (this.getTheaterCount(theater_row.getId()) == 0){
-			SQLiteDatabase db = this.getWritableDatabase();
+		TheaterDB tmp_obj = this.getTheater(theater_row.getId());
+		SQLiteDatabase db = this.getWritableDatabase();
+		if (tmp_obj == null){
 			ContentValues cv = new ContentValues();
 			cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
 			cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
@@ -141,8 +123,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
 			cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
 			db.insert(THEATERS_TABLE, null, cv);
-			db.close();
+		} else if (!tmp_obj.equal(theater_row)){
+			ContentValues cv = new ContentValues();
+			cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
+			cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
+			cv.put(THEATERS_TABLE_TITLE, theater_row.getTitle());
+			cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
+			cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
+			cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
+			db.update(THEATERS_TABLE, cv, "id = ?", new String[] {Integer.toString(theater_row.getId())});
 		}
+		db.close();
 	}
 
 

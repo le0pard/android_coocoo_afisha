@@ -19,6 +19,23 @@ public class TheaterDB {
 		this.phone = phone;
 	}
 	
+	
+	public Boolean equal(TheaterDB eq_object){
+		if (
+			(eq_object.getId() == this.getId()) && 
+			(eq_object.getCityId() == this.getCityId()) && 
+			(eq_object.getTitle() == this.getTitle()) && 
+			(eq_object.getLink() == this.getLink()) && 
+			(eq_object.getAddress() == this.getAddress()) && 
+			(eq_object.getPhone() == this.getPhone())
+			){
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 	// Getter and setter methods for all the fields.
 	// Though you would not be using the setters for this example,
 	// it might be useful later.
