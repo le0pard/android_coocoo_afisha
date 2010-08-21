@@ -1,11 +1,18 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/*
+ * ./adb -s emulator-5554 shell
+ * sqlite3 /data/data/ua.in.leopard.androidCoocooAfisha/databases/coocoo_afisha_db
+*/
 public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME="coocoo_afisha_db";
@@ -42,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		this.myContext = context;
 	}
 	
-	public Cursor getTheaters(){
+	public List<TheaterDB> getTheaters(){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor result = db.query(THEATERS_TABLE, 
 				new String[] {
@@ -55,11 +62,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				}, "city_id = " + EditPreferences.getCityId(this.myContext),
 				null, null, null, THEATERS_TABLE_TITLE);
 		result.moveToFirst();
+		List<TheaterDB> theaters = new ArrayList<TheaterDB>();
+		while (!result.isAfterLast()) {
+			theaters.add(new TheaterDB(
+				result.getInt(result.getColumnIndex("id")),
+				result.getInt(result.getColumnIndex("city_id")),
+				result.getString(result.getColumnIndex("title")),
+				result.getString(result.getColumnIndex("link")),
+				result.getString(result.getColumnIndex("address")),
+				result.getString(result.getColumnIndex("phone"))
+			));
+			result.moveToNext();
+		}
+		result.close();
 		db.close();
-		return result;
+		return theaters;
 	}
 	
-	public Cursor getTheater(int id){
+	public TheaterDB getTheater(int id){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor result = db.query(THEATERS_TABLE, 
 				new String[] {
@@ -73,8 +93,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				null, null, null, THEATERS_TABLE_TITLE, "1");
 		
 		result.moveToFirst();
+		TheaterDB theater_row = null;
+		while (!result.isAfterLast()) {
+			theater_row = new TheaterDB(
+				result.getInt(result.getColumnIndex("id")),
+				result.getInt(result.getColumnIndex("city_id")),
+				result.getString(result.getColumnIndex("title")),
+				result.getString(result.getColumnIndex("link")),
+				result.getString(result.getColumnIndex("address")),
+				result.getString(result.getColumnIndex("phone"))
+			);
+			result.moveToNext();
+		}
+		result.close();
 		db.close();
-		return result;
+		return theater_row;
 	}
 	
 	public int getTheaterCount(int id){
@@ -97,16 +130,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	
-	public void setTheater(int id, int city_id, String title, String link, String address, String phone){
-		SQLiteDatabase db = this.getWritableDatabase();
-		if (this.getTheaterCount(id) == 0){
+	public void setTheater(TheaterDB theater_row){
+		if (this.getTheaterCount(theater_row.getId()) == 0){
+			SQLiteDatabase db = this.getWritableDatabase();
 			ContentValues cv = new ContentValues();
-			cv.put(THEATERS_TABLE_EXT_ID, id);
-			cv.put(THEATERS_TABLE_CITY_ID, city_id);
-			cv.put(THEATERS_TABLE_TITLE, title);
-			cv.put(THEATERS_TABLE_LINK, link);
-			cv.put(THEATERS_TABLE_ADDRESS, address);
-			cv.put(THEATERS_TABLE_PHONE, phone);
+			cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
+			cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
+			cv.put(THEATERS_TABLE_TITLE, theater_row.getTitle());
+			cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
+			cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
+			cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
 			db.insert(THEATERS_TABLE, null, cv);
 			db.close();
 		}

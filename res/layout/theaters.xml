@@ -4,36 +4,8 @@ android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 >
-<TableLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content" 
-android:stretchColumns="4">
-<View
-android:layout_height="2px" />
-<TableRow>
-<ImageButton
- android:id="@+id/home_button"
- android:layout_width="50dip"
- android:layout_height="wrap_content"
- android:src="@drawable/home_button" />
-<ImageButton
- android:id="@+id/update_button"
- android:layout_width="50dip"
- android:layout_height="wrap_content"
- android:src="@drawable/update_button" />
-<TextView
-  android:text="@string/last_update"
-  android:layout_height="wrap_content"
-  android:layout_width="wrap_content"
-  android:layout_gravity="center"
-  android:padding="3sp" 
-  android:textSize="12sp" />
-</TableRow>
-</TableLayout>
-
 <ListView
-  android:id="@+id/theaters_table"
+  android:id="@+id/theaters_list"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
 

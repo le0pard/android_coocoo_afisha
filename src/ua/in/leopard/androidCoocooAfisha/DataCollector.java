@@ -27,12 +27,14 @@ public class DataCollector {
 				for (int i = 0; i < theaters_array.length(); ++i) {
 				    JSONObject row = theaters_array.getJSONObject(i);
 				    if (city_id == row.getInt("city_id")){
-				    	DatabaseHelperObject.setTheater(
+				    	
+				    	DatabaseHelperObject.setTheater(new TheaterDB(
 				    			row.getInt("id"), city_id, 
 				    			row.getString("title"), 
 				    			row.getString("link"), 
 				    			row.getString("address"), 
-				    			row.getString("phone"));
+				    			row.getString("phone"))
+				    	);
 				    }
 				}
 			}
