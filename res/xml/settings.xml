@@ -2,7 +2,7 @@
 <PreferenceScreen
    xmlns:android="http://schemas.android.com/apk/res/android">
   <PreferenceCategory android:title="@string/settings_for_afisha">
-   
+
 		<ListPreference
 		android:key="city_id" 
 		android:dialogIcon="@drawable/cities_icon"
@@ -10,8 +10,27 @@
 		android:summary="@string/cities_summary"
 		android:entries="@array/cities"
 		android:entryValues="@array/cities_ids"
+		android:defaultValue="1" 
 		android:dialogTitle="@string/cities_dialog" 
-		android:negativeButtonText="@string/cities_cancel" />
+		android:negativeButtonText="@string/cancel" />
 
-  </PreferenceCategory>   
+  </PreferenceCategory>
+  <PreferenceCategory android:title="@string/settings_for_app">
+   
+    <CheckBoxPreference
+			android:key="auto_update"
+			android:title="@string/auto_update_title"
+			android:summary="@string/auto_update_summary" />
+	  <ListPreference
+	    android:key="auto_update_every_time" 
+	    android:dialogIcon="@drawable/cities_icon"
+	    android:title="@string/auto_update_every_time_title"
+	    android:summary="@string/auto_update_every_time_summary"
+	    android:entries="@array/autoupdate_title"
+	    android:entryValues="@array/autoupdate_values"
+	    android:defaultValue="1" 
+	    android:dialogTitle="@string/auto_update_every_time_dialog" 
+	    android:negativeButtonText="@string/cancel" />
+
+  </PreferenceCategory> 
 </PreferenceScreen>

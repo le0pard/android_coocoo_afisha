@@ -1,6 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -14,6 +15,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final String OPT_CITY_DEF = "Киев";
    private static final String OPT_CITY_ID = "city_id";
    private static final String OPT_CITY_ID_DEF = "1";
+   private static final String OPT_AUTO_UPD = "auto_update";
+   private static final Boolean OPT_AUTO_UPD_DEF = true;
+   private static final String OPT_AUTO_UPD_TIME = "auto_update_every_time";
+   private static final String OPT_AUTO_UPD_TIME_DEF = "1";
    
    private static final String SECRET_TOKEN = "sajdYGYgsdmKILIasdasdouher387hgdf";
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -28,6 +33,13 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       addPreferencesFromResource(R.xml.settings);
       
       cities_lp = (ListPreference)findPreference(OPT_CITY_ID);
+      
+      ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
+      if (getPreferenceScreen().getSharedPreferences().getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF)){
+	   lp.setEnabled(true);
+      } else {
+	   lp.setEnabled(false);
+      }
       
       setDefUrls(getPreferenceScreen().getSharedPreferences());
    }
@@ -60,6 +72,14 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   return PreferenceManager.getDefaultSharedPreferences(context).getString(THEATERS_URL_KEY, "");
    }
    
+   public static Boolean getAutoUpdate(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF);
+   }
+   
+   public static String getAutoUpdateTime(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_AUTO_UPD_TIME, OPT_AUTO_UPD_TIME_DEF);
+   }
+   
    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 	   if (key.equals(OPT_CITY_ID)) {
 		   SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -68,7 +88,26 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 		   editor.commit();
 		   
 		   setDefUrls(sharedPreferences);
-		   
+		   new DataProgressDialog(this);
+	   }
+	   if (key.equals(OPT_AUTO_UPD)) {
+		   ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
+		   stopService(new Intent(getApplicationContext(), DataUpdateService.class));
+		   if (sharedPreferences.getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF)){
+			   lp.setEnabled(true);
+			   if (Integer.parseInt(sharedPreferences.getString(OPT_AUTO_UPD_TIME, OPT_AUTO_UPD_TIME_DEF)) != 0){
+				   startService(new Intent(getApplicationContext(), DataUpdateService.class));
+			   }
+		   } else {
+			   lp.setEnabled(false);
+			  
+		   }
+	   }
+	   if (key.equals(OPT_AUTO_UPD_TIME)) {
+		   stopService(new Intent(this, DataUpdateService.class));
+		   if (Integer.parseInt(sharedPreferences.getString(OPT_AUTO_UPD_TIME, OPT_AUTO_UPD_TIME_DEF)) != 0){
+			   startService(new Intent(getApplicationContext(), DataUpdateService.class));
+		   }
 	   }
    }
    

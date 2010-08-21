@@ -24,15 +24,20 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         cinemasButton.setOnClickListener(this);
         View theatersButton = findViewById(R.id.theaters_button);
         theatersButton.setOnClickListener(this);
-        View aboutButton = findViewById(R.id.about_button);
-        aboutButton.setOnClickListener(this);
+        View updateButton = findViewById(R.id.update_button);
+        updateButton.setOnClickListener(this);
         View exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(this);
         
-        DataProgressDialog dpd = new DataProgressDialog(this);
-        
         current_city=(TextView)findViewById(R.id.current_city);
         current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
+        
+        if (EditPreferences.getAutoUpdate(this)){
+        	new DataProgressDialog(this);
+        	if (Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
+        		startService(new Intent(this, DataUpdateService.class));
+        	}
+        }
     }
     
     @Override
@@ -45,22 +50,27 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
     protected void onPause() {
        super.onPause();
     }
+    
+    @Override
+    public void onDestroy() {
+    	super.onDestroy();
+    	if (EditPreferences.getAutoUpdate(this) && 
+    		Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
+    		stopService(new Intent(this, DataUpdateService.class));
+    	}    	
+	}
 
 	@Override
 	public void onClick(View v) {
-		Intent i;
 		switch (v.getId()) {
 		  case R.id.cinemas_button:
-	         i = new Intent(this, Cinemas.class);
-	         startActivity(i);
+			 startActivity(new Intent(this, Cinemas.class));
 	         break;
 		  case R.id.theaters_button:
-	         i = new Intent(this, Theaters.class);
-	         startActivity(i);
+			 startActivity(new Intent(this, Theaters.class));
 	         break;
-	      case R.id.about_button:
-	         i = new Intent(this, About.class);
-	         startActivity(i);
+		  case R.id.update_button:
+			 new DataProgressDialog(this);
 	         break;
 	      case R.id.exit_button:
 	         finish();
@@ -80,9 +90,12 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
    @Override
    public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
-      case R.id.settings:
+      	case R.id.settings:
          startActivity(new Intent(this, EditPreferences.class));
          return true;
+      	case R.id.about_button:
+      	 startActivity(new Intent(this, About.class));
+         break;
       }
       return false;
    }

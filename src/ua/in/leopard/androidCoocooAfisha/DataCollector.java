@@ -23,7 +23,7 @@ public class DataCollector {
 			JSONArray theaters_array = js_obj.getJSONArray("theaters");
 			if (!theaters_array.equals(null)){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
-				int city_id = Integer.valueOf(EditPreferences.getCityId(this.myContext)).intValue();
+				int city_id = Integer.parseInt(EditPreferences.getCityId(this.myContext));
 				for (int i = 0; i < theaters_array.length(); ++i) {
 				    JSONObject row = theaters_array.getJSONObject(i);
 				    if (city_id == row.getInt("city_id")){

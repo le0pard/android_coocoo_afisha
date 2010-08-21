@@ -17,11 +17,19 @@
     <string name="settings_shortcut">s</string>
     <string name="settings_title">Настройки</string>
     <string name="settings_for_afisha">Настройки для афиши</string>
+    <string name="settings_for_app">Настройки для программы</string>
     <string name="cities_title">Выбрать город</string>
     <string name="cities_summary">Выберите в всплывающем списке</string>
     <string name="cities_dialog">Выберите город</string>
-    <string name="cities_cancel">Отмена</string>
+    <string name="cancel">Отмена</string>
     
+    <string name="auto_update_title">Автообновление</string>
+    <string name="auto_update_summary">Обновление данных при запуске приложение и через заданый интервал</string>
+    <string name="auto_update_every_time_title">Обновлять с интервалом</string>
+    <string name="auto_update_every_time_dialog">Обновлять с интервалом</string>
+    <string name="auto_update_every_time_summary">Обновление данных через определенный интервал времени</string>
+    
+    <string name="update_label">Обновить данные</string>
     <string name="dialog_title">Обновление данных</string>
     <string name="dialog_message">Пожалуйста, подождите...</string>
     <string name="dialog_message_1">Обновление кинотеатров...</string>
