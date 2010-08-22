@@ -22,7 +22,7 @@
 </application>
 
 
-<uses-sdk android:targetSdkVersion="8" android:minSdkVersion="7"></uses-sdk>
+<uses-sdk android:targetSdkVersion="7" android:minSdkVersion="7"></uses-sdk>
 
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>

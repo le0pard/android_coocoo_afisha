@@ -71,7 +71,7 @@ public class DataCollector {
 			JSONArray afisha_array = js_obj.getJSONArray("afisha");
 			if (afisha_array != null){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
-				for (int i = 0; i < cinemas_array.length(); ++i) {
+				for (int i = 0; i < afisha_array.length(); ++i) {
 				    JSONObject row = afisha_array.getJSONObject(i);
 				    if (row != null){
 				    	DatabaseHelperObject.setAfisha(new AfishaDB(

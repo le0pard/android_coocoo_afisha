@@ -1,6 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ public class CinemaAdapterView extends LinearLayout {
 		theaterTitle.setText(entry.getTitle());
 		
 		TextView theaterAddress = (TextView)v.findViewById(R.id.cinema_orig_title);
-		theaterAddress.setText(entry.getOrigTitle());
+		theaterAddress.setText(Html.fromHtml(entry.getOrigTitle()));
 		
 		addView(v);
 	}

@@ -276,7 +276,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				}, CINEMAS_TABLE_EXT_ID + " IN (" + cinemas_ids_str + ") ",
 				null, null, null, CINEMAS_TABLE_TITLE);
 		
-		//Log.i("DatabaseHelper", "cinema_count: " + result.getCount());
+		Log.i("DatabaseHelper", "cinema_count: " + result.getCount());
 		
 		result.moveToFirst();
 		List<CinemaDB> cinemas_list = new ArrayList<CinemaDB>();
