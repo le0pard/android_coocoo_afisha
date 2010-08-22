@@ -36,20 +36,15 @@ public class JsonClient {
             // to worry about connection release
  
             if (entity != null) {
-            	Log.v("JsonClient","Get data");
                 // A Simple JSON Response Read
                 InputStream instream = entity.getContent();
                 String result= convertStreamToString(instream);
-                Log.v("JsonClient",result);
- 
                 // A Simple JSONObject Creation
                 return_data=new JSONObject(result);
- 
                 // Closing the input stream will trigger connection release
                 instream.close();
             }
- 
- 
+
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

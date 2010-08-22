@@ -60,6 +60,7 @@ public class DataUpdateService extends Service {
 		} else {
 			DataCollector dataCollectorObject = new DataCollector(getApplicationContext());
 			dataCollectorObject.getTheatersData();
+			dataCollectorObject.getCinemasData();
 			Log.d(TAG, "dataUpdated");
 		}
 	}

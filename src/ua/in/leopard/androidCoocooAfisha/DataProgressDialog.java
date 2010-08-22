@@ -22,16 +22,27 @@ public class DataProgressDialog implements Runnable {
 	}
 
 	public void run() {
+		Bundle b = null;
 		dataCollectorObject = new DataCollector(this.myContext);
 		
 		msg = handler.obtainMessage();
-		Bundle b = new Bundle(); 
+		b = new Bundle(); 
         b.putInt("phase", 1); 
         b.putString("message", "Обновление кинотеатров..."); 
         msg.setData(b);
         handler.sendMessage(msg);
         
         dataCollectorObject.getTheatersData(); 
+        
+        msg = handler.obtainMessage();
+		b = new Bundle(); 
+        b.putInt("phase", 1); 
+        b.putString("message", "Обновление фильмов..."); 
+        msg.setData(b);
+        handler.sendMessage(msg);
+        
+        dataCollectorObject.getCinemasData(); 
+        
         handler.sendEmptyMessage(0);
 	}
 

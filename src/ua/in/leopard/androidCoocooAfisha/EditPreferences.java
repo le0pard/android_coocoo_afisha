@@ -16,13 +16,15 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final String OPT_CITY_ID = "city_id";
    private static final String OPT_CITY_ID_DEF = "1";
    private static final String OPT_AUTO_UPD = "auto_update";
-   private static final Boolean OPT_AUTO_UPD_DEF = true;
+   private static final Boolean OPT_AUTO_UPD_DEF = false;
    private static final String OPT_AUTO_UPD_TIME = "auto_update_every_time";
    private static final String OPT_AUTO_UPD_TIME_DEF = "1";
    
    private static final String SECRET_TOKEN = "sajdYGYgsdmKILIasdasdouher387hgdf";
    private static final String THEATERS_URL_KEY = "theaters_url";
    private static final String THEATERS_URL = "http://coocoorooza.com/api/afisha_theaters/:city_id/:token.json";
+   private static final String CINEMAS_URL_KEY = "cinemas_url";
+   private static final String CINEMAS_URL = "http://coocoorooza.com/api/afisha_cinemas/:city_id/:token.json";
    
    
    private ListPreference cities_lp;
@@ -40,8 +42,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       } else {
 	   lp.setEnabled(false);
       }
-      
-      setDefUrls(getPreferenceScreen().getSharedPreferences());
    }
    
    @Override
@@ -70,6 +70,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    public static String getTheaterUrl(Context context) {
 	   return PreferenceManager.getDefaultSharedPreferences(context).getString(THEATERS_URL_KEY, "");
+   }
+   
+   public static String getCinemasUrl(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getString(CINEMAS_URL_KEY, "");
    }
    
    public static Boolean getAutoUpdate(Context context) {
@@ -111,12 +115,17 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   }
    }
    
-   protected void setDefUrls(SharedPreferences sharedPreferences){
+   private void setDefUrls(SharedPreferences sharedPreferences){
 	   SharedPreferences.Editor editor = sharedPreferences.edit();
 	   String theaters_url = THEATERS_URL;
 	   theaters_url = theaters_url.replace(":city_id", cities_lp.getValue());
 	   theaters_url = theaters_url.replace(":token", SECRET_TOKEN);
 	   editor.putString(THEATERS_URL_KEY, theaters_url);
+	   String cinemas_url = CINEMAS_URL;
+	   cinemas_url = cinemas_url.replace(":city_id", cities_lp.getValue());
+	   cinemas_url = cinemas_url.replace(":token", SECRET_TOKEN);
+	   editor.putString(CINEMAS_URL_KEY, cinemas_url);
+	   
 	   editor.commit();
    }
    

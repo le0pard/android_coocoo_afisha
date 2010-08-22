@@ -1,0 +1,27 @@
+package ua.in.leopard.androidCoocooAfisha;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class CinemaAdapterView extends LinearLayout {
+
+	public CinemaAdapterView(Context context, CinemaDB entry) {
+		super(context);
+		
+		this.setOrientation(HORIZONTAL);
+		this.setTag(entry);
+		
+		View v = inflate(context, R.layout.cinema_row, null);
+		
+		TextView theaterTitle = (TextView)v.findViewById(R.id.cinema_title);
+		theaterTitle.setText(entry.getTitle());
+		
+		TextView theaterAddress = (TextView)v.findViewById(R.id.cinema_orig_title);
+		theaterAddress.setText(entry.getOrigTitle());
+		
+		addView(v);
+	}
+
+}

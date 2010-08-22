@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class androidCoocooAfisha extends Activity implements OnClickListener {
 	private TextView current_city;
@@ -32,11 +33,16 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         current_city=(TextView)findViewById(R.id.current_city);
         current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
         
-        if (EditPreferences.getAutoUpdate(this)){
-        	new DataProgressDialog(this);
-        	if (Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
-        		startService(new Intent(this, DataUpdateService.class));
-        	}
+        if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
+        	startActivity(new Intent(this, EditPreferences.class));
+        	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
+        } else {        
+	        if (EditPreferences.getAutoUpdate(this)){
+	        	new DataProgressDialog(this);
+	        	if (Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
+	        		startService(new Intent(this, DataUpdateService.class));
+	        	}
+	        }
         }
     }
     

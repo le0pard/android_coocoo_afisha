@@ -10,7 +10,6 @@
 		android:summary="@string/cities_summary"
 		android:entries="@array/cities"
 		android:entryValues="@array/cities_ids"
-		android:defaultValue="1" 
 		android:dialogTitle="@string/cities_dialog" 
 		android:negativeButtonText="@string/cancel" />
 

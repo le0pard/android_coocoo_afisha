@@ -18,10 +18,14 @@ public class DataCollector {
 		this.getTheatersDataFromJSON(JsonClient.getData(EditPreferences.getTheaterUrl(this.myContext)));
 	}
 	
+	public void getCinemasData(){
+		this.getCinemasDataFromJSON(JsonClient.getData(EditPreferences.getCinemasUrl(this.myContext)));
+	}
+	
 	public void getTheatersDataFromJSON(JSONObject js_obj){
 		try {
 			JSONArray theaters_array = js_obj.getJSONArray("theaters");
-			if (!theaters_array.equals(null)){
+			if (theaters_array != null){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 				int city_id = Integer.parseInt(EditPreferences.getCityId(this.myContext));
 				for (int i = 0; i < theaters_array.length(); ++i) {
@@ -34,6 +38,51 @@ public class DataCollector {
 				    			row.getString("link"), 
 				    			row.getString("address"), 
 				    			row.getString("phone"))
+				    	);
+				    }
+				}
+			}
+		} catch (JSONException e) {
+			Log.i("dataCollector", "error data");
+			e.printStackTrace();
+		}
+	}
+	
+	public void getCinemasDataFromJSON(JSONObject js_obj){
+		try {
+			JSONArray cinemas_array = js_obj.getJSONArray("cinemas");
+			if (cinemas_array != null){
+				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+				for (int i = 0; i < cinemas_array.length(); ++i) {
+				    JSONObject row = cinemas_array.getJSONObject(i);
+				    if (row != null){
+				    	DatabaseHelperObject.setCinema(new CinemaDB(
+				    			row.getInt("id"), 
+				    			row.getString("title"),
+				    			row.getString("orig_title"), 
+				    			row.getString("year"), 
+				    			row.getString("poster"), 
+				    			row.getString("description"))
+				    	);
+				    }
+				}
+			}
+			
+			JSONArray afisha_array = js_obj.getJSONArray("afisha");
+			if (afisha_array != null){
+				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+				for (int i = 0; i < cinemas_array.length(); ++i) {
+				    JSONObject row = afisha_array.getJSONObject(i);
+				    if (row != null){
+				    	DatabaseHelperObject.setAfisha(new AfishaDB(
+				    			row.getInt("id"), 
+				    			row.getInt("cinema_id"), 
+				    			row.getInt("theater_id"), 
+				    			row.getString("zal_title"),
+				    			row.getString("date_begin"), 
+				    			row.getString("date_end"), 
+				    			row.getString("times"), 
+				    			row.getString("prices"))
 				    	);
 				    }
 				}

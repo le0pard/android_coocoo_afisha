@@ -34,6 +34,8 @@
     <string name="dialog_message">Пожалуйста, подождите...</string>
     <string name="dialog_message_1">Обновление кинотеатров...</string>
     
+    <string name="select_city_dialog">Пожалуйста, выберите город для афиши в настройках</string>
+    
     
     <string name="about_label">Про програму</string>
     <string name="about_title">Про програму</string>
