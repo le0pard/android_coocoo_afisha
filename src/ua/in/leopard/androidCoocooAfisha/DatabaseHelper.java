@@ -378,13 +378,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
 					cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
 					db.insert(AFISHA_TABLE, null, cv);
-				}
-				result.close();
+				} 
+				result.close();		
 			}
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();
 		}
+		db.close();
 	}
 	
 	public void clearOldData(){
