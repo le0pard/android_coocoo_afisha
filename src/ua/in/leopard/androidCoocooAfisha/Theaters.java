@@ -12,9 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class Theaters extends Activity implements OnClickListener {
+public class Theaters extends Activity implements OnClickListener, OnItemClickListener {
 	private TheaterAdapter adapter;
 
 	@Override
@@ -27,17 +28,16 @@ public class Theaters extends Activity implements OnClickListener {
         List<TheaterDB> theaters = DatabaseHelperObject.getTheaters();
         adapter = new TheaterAdapter(this, theaters);
         TheaterList.setAdapter(adapter);
-        TheaterList.setOnItemClickListener(new TheaterAdapterClick());
+        TheaterList.setOnItemClickListener(this);
 	}
 	
-	class TheaterAdapterClick implements AdapterView.OnItemClickListener {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View v, int position,
-				long id) {
-			Log.i("Theaters", "Item: " + position);
-		}
-		
+	@Override
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		TheaterDB theater_object = (TheaterDB)adapter.getItem(position);
+		Log.i("Theaters", "theater: " + theater_object.getTitle());
+		Intent intent = new Intent(this, Theater.class);
+		intent.putExtra("theater_id", theater_object.getId());
+		startActivity(intent);
 	}
 
 
