@@ -3,6 +3,74 @@
 android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
+android:padding="3sp"
 >
+
+<TextView android:layout_height="wrap_content"
+      android:layout_width="fill_parent" android:id="@+id/theater_title"
+      android:text="" android:typeface="sans" android:textSize="20sp" 
+      android:textStyle="bold" android:gravity="center">
+</TextView>
+
+<TableLayout
+android:layout_height="wrap_content"
+android:layout_width="fill_parent" 
+android:background="@color/border" 
+android:shrinkColumns="1">
+	<TableRow android:background="@color/background" android:layout_margin="1dip">
+	  <TextView android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:text="@string/theater_address" android:typeface="sans" android:textSize="12sp" 
+          android:paddingLeft="3dip" android:gravity="right" android:paddingRight="10dip">
+    </TextView>
+		<TextView android:layout_height="wrap_content"
+		      android:layout_width="fill_parent" android:id="@+id/theater_address"
+		      android:text="" android:typeface="sans" android:textSize="12sp" android:textStyle="bold">
+		</TextView>
+	</TableRow>
+	<TableRow android:background="@color/background" android:layout_margin="1dip">
+	  <TextView android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:text="@string/theater_phone" android:typeface="sans" android:textSize="12sp" 
+          android:paddingLeft="3dip"  android:gravity="right" android:paddingRight="10dip">
+    </TextView>
+		<TextView android:layout_height="wrap_content"
+		      android:layout_width="fill_parent" android:id="@+id/theater_phone"
+		      android:text="" android:typeface="sans" android:textSize="12sp" android:textStyle="bold">
+		</TextView>
+	</TableRow>
+</TableLayout>
+
+<TabHost android:id="@+id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="5dip">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <ListView
+						  android:id="@+id/afisha_today_list"
+						  android:layout_width="fill_parent"
+						  android:layout_height="fill_parent">
+						
+						</ListView>
+						<ListView
+              android:id="@+id/afisha_tomorrow_list"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+            
+            </ListView>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
 
 </LinearLayout>

@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,9 +33,10 @@ public class Theaters extends Activity implements OnClickListener, OnItemClickLi
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		TheaterDB theater_object = (TheaterDB)adapter.getItem(position);
-		Log.i("Theaters", "theater: " + theater_object.getTitle());
 		Intent intent = new Intent(this, Theater.class);
-		intent.putExtra("theater_id", theater_object.getId());
+		Bundle bundle = new Bundle();
+		bundle.putInt("theater_id", theater_object.getId());
+		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 
