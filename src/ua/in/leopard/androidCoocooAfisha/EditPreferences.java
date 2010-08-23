@@ -19,6 +19,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final Boolean OPT_AUTO_UPD_DEF = false;
    private static final String OPT_AUTO_UPD_TIME = "auto_update_every_time";
    private static final String OPT_AUTO_UPD_TIME_DEF = "1";
+   private static final String OPT_CLEAR_DB_DATABASE = "clear_db";
    
    private static final String SECRET_TOKEN = "sajdYGYgsdmKILIasdasdouher387hgdf";
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -42,6 +43,8 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       } else {
 	   lp.setEnabled(false);
       }
+      
+      DBClearDialogPreference db_clear_pref = (DBClearDialogPreference)findPreference(OPT_CLEAR_DB_DATABASE);
    }
    
    @Override

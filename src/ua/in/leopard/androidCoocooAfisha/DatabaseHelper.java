@@ -397,8 +397,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.delete(AFISHA_TABLE, AFISHA_TABLE_DATA_END + " < ?", new String[] {dateNow});
 		db.close();
 	}
-	
-
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {

@@ -23,6 +23,13 @@
     <string name="cities_dialog">Выберите город</string>
     <string name="cancel">Отмена</string>
     
+    <string name="settings_additional">Дополнительные</string>
+    <string name="clear_db_title">Удаление данных</string>
+    <string name="clear_db_summary">Очистка базы данных</string>
+    <string name="clear_db_message">Очистить базу данных?</string>
+    <string name="clear_db_yes">Да</string>
+    <string name="clear_db_no">Нет</string>
+    
     <string name="auto_update_title">Автообновление</string>
     <string name="auto_update_summary">Обновление данных при запуске приложение и через заданый интервал</string>
     <string name="auto_update_every_time_title">Обновлять с интервалом</string>

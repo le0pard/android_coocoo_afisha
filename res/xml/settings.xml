@@ -32,4 +32,15 @@
 	    android:negativeButtonText="@string/cancel" />
 
   </PreferenceCategory> 
+  <PreferenceCategory android:title="@string/settings_additional">
+    <ua.in.leopard.androidCoocooAfisha.DBClearDialogPreference 
+      android:key="clear_db" 
+      android:title="@string/clear_db_title" 
+      android:summary="@string/clear_db_summary" 
+      android:dialogIcon="@drawable/db_clear_icon" 
+      android:dialogTitle="@string/clear_db_title" 
+      android:dialogMessage="@string/clear_db_message" 
+      android:positiveButtonText="@string/clear_db_yes" 
+      android:negativeButtonText="@string/clear_db_no" />
+  </PreferenceCategory> 
 </PreferenceScreen>
