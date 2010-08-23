@@ -68,21 +68,25 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		  case R.id.cinemas_button:
-			 startActivity(new Intent(this, Cinemas.class));
-	         break;
-		  case R.id.theaters_button:
-			 startActivity(new Intent(this, Theaters.class));
-	         break;
-		  case R.id.update_button:
-			 new DataProgressDialog(this);
-	         break;
-	      case R.id.exit_button:
-	         finish();
-	         break;	         
-	      }
-		
+		if ((EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == "") && v.getId() != R.id.exit_button){
+        	startActivity(new Intent(this, EditPreferences.class));
+        	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
+        } else {
+			switch (v.getId()) {
+			  case R.id.cinemas_button:
+				 startActivity(new Intent(this, Cinemas.class));
+		         break;
+			  case R.id.theaters_button:
+				 startActivity(new Intent(this, Theaters.class));
+		         break;
+			  case R.id.update_button:
+				 new DataProgressDialog(this);
+		         break;
+		      case R.id.exit_button:
+		         finish();
+		         break;	         
+		      }
+        }
 	}
 	
    @Override

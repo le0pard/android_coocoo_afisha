@@ -43,6 +43,15 @@ public class DataProgressDialog implements Runnable {
         
         dataCollectorObject.getCinemasData(); 
         
+        msg = handler.obtainMessage();
+		b = new Bundle(); 
+        b.putInt("phase", 1); 
+        b.putString("message", "Удаление старых данных..."); 
+        msg.setData(b);
+        handler.sendMessage(msg);
+        
+        dataCollectorObject.clearOldData(); 
+        
         handler.sendEmptyMessage(0);
 	}
 

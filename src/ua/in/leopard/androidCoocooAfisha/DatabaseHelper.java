@@ -10,7 +10,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /*
  * ./adb -s emulator-5554 shell
@@ -65,8 +64,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_PHONE
 				}, THEATERS_TABLE_CITY_ID + " = ?",
 				new String[] {EditPreferences.getCityId(this.myContext)}, null, null, THEATERS_TABLE_TITLE);
-		
-		//Log.i("DatabaseHelper", "theaters_count: " + result.getCount());
 		
 		result.moveToFirst();
 		List<TheaterDB> theaters = new ArrayList<TheaterDB>();
@@ -209,11 +206,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			}
 			theater_ids = theater_ids + Integer.toString(theaters_list.get(i).getId());
 		}
+		
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
 		String dateNow = iso8601Format.format(currentDate.getTime());
+		
 		Cursor result = db.query(AFISHA_TABLE, 
 				new String[] {
 				AFISHA_TABLE_EXT_ID, 
@@ -226,8 +225,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				AFISHA_TABLE_PRICES
 				}, AFISHA_TABLE_THEATER_ID + " IN (" + theater_ids + ") AND " + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + AFISHA_TABLE_DATA_END + " >= ?",
 				new String[] {dateNow, dateNow}, null, null, null);
-
-		//Log.i("DatabaseHelper", "afisha_count: " + result.getCount());
 		
 		result.moveToFirst();
 		List<AfishaDB> afisha_list = new ArrayList<AfishaDB>();
@@ -250,33 +247,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<CinemaDB> getTodayCinemas(){
-		List<AfishaDB> afisha_list = this.getTodayAfisha();
-		ArrayList<String> cinemas_ids = new ArrayList<String>();
-		String cinemas_ids_str = "";
-		for (int i = 0; i < afisha_list.size(); i++){
-			if (!cinemas_ids.contains(Integer.toString(afisha_list.get(i).getCinemaId()))){
-				cinemas_ids.add(Integer.toString(afisha_list.get(i).getCinemaId()));
-				
-				if (cinemas_ids_str != ""){
-					cinemas_ids_str = cinemas_ids_str + ",";
-				}
-				cinemas_ids_str = cinemas_ids_str + Integer.toString(afisha_list.get(i).getCinemaId());
+		Calendar currentDate = Calendar.getInstance();
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		String dateNow = iso8601Format.format(currentDate.getTime());
+		
+		List<TheaterDB> theaters_list = this.getTheaters();
+		String theater_ids = "";
+		for (int i = 0; i < theaters_list.size(); i++){
+			if (theater_ids != ""){
+				theater_ids = theater_ids + ",";
 			}
+			theater_ids = theater_ids + Integer.toString(theaters_list.get(i).getId());
 		}
 		
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor result = db.query(CINEMAS_TABLE, 
-				new String[] {
-				CINEMAS_TABLE_EXT_ID, 
-				CINEMAS_TABLE_TITLE, 
-				CINEMAS_TABLE_OR_TITLE, 
-				CINEMAS_TABLE_YEAR, 
-				CINEMAS_TABLE_POSTER,
-				CINEMAS_TABLE_DESCRIPTION
-				}, CINEMAS_TABLE_EXT_ID + " IN (" + cinemas_ids_str + ") ",
-				null, null, null, CINEMAS_TABLE_TITLE);
-		
-		Log.i("DatabaseHelper", "cinema_count: " + result.getCount());
+		Cursor result = db.rawQuery("SELECT * FROM " + CINEMAS_TABLE + 
+				" WHERE " + CINEMAS_TABLE_EXT_ID + " IN (SELECT DISTINCT " + 
+				AFISHA_TABLE_CINEMA_ID + " FROM " + AFISHA_TABLE + " WHERE " + 
+				AFISHA_TABLE_THEATER_ID + " IN (" + theater_ids + ") AND " + 
+				AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
+				AFISHA_TABLE_DATA_END + " >= ?) ORDER BY " + CINEMAS_TABLE_TITLE,
+				new String[] {dateNow, dateNow});
 		
 		result.moveToFirst();
 		List<CinemaDB> cinemas_list = new ArrayList<CinemaDB>();
@@ -309,7 +300,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				AFISHA_TABLE_DATA_END,
 				AFISHA_TABLE_TIMES,
 				AFISHA_TABLE_PRICES
-				}, "id = ?",
+				}, AFISHA_TABLE_EXT_ID + " = ?",
 				new String[] {Integer.toString(id)}, null, null, AFISHA_TABLE_EXT_ID, "1");
 		
 		result.moveToFirst();
@@ -357,8 +348,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
 			cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
 			cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
-			db.update(AFISHA_TABLE, cv, "id = ?", new String[] {Integer.toString(afisha_row.getId())});
+			db.update(AFISHA_TABLE, cv, AFISHA_TABLE_EXT_ID + " = ?", 
+					new String[] {Integer.toString(afisha_row.getId())});
 		}
+		db.close();
+	}
+	
+	public void setAfishaTransaction(List<AfishaDB> afisha_data){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			for (int i = 0; i < afisha_data.size(); i++){
+				AfishaDB afisha_row = afisha_data.get(i);
+				Cursor result = db.query(AFISHA_TABLE, 
+						new String[] {
+						AFISHA_TABLE_EXT_ID
+						}, AFISHA_TABLE_EXT_ID + " = ?",
+						new String[] {Integer.toString(afisha_row.getId())}, null, null, 
+						null, "1");
+				
+				if (result.getCount() == 0){
+					ContentValues cv = new ContentValues();
+					cv.put(AFISHA_TABLE_EXT_ID, afisha_row.getId());
+					cv.put(AFISHA_TABLE_CINEMA_ID, afisha_row.getCinemaId());
+					cv.put(AFISHA_TABLE_THEATER_ID, afisha_row.getTheaterId());
+					cv.put(AFISHA_TABLE_ZAL, afisha_row.getZalTitle());
+					cv.put(AFISHA_TABLE_DATA_BEGIN, afisha_row.getDataBegin());
+					cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
+					cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
+					cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
+					db.insert(AFISHA_TABLE, null, cv);
+				}
+				result.close();
+			}
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+	}
+	
+	public void clearOldData(){
+		Calendar currentDate = Calendar.getInstance();
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		String dateNow = iso8601Format.format(currentDate.getTime());
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(AFISHA_TABLE, AFISHA_TABLE_DATA_END + " < ?", new String[] {dateNow});
 		db.close();
 	}
 	

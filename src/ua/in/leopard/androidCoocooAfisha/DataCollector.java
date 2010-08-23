@@ -1,5 +1,8 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,10 +74,11 @@ public class DataCollector {
 			JSONArray afisha_array = js_obj.getJSONArray("afisha");
 			if (afisha_array != null){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+				List<AfishaDB> afisha_data = new ArrayList<AfishaDB>();
 				for (int i = 0; i < afisha_array.length(); ++i) {
 				    JSONObject row = afisha_array.getJSONObject(i);
 				    if (row != null){
-				    	DatabaseHelperObject.setAfisha(new AfishaDB(
+				    	afisha_data.add(new AfishaDB(
 				    			row.getInt("id"), 
 				    			row.getInt("cinema_id"), 
 				    			row.getInt("theater_id"), 
@@ -86,10 +90,16 @@ public class DataCollector {
 				    	);
 				    }
 				}
+				DatabaseHelperObject.setAfishaTransaction(afisha_data);
 			}
 		} catch (JSONException e) {
 			Log.i("dataCollector", "error data");
 			e.printStackTrace();
 		}
+	}
+	
+	public void clearOldData(){
+		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+		DatabaseHelperObject.clearOldData();
 	}
 }
