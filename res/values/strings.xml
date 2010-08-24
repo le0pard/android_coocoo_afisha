@@ -6,7 +6,6 @@
     
     <string name="cinemas_label">Список фильмов</string>
     <string name="theaters_label">Список кинотеатров</string>
-    <string name="last_update">Последнее обновление: </string>
     
     <string name="cinemas_title">Список фильмов</string>
     
@@ -16,8 +15,8 @@
     <string name="settings_label">Настройки</string>
     <string name="settings_shortcut">s</string>
     <string name="settings_title">Настройки</string>
-    <string name="settings_for_afisha">Настройки для афиши</string>
-    <string name="settings_for_app">Настройки для программы</string>
+    <string name="settings_for_afisha">Настройки афиши</string>
+    <string name="settings_for_app">Настройки программы</string>
     <string name="cities_title">Выбрать город</string>
     <string name="cities_summary">Выберите в всплывающем списке</string>
     <string name="cities_dialog">Выберите город</string>
@@ -31,9 +30,10 @@
     <string name="clear_db_no">Нет</string>
     
     <string name="auto_update_title">Автообновление</string>
-    <string name="auto_update_summary">Обновление данных при запуске приложение и через заданый интервал</string>
-    <string name="auto_update_every_time_title">Обновлять с интервалом</string>
-    <string name="auto_update_every_time_dialog">Обновлять с интервалом</string>
+    <string name="auto_update_summary">Обновление данных при запуске приложение и через 
+    заданый интервал времени</string>
+    <string name="auto_update_every_time_title">Обновлять данные с интервалом</string>
+    <string name="auto_update_every_time_dialog">Обновлять данные с интервалом</string>
     <string name="auto_update_every_time_summary">Обновление данных через определенный интервал времени</string>
     
     <string name="update_label">Обновить данные</string>
@@ -56,9 +56,14 @@
     
     <string name="not_set">Не указано</string>
     
-    <string name="about_label">Про програму</string>
-    <string name="about_title">Про програму</string>
-    <string name="about_text">Тест</string>
+    <string name="about_label">О программе</string>
+    <string name="about_title">О программе</string>
+    <string name="about_text">
+      Данная программа предоставляет афишу кинотеатров Украины. 
+      Данные берутся c сайта <a href="http://coocoorooza.com">http://coocoorooza.com</a>. 
+      За возможное несоответствие информации действительности автор данной программы 
+      ответственности не несет. Приятного использования!
+    </string>
     
     <string name="exit_label">Выход</string>
 </resources>
