@@ -3,14 +3,18 @@ package ua.in.leopard.androidCoocooAfisha;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class Theater extends Activity {
-	private SeanceAdapter adapter;
+public class Theater extends Activity implements OnItemClickListener {
+	private SeanceAdapter adapter_today, adapter_tomorrow;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,29 @@ public class Theater extends Activity {
         		TextView theater_phone = (TextView)findViewById(R.id.theater_phone);
         		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
         		
-        		ListView SeanceList = (ListView)findViewById(R.id.afisha_today_list);
-        		List<CinemaDB> cinemas = DatabaseHelperObject.getTodayByTheater(theater_main);
-        		adapter = new SeanceAdapter(this, cinemas);
-        		SeanceList.setAdapter(adapter);
+        		ListView seanceTodayList = (ListView)findViewById(R.id.afisha_today_list);
+        		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayByTheater(theater_main);
+        		adapter_today = new SeanceAdapter(this, cinemas_today);
+        		seanceTodayList.setAdapter(adapter_today);
+        		seanceTodayList.setOnItemClickListener(this);
+        		
+        		ListView seanceTomorrowList = (ListView)findViewById(R.id.afisha_tomorrow_list);
+        		List<CinemaDB> cinemas_tomorrow = DatabaseHelperObject.getTomorrowByTheater(theater_main);
+        		adapter_tomorrow = new SeanceAdapter(this, cinemas_tomorrow);
+        		seanceTomorrowList.setAdapter(adapter_tomorrow);
+        		seanceTomorrowList.setOnItemClickListener(this);
         	}
         }
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		SeanceAdapter s_adapter = (SeanceAdapter)parent.getAdapter();
+		CinemaDB cinema_obj = (CinemaDB)s_adapter.getItem(position);
+		Intent intent = new Intent(this, Cinema.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("cinema_id", cinema_obj.getId());
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:padding="3sp"
+>
+
+<TextView android:layout_height="wrap_content"
+      android:layout_width="fill_parent" android:id="@+id/cinema_title"
+      android:text="" android:typeface="sans" android:textSize="20sp" 
+      android:textStyle="bold" android:gravity="center">
+</TextView>
+
+<LinearLayout
+	android:orientation="horizontal"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:padding="3sp"
+>
+  <ImageView
+    android:id="@+id/cinema_poster"
+    android:layout_width="120dip"
+    android:layout_height="175dip"
+    android:scaleType="fitXY"
+    android:layout_gravity="left"
+  />
+  
+	<TableLayout
+	android:layout_height="wrap_content"
+	android:layout_width="fill_parent"  
+	android:shrinkColumns="0">
+	  <TableRow android:layout_margin="1dip">
+      <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent" android:id="@+id/cinema_orig_title"
+            android:text="" android:typeface="sans" android:textSize="14sp"
+            android:paddingLeft="3dip" android:paddingRight="3dip" 
+            android:textColor="@color/text">
+      </TextView>
+    </TableRow>
+	  <TableRow android:layout_margin="1dip">
+	   <ScrollView
+			android:layout_width="fill_parent"
+			android:layout_height="150dip">
+			  <TextView android:layout_height="wrap_content"
+			        android:layout_width="fill_parent" android:id="@+id/cinema_description"
+			        android:text="" android:typeface="sans" android:textSize="12sp"
+			        android:paddingLeft="3dip" android:paddingRight="3dip" 
+			        android:textColor="@color/text" android:gravity="fill_horizontal">
+			  </TextView>
+			</ScrollView>
+    </TableRow>
+	</TableLayout>
+</LinearLayout>
+
+<TabHost android:id="@+id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="5dip">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <ListView
+              android:id="@+id/afisha_today_list"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+            
+            </ListView>
+            <ListView
+              android:id="@+id/afisha_tomorrow_list"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+            
+            </ListView>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
+
+</LinearLayout>

@@ -47,8 +47,11 @@ public class DataCollector {
 			}
 		} catch (JSONException e) {
 			Log.i("dataCollector", "error data");
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		} catch (Exception e) { 
+        	//e.printStackTrace();
+        	Log.v("dataCollector","Exception");
+        }
 	}
 	
 	public void getCinemasDataFromJSON(JSONObject js_obj){
@@ -78,15 +81,27 @@ public class DataCollector {
 				for (int i = 0; i < afisha_array.length(); ++i) {
 				    JSONObject row = afisha_array.getJSONObject(i);
 				    if (row != null){
+				    	String zal = null;
+				    	String times = null;
+				    	String prices = null;
+				    	if (!row.isNull("zal_title")){
+				    		zal = row.getString("zal_title");
+				    	}
+				    	if (!row.isNull("times")){
+				    		times = row.getString("times");
+				    	}
+				    	if (!row.isNull("prices")){
+				    		prices = row.getString("prices");
+				    	}
 				    	afisha_data.add(new AfishaDB(
 				    			row.getInt("id"), 
 				    			row.getInt("cinema_id"), 
 				    			row.getInt("theater_id"), 
-				    			row.getString("zal_title"),
+				    			zal,
 				    			row.getString("date_begin"), 
 				    			row.getString("date_end"), 
-				    			row.getString("times"), 
-				    			row.getString("prices"))
+				    			times, 
+				    			prices)
 				    	);
 				    }
 				}
@@ -94,8 +109,11 @@ public class DataCollector {
 			}
 		} catch (JSONException e) {
 			Log.i("dataCollector", "error data");
-			e.printStackTrace();
-		}
+			//e.printStackTrace();
+		} catch (Exception e) { 
+        	//e.printStackTrace();
+        	Log.v("dataCollector","Exception");
+        }
 	}
 	
 	public void clearOldData(){

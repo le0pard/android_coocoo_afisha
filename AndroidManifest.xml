@@ -20,6 +20,7 @@
 
 <service android:name="DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
 <activity android:name="Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name="Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
 </application>
 
 
@@ -27,5 +28,5 @@
 
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 </manifest> 

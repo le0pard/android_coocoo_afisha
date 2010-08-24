@@ -52,6 +52,10 @@
     <string name="seance_times">Время:</string>
     <string name="seance_prices">Цена:</string>
     
+    <string name="cinema_year">Год:</string>
+    
+    <string name="not_set">Не указано</string>
+    
     <string name="about_label">Про програму</string>
     <string name="about_title">Про програму</string>
     <string name="about_text">Тест</string>

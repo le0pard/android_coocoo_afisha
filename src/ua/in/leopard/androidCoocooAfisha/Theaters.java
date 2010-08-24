@@ -21,6 +21,8 @@ public class Theaters extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.theaters);
         
+        setTitle(getString(R.string.theaters_title) + " - " + EditPreferences.getCity(this));
+        
         ListView TheaterList = (ListView)findViewById(R.id.theaters_list);
         DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
         List<TheaterDB> theaters = DatabaseHelperObject.getTheaters();

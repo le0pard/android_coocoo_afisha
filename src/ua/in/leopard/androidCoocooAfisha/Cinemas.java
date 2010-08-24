@@ -3,12 +3,14 @@ package ua.in.leopard.androidCoocooAfisha;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class Cinemas extends Activity implements OnClickListener {
+public class Cinemas extends Activity implements OnItemClickListener {
 	private CinemaAdapter adapter;
 
 	@Override
@@ -21,12 +23,17 @@ public class Cinemas extends Activity implements OnClickListener {
         List<CinemaDB> cinemas = DatabaseHelperObject.getTodayCinemas();
         adapter = new CinemaAdapter(this, cinemas);
         CinemasList.setAdapter(adapter);
-        //TheaterList.setOnItemClickListener(new TheaterAdapterClick());
+        CinemasList.setOnItemClickListener(this);
 	}
 
 	@Override
-	public void onClick(View v) {
-
+	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		CinemaDB cinema_object = (CinemaDB)adapter.getItem(position);
+		Intent intent = new Intent(this, Cinema.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("cinema_id", cinema_object.getId());
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 
 }

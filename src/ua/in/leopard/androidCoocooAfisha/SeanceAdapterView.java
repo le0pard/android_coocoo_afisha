@@ -34,22 +34,22 @@ public class SeanceAdapterView extends LinearLayout {
 		origTitle.setText(Html.fromHtml(entry.getOrigTitle()));
 		
 		TextView zalTitle = (TextView)v.findViewById(R.id.cinema_zal_title);
-		if (entry.getZalTitle().equals(null)){
-			zalTitle.setText("");
+		if (entry.getZalTitle() == null){
+			zalTitle.setText(R.string.not_set);
 		} else {
 			zalTitle.setText(Html.fromHtml(entry.getZalTitle()));	
 		}
 		
 		TextView cinemaTimes = (TextView)v.findViewById(R.id.cinema_times);
-		if (entry.getTimes().equals(null)){
-			cinemaTimes.setText("");
+		if (entry.getTimes() == null){
+			cinemaTimes.setText(R.string.not_set);
 		} else {
 			cinemaTimes.setText(entry.getTimes());
 		}
 		
 		TextView cinemaPrices = (TextView)v.findViewById(R.id.cinema_prices);
-		if (entry.getPrices().equals(null)){
-			cinemaPrices.setText("");
+		if (entry.getPrices() == null){
+			cinemaPrices.setText(R.string.not_set);
 		} else {
 			cinemaPrices.setText(entry.getPrices());
 		}

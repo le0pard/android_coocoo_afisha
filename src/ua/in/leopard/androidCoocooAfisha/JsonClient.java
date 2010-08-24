@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -46,19 +47,16 @@ public class JsonClient {
             }
 
         } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
             Log.v("JsonClient","ClientProtocolException");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
             Log.v("JsonClient","IOException");
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
             Log.v("JsonClient","JSONException");
         } catch (Exception e) { 
-        	e.printStackTrace();
+        	//e.printStackTrace();
         	Log.v("JsonClient","Exception");
         }
         
@@ -81,12 +79,12 @@ public class JsonClient {
                 sb.append(line + "\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } finally {
             try {
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         return sb.toString();

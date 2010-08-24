@@ -20,23 +20,23 @@ android:shrinkColumns="1">
 	<TableRow android:background="@color/background" android:layout_margin="1dip">
 	  <TextView android:layout_height="wrap_content"
           android:layout_width="fill_parent"
-          android:text="@string/theater_address" android:typeface="sans" android:textSize="12sp" 
+          android:text="@string/theater_address" android:typeface="sans" android:textSize="14sp" 
           android:paddingLeft="3dip" android:gravity="right" android:paddingRight="10dip">
     </TextView>
 		<TextView android:layout_height="wrap_content"
 		      android:layout_width="fill_parent" android:id="@+id/theater_address"
-		      android:text="" android:typeface="sans" android:textSize="12sp" android:textStyle="bold">
+		      android:text="" android:typeface="sans" android:textSize="14sp" android:textStyle="bold">
 		</TextView>
 	</TableRow>
 	<TableRow android:background="@color/background" android:layout_margin="1dip">
 	  <TextView android:layout_height="wrap_content"
           android:layout_width="fill_parent"
-          android:text="@string/theater_phone" android:typeface="sans" android:textSize="12sp" 
+          android:text="@string/theater_phone" android:typeface="sans" android:textSize="14sp" 
           android:paddingLeft="3dip"  android:gravity="right" android:paddingRight="10dip">
     </TextView>
 		<TextView android:layout_height="wrap_content"
 		      android:layout_width="fill_parent" android:id="@+id/theater_phone"
-		      android:text="" android:typeface="sans" android:textSize="12sp" android:textStyle="bold">
+		      android:text="" android:typeface="sans" android:textSize="14sp" android:textStyle="bold">
 		</TextView>
 	</TableRow>
 </TableLayout>

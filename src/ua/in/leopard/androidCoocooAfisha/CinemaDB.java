@@ -14,9 +14,9 @@ public class CinemaDB {
 	private String poster;
 	private String description;
 	
-	private String zal_title = "";
-	private String times = "";
-	private String prices = "";
+	private String zal_title = null;
+	private String times = null;
+	private String prices = null;
 	
 	
 	// Constructor for the TheaterDB class
@@ -93,7 +93,7 @@ public class CinemaDB {
 			
 			try{
 				URL newurl = new URL("http://coocoorooza.com/uploads/afisha_films/" + this.getPoster()); 
-				bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream()); 
+				bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
 			} catch (IOException e) {
 				//
 			} finally {
