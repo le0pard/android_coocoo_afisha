@@ -27,8 +27,6 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         theatersButton.setOnClickListener(this);
         View updateButton = findViewById(R.id.update_button);
         updateButton.setOnClickListener(this);
-        View exitButton = findViewById(R.id.exit_button);
-        exitButton.setOnClickListener(this);
         
         current_city=(TextView)findViewById(R.id.current_city);
         current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
@@ -68,7 +66,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if ((EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == "") && v.getId() != R.id.exit_button){
+		if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
         	startActivity(new Intent(this, EditPreferences.class));
         	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
         } else {
@@ -81,10 +79,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 		         break;
 			  case R.id.update_button:
 				 new DataProgressDialog(this);
-		         break;
-		      case R.id.exit_button:
-		         finish();
-		         break;	         
+		         break;         
 		      }
         }
 	}
