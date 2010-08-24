@@ -14,9 +14,9 @@ public class CinemaDB {
 	private String poster;
 	private String description;
 	
-	private String zal_title;
-	private String times;
-	private String prices;
+	private String zal_title = "";
+	private String times = "";
+	private String prices = "";
 	
 	
 	// Constructor for the TheaterDB class

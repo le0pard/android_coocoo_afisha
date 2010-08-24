@@ -395,6 +395,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(AFISHA_TABLE, AFISHA_TABLE_DATA_END + " < ?", new String[] {dateNow});
+		
+		db.beginTransaction();
+		try {
+			Cursor result = db.query(CINEMAS_TABLE, 
+					new String[] {
+					CINEMAS_TABLE_EXT_ID
+					}, null, null, null, null, CINEMAS_TABLE_EXT_ID);
+			
+			result.moveToFirst();
+			while (!result.isAfterLast()) {
+				String cinema_id = Integer.toString(result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)));
+				Cursor result_rows = db.query(AFISHA_TABLE, 
+						new String[] {
+						AFISHA_TABLE_EXT_ID
+						}, AFISHA_TABLE_CINEMA_ID + " = ?",
+						new String[] {cinema_id}, null, null, 
+						null);
+				if (result_rows.getCount() == 0){
+					db.delete(CINEMAS_TABLE, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {cinema_id});
+				}
+				result_rows.close();
+				result.moveToNext();
+			}
+			result.close();
+			
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
 		db.close();
 	}
 
