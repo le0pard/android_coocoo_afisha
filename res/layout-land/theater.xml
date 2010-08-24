@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="horizontal"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:padding="3sp"
+>
+
+<LinearLayout
+  android:orientation="vertical"
+  android:layout_width="150dip"
+  android:layout_height="fill_parent"
+  android:padding="3sp"
+>
+
+<TextView android:layout_height="wrap_content"
+      android:layout_width="fill_parent" android:id="@+id/theater_title"
+      android:text="" android:typeface="sans" android:textSize="20sp" 
+      android:textStyle="bold" android:gravity="center">
+</TextView>
+
+<TableLayout
+android:layout_height="wrap_content"
+android:layout_width="fill_parent" 
+android:background="@color/border" 
+android:shrinkColumns="0">
+  <TableRow android:background="@color/background" android:layout_margin="1dip">
+    <TextView android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:text="@string/theater_address" android:typeface="sans" android:textSize="14sp" 
+          android:paddingLeft="3dip" android:gravity="left" android:paddingRight="10dip">
+    </TextView>
+  </TableRow>
+	<TableRow android:background="@color/background" android:layout_margin="1dip">
+		<TextView android:layout_height="wrap_content"
+		      android:layout_width="fill_parent" android:id="@+id/theater_address"
+		      android:text="" android:typeface="sans" android:textSize="14sp" android:textStyle="bold" 
+		      android:padding="3dip">
+		</TextView>
+	</TableRow>
+	<TableRow android:background="@color/background" android:layout_margin="1dip">
+    <TextView android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:text="@string/theater_phone" android:typeface="sans" android:textSize="14sp" 
+          android:paddingLeft="3dip"  android:gravity="left" android:paddingRight="10dip">
+    </TextView>
+  </TableRow>
+	<TableRow android:background="@color/background" android:layout_margin="1dip">
+		<TextView android:layout_height="wrap_content"
+		      android:layout_width="fill_parent" android:id="@+id/theater_phone"
+		      android:text="" android:typeface="sans" android:textSize="14sp" android:textStyle="bold" 
+		      android:padding="3dip">
+		</TextView>
+	</TableRow>
+</TableLayout>
+</LinearLayout>
+
+<TabHost android:id="@+id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginTop="5dip">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <ListView
+						  android:id="@+id/afisha_today_list"
+						  android:layout_width="fill_parent"
+						  android:layout_height="fill_parent">
+						
+						</ListView>
+						<ListView
+              android:id="@+id/afisha_tomorrow_list"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent">
+            
+            </ListView>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>
+
+</LinearLayout>
