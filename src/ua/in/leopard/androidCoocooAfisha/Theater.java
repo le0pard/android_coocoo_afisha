@@ -1,12 +1,16 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
+import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 public class Theater extends Activity {
+	private SeanceAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,11 @@ public class Theater extends Activity {
         		theater_address.setText(Html.fromHtml(theater_main.getAddress()));
         		TextView theater_phone = (TextView)findViewById(R.id.theater_phone);
         		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
+        		
+        		ListView SeanceList = (ListView)findViewById(R.id.afisha_today_list);
+        		List<CinemaDB> cinemas = DatabaseHelperObject.getTodayByTheater(theater_main);
+        		adapter = new SeanceAdapter(this, cinemas);
+        		SeanceList.setAdapter(adapter);
         	}
         }
 	}

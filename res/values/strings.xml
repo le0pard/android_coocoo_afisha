@@ -48,6 +48,9 @@
     <string name="theater_phone">Тел:</string>
     <string name="afisha_today">Сегодня</string>
     <string name="afisha_tomorrow">Завтра</string>
+    <string name="seance_zal_title">Зал:</string>
+    <string name="seance_times">Время:</string>
+    <string name="seance_prices">Цена:</string>
     
     <string name="about_label">Про програму</string>
     <string name="about_title">Про програму</string>

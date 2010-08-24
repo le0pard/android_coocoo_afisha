@@ -9,12 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class Theaters extends Activity implements OnClickListener, OnItemClickListener {
+public class Theaters extends Activity implements OnItemClickListener {
 	private TheaterAdapter adapter;
 
 	@Override
@@ -40,11 +39,6 @@ public class Theaters extends Activity implements OnClickListener, OnItemClickLi
 		startActivity(intent);
 	}
 
-
-	@Override
-	public void onClick(View v) {
-
-	}
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
