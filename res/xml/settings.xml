@@ -30,6 +30,11 @@
 	    android:defaultValue="1" 
 	    android:dialogTitle="@string/auto_update_every_time_dialog" 
 	    android:negativeButtonText="@string/cancel" />
+	    
+	  <CheckBoxPreference
+      android:key="cache_poster"
+      android:title="@string/cache_poster_title"
+      android:summary="@string/cache_poster_summary" />
 
   </PreferenceCategory> 
   <PreferenceCategory android:title="@string/settings_additional">

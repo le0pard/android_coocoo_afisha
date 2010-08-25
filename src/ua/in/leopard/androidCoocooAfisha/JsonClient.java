@@ -56,7 +56,7 @@ public class JsonClient {
             //e.printStackTrace();
             Log.v("JsonClient","JSONException");
         } catch (Exception e) { 
-        	//e.printStackTrace();
+        	e.printStackTrace();
         	Log.v("JsonClient","Exception");
         }
         
@@ -79,12 +79,12 @@ public class JsonClient {
                 sb.append(line + "\n");
             }
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         } finally {
             try {
                 is.close();
             } catch (IOException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
         }
         return sb.toString();

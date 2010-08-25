@@ -10,6 +10,7 @@ public class DataProgressDialog implements Runnable {
 	private final Context myContext;
 	private ProgressDialog pd;
 	private Message msg;
+	private Thread thread;
 	
 	private DataCollector dataCollectorObject;
 	
@@ -17,7 +18,7 @@ public class DataProgressDialog implements Runnable {
 		this.myContext = myContext;
 		pd = ProgressDialog.show(this.myContext, "Обновление данных", "Пожалуйста, подождите...", true, false);
 
-		Thread thread = new Thread(this);
+		thread = new Thread(this);
 		thread.start();
 	}
 
@@ -43,6 +44,20 @@ public class DataProgressDialog implements Runnable {
         
         dataCollectorObject.getCinemasData(); 
         
+        if (dataCollectorObject.getInetError()){
+        	msg = handler.obtainMessage();
+    		b = new Bundle(); 
+            b.putInt("phase", 1); 
+            b.putString("message", "Ошибка обновления.\nПроверьте настройки подключения к Интернету..."); 
+            msg.setData(b);
+            handler.sendMessage(msg);
+            try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				
+			}
+        }
+        
         msg = handler.obtainMessage();
 		b = new Bundle(); 
         b.putInt("phase", 1); 
@@ -64,7 +79,7 @@ public class DataProgressDialog implements Runnable {
 			switch(phase) { 
                  case 1: 
                 	  pd.setMessage(message);
-                      break; 
+                      break;
                  default:
                 	  pd.dismiss();
                       break; 

@@ -3,6 +3,12 @@ package ua.in.leopard.androidCoocooAfisha;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -17,6 +23,7 @@ public class CinemaDB {
 	private String zal_title = null;
 	private String times = null;
 	private String prices = null;
+	private byte[] cached_poster = null;
 	
 	
 	// Constructor for the TheaterDB class
@@ -34,11 +41,7 @@ public class CinemaDB {
 	public Boolean equal(CinemaDB eq_object){
 		if (
 			(eq_object.getId() == this.getId()) && 
-			(eq_object.getTitle() == this.getTitle()) && 
-			(eq_object.getOrigTitle() == this.getOrigTitle()) && 
-			(eq_object.getYear() == this.getYear()) && 
-			(eq_object.getPoster() == this.getPoster()) && 
-			(eq_object.getDescription() == this.getDescription())
+			(eq_object.getTitle().equals(this.getTitle()))
 			){
 			return true;
 		} else {
@@ -87,20 +90,53 @@ public class CinemaDB {
 		this.description = description;
 	}
 	
+	public void setCachedPoster(byte[] cached_poster){
+		this.cached_poster = cached_poster;
+	}
+	
+	public byte[] getCachedPoster(){
+		return this.cached_poster;
+	}
+	
+	private String getPosterUrl(){
+		return "http://coocoorooza.com/uploads/afisha_films/" + this.getPoster();
+	}
+	
 	public Bitmap getPosterImg(){
 		Bitmap bitmap = null;
 		if (this.getPoster() != ""){
+			byte[] img_bytes = this.getCachedPoster();
+			if (img_bytes != null){
+				bitmap = BitmapFactory.decodeByteArray(img_bytes, 0, img_bytes.length);
+			} else {
 			
-			try{
-				URL newurl = new URL("http://coocoorooza.com/uploads/afisha_films/" + this.getPoster()); 
-				bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-			} catch (IOException e) {
-				//
-			} finally {
-				
+				try{
+					URL newurl = new URL(this.getPosterUrl()); 
+					bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+				} catch (IOException e) {
+					//
+				}
 			}
 		}
 		return bitmap;
+	}
+	
+	public HttpEntity getPosterHttpEntity(){
+		HttpEntity http_entry = null;
+		if (this.getPoster() != ""){
+			DefaultHttpClient mHttpClient = new DefaultHttpClient();
+			HttpGet mHttpGet = new HttpGet(this.getPosterUrl());
+			HttpResponse mHttpResponse;
+			try {
+				mHttpResponse = mHttpClient.execute(mHttpGet);
+				if (mHttpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+					http_entry = mHttpResponse.getEntity();
+				}
+			} catch (IOException e) {
+				//e.printStackTrace();
+			}
+		}
+		return http_entry;
 	}
 	
 	/* additional fields */

@@ -1,15 +1,20 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.util.EntityUtils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /*
  * ./adb -s emulator-5554 shell
@@ -37,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String CINEMAS_TABLE_YEAR="year";
 	private static final String CINEMAS_TABLE_POSTER="poster";
 	private static final String CINEMAS_TABLE_DESCRIPTION="description";
+	private static final String CINEMAS_TABLE_POSTER_IMAGE="poster_img";
 
 	private static final String THEATERS_TABLE="theaters";
 	private static final String THEATERS_TABLE_EXT_ID="id";
@@ -149,7 +155,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE_OR_TITLE,
 				CINEMAS_TABLE_YEAR,
 				CINEMAS_TABLE_POSTER,
-				CINEMAS_TABLE_DESCRIPTION
+				CINEMAS_TABLE_DESCRIPTION,
+				CINEMAS_TABLE_POSTER_IMAGE
 				}, CINEMAS_TABLE_EXT_ID + " = ?",
 				new String[] {Integer.toString(id)}, null, null, CINEMAS_TABLE_TITLE, "1");
 		
@@ -164,6 +171,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
 			);
+			if (EditPreferences.isCachedPosters(this.myContext) && 
+					!result.isNull(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE))){
+				cinema_row.setCachedPoster(result.getBlob(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE)));
+			}
 			result.moveToNext();
 		}
 		result.close();
@@ -182,6 +193,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
 			cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
 			cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
+			if (EditPreferences.isCachedPosters(this.myContext)){
+				HttpEntity poster = cinema_row.getPosterHttpEntity();
+				if (poster != null){
+					try {
+						cv.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
+					} catch (IOException e) {
+						Log.i("DatabaseHelper", "Error save image");
+					}
+				}
+			}
 			db.insert(CINEMAS_TABLE, null, cv);
 		} else if (!tmp_obj.equal(cinema_row)){
 			ContentValues cv = new ContentValues();
@@ -191,18 +212,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
 			cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
 			cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
+			if (EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null){
+				HttpEntity poster = cinema_row.getPosterHttpEntity();
+				if (poster != null){
+					try {
+						cv.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
+					} catch (IOException e) {
+						Log.i("DatabaseHelper", "Error save image");
+					}
+				}
+			}
 			db.update(CINEMAS_TABLE, cv, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(cinema_row.getId())});
 		}
 		db.close();
 	}
 	
-	
-	public List<CinemaDB> getTodayByTheater(TheaterDB theater){
+	public List<CinemaDB> getTodayOrTomByTheater(TheaterDB theater, Boolean is_today){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		if (!is_today){
+			currentDate.add(Calendar.DATE, 1);
+		}
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
+		
 		
 		Cursor result = db.rawQuery("SELECT " + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_EXT_ID + "," + 
@@ -211,6 +245,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_YEAR + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_DESCRIPTION + "," + 
+				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER_IMAGE + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_ZAL + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + "," + 
@@ -247,64 +282,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_PRICES))){
 				cinema_row.setPrices(result.getString(result.getColumnIndex(AFISHA_TABLE_PRICES)));
 			}
-			cinemas_list.add(cinema_row);
-			result.moveToNext();
-		}
-		result.close();
-		db.close();
-		return cinemas_list;
-	}
-	
-	public List<CinemaDB> getTomorrowByTheater(TheaterDB theater){
-		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Calendar tomorrowDate = Calendar.getInstance();
-		tomorrowDate.add(Calendar.DATE, 1);
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
-		String dateTomorrow = iso8601Format.format(tomorrowDate.getTime()) + " 00:00:00";
-		
-		Cursor result = db.rawQuery("SELECT " + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_EXT_ID + "," + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_TITLE + "," + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_OR_TITLE + "," + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_YEAR + "," + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER + "," + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_DESCRIPTION + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_ZAL + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_TIMES + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_PRICES + 
-				" FROM " + AFISHA_TABLE + 
-				" LEFT JOIN " + CINEMAS_TABLE + " ON " + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_CINEMA_ID + " = " + 
-				CINEMAS_TABLE + "." + CINEMAS_TABLE_EXT_ID + 
-				" WHERE " + AFISHA_TABLE + "." + AFISHA_TABLE_THEATER_ID + " = " + 
-				Integer.toString(theater.getId()) + " AND " + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + " >= ? " + 
-				" ORDER BY " + CINEMAS_TABLE + "." + CINEMAS_TABLE_TITLE,
-				new String[] {dateTomorrow, dateTomorrow});
-		
-		result.moveToFirst();
-		List<CinemaDB> cinemas_list = new ArrayList<CinemaDB>();
-		while (!result.isAfterLast()) {
-			CinemaDB cinema_row = new CinemaDB(
-				result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
-			);
-			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_ZAL))){
-				cinema_row.setZalTitle(result.getString(result.getColumnIndex(AFISHA_TABLE_ZAL)));
-			}
-			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_TIMES))){
-				cinema_row.setTimes(result.getString(result.getColumnIndex(AFISHA_TABLE_TIMES)));
-			}
-			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_PRICES))){
-				cinema_row.setPrices(result.getString(result.getColumnIndex(AFISHA_TABLE_PRICES)));
+			if (EditPreferences.isCachedPosters(this.myContext) && 
+					!result.isNull(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE))){
+				cinema_row.setCachedPoster(result.getBlob(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE)));
 			}
 			cinemas_list.add(cinema_row);
 			result.moveToNext();
@@ -314,11 +294,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return cinemas_list;
 	}
 	
-	public List<TheaterDB> getTodayByCinema(CinemaDB cinema){
+	public List<TheaterDB> getTodayOrTomByCinema(CinemaDB cinema, Boolean is_today){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		if (!is_today){
+			currentDate.add(Calendar.DATE, 1);
+		}
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
 		Cursor result = db.rawQuery("SELECT " + 
@@ -358,53 +341,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 		return theater_list;
 	}
-	
-	public List<TheaterDB> getTomorrowByCinema(CinemaDB cinema){
-		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Calendar tomorrowDate = Calendar.getInstance();
-		tomorrowDate.add(Calendar.DATE, 1);
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
-		String dateTomorrow = iso8601Format.format(tomorrowDate.getTime()) + " 00:00:00";
-		
-		Cursor result = db.rawQuery("SELECT " + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_EXT_ID + "," + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_CITY_ID + "," + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_TITLE + "," + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_LINK + "," + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_ADDRESS + "," + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_PHONE + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + 
-				" FROM " + AFISHA_TABLE + 
-				" LEFT JOIN " + THEATERS_TABLE + " ON " + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_THEATER_ID + " = " + 
-				THEATERS_TABLE + "." + THEATERS_TABLE_EXT_ID + 
-				" WHERE " + AFISHA_TABLE + "." + AFISHA_TABLE_CINEMA_ID + " = " + 
-				Integer.toString(cinema.getId()) + " AND " + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
-				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + " >= ? " + 
-				" ORDER BY " + THEATERS_TABLE + "." + THEATERS_TABLE_TITLE,
-				new String[] {dateTomorrow, dateTomorrow});
-		
-		result.moveToFirst();
-		List<TheaterDB> theater_list = new ArrayList<TheaterDB>();
-		while (!result.isAfterLast()) {
-			theater_list.add(new TheaterDB(
-				result.getInt(result.getColumnIndex(THEATERS_TABLE_EXT_ID)),
-				result.getInt(result.getColumnIndex(THEATERS_TABLE_CITY_ID)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_TITLE)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE))
-			));
-			result.moveToNext();
-		}
-		result.close();
-		db.close();
-		return theater_list;
-	}
-	
+
 	public List<CinemaDB> getTodayCinemas(){
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
@@ -606,7 +543,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE_OR_TITLE + " TEXT, " + 
 				CINEMAS_TABLE_YEAR + " INTEGER, " + 
 				CINEMAS_TABLE_POSTER + " TEXT, " + 
-				CINEMAS_TABLE_DESCRIPTION + " TEXT" + 
+				CINEMAS_TABLE_DESCRIPTION + " TEXT, " +
+				CINEMAS_TABLE_POSTER_IMAGE + " BLOB" + 
 				");");
 		
 		db.execSQL("CREATE TABLE " + THEATERS_TABLE + 

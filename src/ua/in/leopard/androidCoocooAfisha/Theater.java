@@ -29,7 +29,7 @@ public class Theater extends Activity implements OnItemClickListener {
         tabs.addTab(spec);
         spec=tabs.newTabSpec("afisha_tomorrow_tag");
         spec.setContent(R.id.afisha_tomorrow_list);
-        spec.setIndicator(getString(R.string.afisha_tomorrow), getResources().getDrawable(R.drawable.today_icon));
+        spec.setIndicator(getString(R.string.afisha_tomorrow), getResources().getDrawable(R.drawable.tomorrow_icon));
         tabs.addTab(spec);
         tabs.setCurrentTab(0);
         
@@ -51,13 +51,13 @@ public class Theater extends Activity implements OnItemClickListener {
         		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
         		
         		ListView seanceTodayList = (ListView)findViewById(R.id.afisha_today_list);
-        		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayByTheater(theater_main);
+        		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayOrTomByTheater(theater_main, true);
         		adapter_today = new SeanceAdapter(this, cinemas_today);
         		seanceTodayList.setAdapter(adapter_today);
         		seanceTodayList.setOnItemClickListener(this);
         		
         		ListView seanceTomorrowList = (ListView)findViewById(R.id.afisha_tomorrow_list);
-        		List<CinemaDB> cinemas_tomorrow = DatabaseHelperObject.getTomorrowByTheater(theater_main);
+        		List<CinemaDB> cinemas_tomorrow = DatabaseHelperObject.getTodayOrTomByTheater(theater_main, false);
         		adapter_tomorrow = new SeanceAdapter(this, cinemas_tomorrow);
         		seanceTomorrowList.setAdapter(adapter_tomorrow);
         		seanceTomorrowList.setOnItemClickListener(this);

@@ -34,7 +34,7 @@
     заданый интервал времени</string>
     <string name="auto_update_every_time_title">Обновлять данные с интервалом</string>
     <string name="auto_update_every_time_dialog">Обновлять данные с интервалом</string>
-    <string name="auto_update_every_time_summary">Обновление данных через определенный интервал времени</string>
+    <string name="auto_update_every_time_summary">Обновление данных с интервалом времени</string>
     
     <string name="update_label">Обновить данные</string>
     <string name="dialog_title">Обновление данных</string>
@@ -55,6 +55,9 @@
     <string name="cinema_year">Год:</string>
     
     <string name="not_set">Не указано</string>
+    
+    <string name="cache_poster_title">Кешировать картинки</string>
+    <string name="cache_poster_summary">Уменьшает использование трафика, увеличивает время обновления</string>
     
     <string name="about_label">О программе</string>
     <string name="about_title">О программе</string>

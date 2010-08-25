@@ -19,7 +19,8 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final Boolean OPT_AUTO_UPD_DEF = false;
    private static final String OPT_AUTO_UPD_TIME = "auto_update_every_time";
    private static final String OPT_AUTO_UPD_TIME_DEF = "1";
-   private static final String OPT_CLEAR_DB_DATABASE = "clear_db";
+   private static final String OPT_CACHED_POSTER = "cache_poster";
+   private static final Boolean OPT_CACHED_POSTER_DEF = false;
    
    private static final String SECRET_TOKEN = "sajdYGYgsdmKILIasdasdouher387hgdf";
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -44,7 +45,8 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   lp.setEnabled(false);
       }
       
-      DBClearDialogPreference db_clear_pref = (DBClearDialogPreference)findPreference(OPT_CLEAR_DB_DATABASE);
+      //In future
+      //DBClearDialogPreference db_clear_pref = (DBClearDialogPreference)findPreference(OPT_CLEAR_DB_DATABASE);
    }
    
    @Override
@@ -64,6 +66,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    public static String getCity(Context context) {
 	   return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_CITY, OPT_CITY_DEF);
+   }
+   
+   public static Boolean isCachedPosters(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_CACHED_POSTER, OPT_CACHED_POSTER_DEF);
    }
    
    /** Get the current value of the cities option */

@@ -48,8 +48,8 @@ android:padding="3sp"
 		  <TableRow android:layout_margin="1dip">
 		   <ScrollView
 				android:layout_width="fill_parent"
-				android:layout_height="150dip">
-				  <TextView android:layout_height="wrap_content"
+				android:layout_height="fill_parent">
+				  <TextView android:layout_height="fill_parent"
 				        android:layout_width="fill_parent" android:id="@+id/cinema_description"
 				        android:text="" android:typeface="sans" android:textSize="12sp"
 				        android:paddingLeft="3dip" android:paddingRight="3dip" 

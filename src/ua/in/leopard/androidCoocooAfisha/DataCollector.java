@@ -12,16 +12,24 @@ import android.util.Log;
 
 public class DataCollector {
 	private final Context myContext;
+	private Boolean getInetError = false;
 	
 	public DataCollector(Context context) {
 		this.myContext = context;
+		this.getInetError = false;
+	}
+	
+	public Boolean getInetError(){
+		return getInetError;
 	}
 	
 	public void getTheatersData(){
+		this.getInetError = false;
 		this.getTheatersDataFromJSON(JsonClient.getData(EditPreferences.getTheaterUrl(this.myContext)));
 	}
 	
 	public void getCinemasData(){
+		this.getInetError = false;
 		this.getCinemasDataFromJSON(JsonClient.getData(EditPreferences.getCinemasUrl(this.myContext)));
 	}
 	
@@ -50,6 +58,7 @@ public class DataCollector {
 			//e.printStackTrace();
 		} catch (Exception e) { 
         	//e.printStackTrace();
+			this.getInetError = true;
         	Log.v("dataCollector","Exception");
         }
 	}
@@ -111,7 +120,8 @@ public class DataCollector {
 			Log.i("dataCollector", "error data");
 			//e.printStackTrace();
 		} catch (Exception e) { 
-        	//e.printStackTrace();
+        	e.printStackTrace();
+			this.getInetError = true;
         	Log.v("dataCollector","Exception");
         }
 	}
