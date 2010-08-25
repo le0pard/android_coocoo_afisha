@@ -71,12 +71,16 @@ public class DataCollector {
 				for (int i = 0; i < cinemas_array.length(); ++i) {
 				    JSONObject row = cinemas_array.getJSONObject(i);
 				    if (row != null){
+				    	String poster = null;
+				    	if (!row.isNull("poster")){
+				    		poster = row.getString("poster");
+				    	}
 				    	DatabaseHelperObject.setCinema(new CinemaDB(
 				    			row.getInt("id"), 
 				    			row.getString("title"),
 				    			row.getString("orig_title"), 
 				    			row.getString("year"), 
-				    			row.getString("poster"), 
+				    			poster, 
 				    			row.getString("description"))
 				    	);
 				    }

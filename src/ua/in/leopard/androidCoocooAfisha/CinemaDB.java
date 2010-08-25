@@ -17,7 +17,7 @@ public class CinemaDB {
 	private String title;
 	private String orig_title;
 	private String year;
-	private String poster;
+	private String poster = null;
 	private String description;
 	
 	private String zal_title = null;

@@ -124,23 +124,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void setTheater(TheaterDB theater_row){
 		TheaterDB tmp_obj = this.getTheater(theater_row.getId());
 		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
+		cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
+		cv.put(THEATERS_TABLE_TITLE, theater_row.getTitle());
+		cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
+		cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
+		cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
+		
 		if (tmp_obj == null){
-			ContentValues cv = new ContentValues();
-			cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
-			cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
-			cv.put(THEATERS_TABLE_TITLE, theater_row.getTitle());
-			cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
-			cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
-			cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
 			db.insert(THEATERS_TABLE, null, cv);
 		} else if (!tmp_obj.equal(theater_row)){
-			ContentValues cv = new ContentValues();
-			cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
-			cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
-			cv.put(THEATERS_TABLE_TITLE, theater_row.getTitle());
-			cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
-			cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
-			cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
 			db.update(THEATERS_TABLE, cv, THEATERS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(theater_row.getId())});
 		}
 		db.close();
@@ -185,44 +179,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void setCinema(CinemaDB cinema_row){
 		CinemaDB tmp_obj = this.getCinema(cinema_row.getId());
 		SQLiteDatabase db = this.getWritableDatabase();
-		if (tmp_obj == null){
-			ContentValues cv = new ContentValues();
-			cv.put(CINEMAS_TABLE_EXT_ID, cinema_row.getId());
-			cv.put(CINEMAS_TABLE_TITLE, cinema_row.getTitle());
-			cv.put(CINEMAS_TABLE_OR_TITLE, cinema_row.getOrigTitle());
-			cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
-			cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
-			cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
-			if (EditPreferences.isCachedPosters(this.myContext)){
-				HttpEntity poster = cinema_row.getPosterHttpEntity();
-				if (poster != null){
-					try {
-						cv.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
-					} catch (IOException e) {
-						Log.i("DatabaseHelper", "Error save image");
-					}
+		ContentValues cv = new ContentValues();
+		cv.put(CINEMAS_TABLE_EXT_ID, cinema_row.getId());
+		cv.put(CINEMAS_TABLE_TITLE, cinema_row.getTitle());
+		cv.put(CINEMAS_TABLE_OR_TITLE, cinema_row.getOrigTitle());
+		cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
+		cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
+		cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
+		if (EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null){
+			HttpEntity poster = cinema_row.getPosterHttpEntity();
+			if (poster != null){
+				try {
+					cv.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
+				} catch (IOException e) {
+					Log.i("DatabaseHelper", "Error save image");
 				}
 			}
+		}
+		
+		if (tmp_obj == null){
 			db.insert(CINEMAS_TABLE, null, cv);
 		} else if (!tmp_obj.equal(cinema_row)){
-			ContentValues cv = new ContentValues();
-			cv.put(CINEMAS_TABLE_EXT_ID, cinema_row.getId());
-			cv.put(CINEMAS_TABLE_TITLE, cinema_row.getTitle());
-			cv.put(CINEMAS_TABLE_OR_TITLE, cinema_row.getOrigTitle());
-			cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
-			cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
-			cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
-			if (EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null){
-				HttpEntity poster = cinema_row.getPosterHttpEntity();
-				if (poster != null){
-					try {
-						cv.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
-					} catch (IOException e) {
-						Log.i("DatabaseHelper", "Error save image");
-					}
+			db.update(CINEMAS_TABLE, cv, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(cinema_row.getId())});
+		} else if (tmp_obj != null && EditPreferences.isCachedPosters(this.myContext) && 
+				tmp_obj.getPoster() != null && tmp_obj.getCachedPoster() == null){
+			
+			HttpEntity poster = tmp_obj.getPosterHttpEntity();
+			if (poster != null){
+				try {
+					ContentValues cv_2 = new ContentValues();
+					cv_2.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
+					db.update(CINEMAS_TABLE, cv_2, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(tmp_obj.getId())});
+				} catch (IOException e) {
+					Log.i("DatabaseHelper", "Error save image");
 				}
 			}
-			db.update(CINEMAS_TABLE, cv, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(cinema_row.getId())});
 		}
 		db.close();
 	}
@@ -422,27 +413,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void setAfisha(AfishaDB afisha_row){
 		AfishaDB tmp_obj = this.getAfisha(afisha_row.getId());
 		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(AFISHA_TABLE_EXT_ID, afisha_row.getId());
+		cv.put(AFISHA_TABLE_CINEMA_ID, afisha_row.getCinemaId());
+		cv.put(AFISHA_TABLE_THEATER_ID, afisha_row.getTheaterId());
+		cv.put(AFISHA_TABLE_ZAL, afisha_row.getZalTitle());
+		cv.put(AFISHA_TABLE_DATA_BEGIN, afisha_row.getDataBegin());
+		cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
+		cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
+		cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
+		
 		if (tmp_obj == null){
-			ContentValues cv = new ContentValues();
-			cv.put(AFISHA_TABLE_EXT_ID, afisha_row.getId());
-			cv.put(AFISHA_TABLE_CINEMA_ID, afisha_row.getCinemaId());
-			cv.put(AFISHA_TABLE_THEATER_ID, afisha_row.getTheaterId());
-			cv.put(AFISHA_TABLE_ZAL, afisha_row.getZalTitle());
-			cv.put(AFISHA_TABLE_DATA_BEGIN, afisha_row.getDataBegin());
-			cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
-			cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
-			cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
 			db.insert(AFISHA_TABLE, null, cv);
 		} else if (!tmp_obj.equal(afisha_row)){
-			ContentValues cv = new ContentValues();
-			cv.put(AFISHA_TABLE_EXT_ID, afisha_row.getId());
-			cv.put(AFISHA_TABLE_CINEMA_ID, afisha_row.getCinemaId());
-			cv.put(AFISHA_TABLE_THEATER_ID, afisha_row.getTheaterId());
-			cv.put(AFISHA_TABLE_ZAL, afisha_row.getZalTitle());
-			cv.put(AFISHA_TABLE_DATA_BEGIN, afisha_row.getDataBegin());
-			cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
-			cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
-			cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
 			db.update(AFISHA_TABLE, cv, AFISHA_TABLE_EXT_ID + " = ?", 
 					new String[] {Integer.toString(afisha_row.getId())});
 		}
