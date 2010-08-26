@@ -538,4 +538,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	public void clearAllTables(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DELETE FROM " + AFISHA_TABLE);
+		db.execSQL("DELETE FROM " + CINEMAS_TABLE);
+		db.execSQL("DELETE FROM " + THEATERS_TABLE);
+		db.close();
+	}
+	
 }
