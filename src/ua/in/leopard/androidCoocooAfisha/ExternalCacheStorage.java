@@ -26,6 +26,7 @@ public class ExternalCacheStorage {
 				String path = "";
 				path = Environment.getExternalStorageDirectory().toString();
 				path = path + "/Android/data/ua.in.leopard.androidCoocooAfisha/cache/";
+				/* here we need check and create directories */
 				Log.i("ExternalCacheStorage", "Path: " + path);
 				File file = new File(path, filename);
 				fOut = new FileOutputStream(file);
