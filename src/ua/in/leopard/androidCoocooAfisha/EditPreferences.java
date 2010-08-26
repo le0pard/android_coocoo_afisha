@@ -22,7 +22,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final String OPT_CACHED_POSTER = "cache_poster";
    private static final Boolean OPT_CACHED_POSTER_DEF = false;
    
-   private static final String SECRET_TOKEN = "sajdYGYgsdmKILIasdasdouher387hgdf";
+   private static final String SECRET_TOKEN = SecretData.getSecretToken();
    private static final String THEATERS_URL_KEY = "theaters_url";
    private static final String THEATERS_URL = "http://coocoorooza.com/api/afisha_theaters/:city_id/:token.json";
    private static final String CINEMAS_URL_KEY = "cinemas_url";

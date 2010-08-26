@@ -4,3 +4,4 @@ gen
 .project
 *~
 .settings
+SecretData.java
