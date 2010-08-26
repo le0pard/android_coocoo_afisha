@@ -1,20 +1,15 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.util.EntityUtils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /*
  * ./adb -s emulator-5554 shell
@@ -186,14 +181,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
 		cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
 		cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
-		if (EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null){
-			HttpEntity poster = cinema_row.getPosterHttpEntity();
+		
+		if (EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null && tmp_obj == null){
+			byte[] poster = cinema_row.setFromInetPoster();
 			if (poster != null){
-				try {
-					cv.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
-				} catch (IOException e) {
-					Log.i("DatabaseHelper", "Error save image");
-				}
+				cv.put(CINEMAS_TABLE_POSTER_IMAGE, poster);
 			}
 		}
 		
@@ -204,21 +196,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		} else if (tmp_obj != null && EditPreferences.isCachedPosters(this.myContext) && 
 				tmp_obj.getPoster() != null && tmp_obj.getCachedPoster() == null){
 			
-			HttpEntity poster = tmp_obj.getPosterHttpEntity();
+			byte[] poster = tmp_obj.setFromInetPoster();
 			if (poster != null){
-				try {
-					ContentValues cv_2 = new ContentValues();
-					cv_2.put(CINEMAS_TABLE_POSTER_IMAGE, EntityUtils.toByteArray(poster));
-					db.update(CINEMAS_TABLE, cv_2, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(tmp_obj.getId())});
-				} catch (IOException e) {
-					Log.i("DatabaseHelper", "Error save image");
-				}
+				ContentValues cv_2 = new ContentValues();
+				cv_2.put(CINEMAS_TABLE_POSTER_IMAGE, poster);
+				db.update(CINEMAS_TABLE, cv_2, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(tmp_obj.getId())});
 			}
 		}
 		db.close();
 	}
 	
-	public List<CinemaDB> getTodayOrTomByTheater(TheaterDB theater, Boolean is_today){
+	public List<CinemaDB> getTodayOrTomorrowByTheater(TheaterDB theater, Boolean is_today){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
@@ -285,7 +273,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return cinemas_list;
 	}
 	
-	public List<TheaterDB> getTodayOrTomByCinema(CinemaDB cinema, Boolean is_today){
+	public List<TheaterDB> getTodayOrTomorrowByCinema(CinemaDB cinema, Boolean is_today){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();

@@ -51,13 +51,13 @@ public class Theater extends Activity implements OnItemClickListener {
         		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
         		
         		ListView seanceTodayList = (ListView)findViewById(R.id.afisha_today_list);
-        		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayOrTomByTheater(theater_main, true);
+        		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayOrTomorrowByTheater(theater_main, true);
         		adapter_today = new SeanceAdapter(this, cinemas_today);
         		seanceTodayList.setAdapter(adapter_today);
         		seanceTodayList.setOnItemClickListener(this);
         		
         		ListView seanceTomorrowList = (ListView)findViewById(R.id.afisha_tomorrow_list);
-        		List<CinemaDB> cinemas_tomorrow = DatabaseHelperObject.getTodayOrTomByTheater(theater_main, false);
+        		List<CinemaDB> cinemas_tomorrow = DatabaseHelperObject.getTodayOrTomorrowByTheater(theater_main, false);
         		adapter_tomorrow = new SeanceAdapter(this, cinemas_tomorrow);
         		seanceTomorrowList.setAdapter(adapter_tomorrow);
         		seanceTomorrowList.setOnItemClickListener(this);

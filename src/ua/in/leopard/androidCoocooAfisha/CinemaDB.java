@@ -8,6 +8,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -94,12 +95,20 @@ public class CinemaDB {
 		this.cached_poster = cached_poster;
 	}
 	
-	public byte[] getCachedPoster(){
+	public byte[] setFromInetPoster(){
+		HttpEntity http_entity = this.getPosterHttpEntity();
+		try {
+			if (http_entity != null){
+				this.cached_poster = EntityUtils.toByteArray(http_entity);
+			}
+		} catch (IOException e) {
+			//error
+		}
 		return this.cached_poster;
 	}
 	
-	private String getPosterUrl(){
-		return "http://coocoorooza.com/uploads/afisha_films/" + this.getPoster();
+	public byte[] getCachedPoster(){
+		return this.cached_poster;
 	}
 	
 	public Bitmap getPosterImg(){
@@ -121,7 +130,11 @@ public class CinemaDB {
 		return bitmap;
 	}
 	
-	public HttpEntity getPosterHttpEntity(){
+	private String getPosterUrl(){
+		return "http://coocoorooza.com/uploads/afisha_films/" + this.getPoster();
+	}
+	
+	private HttpEntity getPosterHttpEntity(){
 		HttpEntity http_entry = null;
 		if (this.getPoster() != ""){
 			DefaultHttpClient mHttpClient = new DefaultHttpClient();
