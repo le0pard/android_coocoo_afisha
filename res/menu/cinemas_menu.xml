@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-   <item android:id="@+id/select_city"
+   <item android:id="@+id/theaters_list"
+      android:title="@string/theaters_label"
+      android:icon="@drawable/settings_icon" />
+   <item android:id="@+id/settings_key"
       android:title="@string/settings_label"
       android:icon="@drawable/settings_icon" />
 </menu>

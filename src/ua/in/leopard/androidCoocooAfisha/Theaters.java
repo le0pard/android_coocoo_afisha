@@ -46,16 +46,19 @@ public class Theaters extends Activity implements OnItemClickListener {
     public boolean onCreateOptionsMenu(Menu menu) {
       super.onCreateOptionsMenu(menu);
       MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.second_menu, menu);
+      inflater.inflate(R.menu.theaters_menu, menu);
       return true;
     }
 
    @Override
    public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
-      case R.id.select_city:
+        case R.id.cinemas_list:
+          startActivity(new Intent(this, Cinemas.class));
+          break;
+        case R.id.settings_key:
          startActivity(new Intent(this, EditPreferences.class));
-         return true;
+         break;
       }
       return false;
    }
