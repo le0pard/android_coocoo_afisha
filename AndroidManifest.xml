@@ -26,6 +26,7 @@
 <service android:name="DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
 <activity android:name="Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
 <activity android:name="Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:theme="@android:style/Theme.Dialog" android:name="CinemaDescription"></activity>
 </application>
 
 

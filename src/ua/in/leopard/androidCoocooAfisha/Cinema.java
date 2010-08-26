@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,8 +16,9 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Cinema extends Activity implements OnItemClickListener {
+public class Cinema extends Activity implements OnClickListener, OnItemClickListener {
 	private TheaterAdapter adapter_today, adapter_tomorrow;
+	private CinemaDB cinema_main;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class Cinema extends Activity implements OnItemClickListener {
         	DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
         	CinemaDB cinema_main = DatabaseHelperObject.getCinema(cinema_id);
         	if (cinema_main != null){
+        		this.cinema_main = cinema_main;
         		TextView cinema_title = (TextView)findViewById(R.id.cinema_title);
         		cinema_title.setText(cinema_main.getTitle());
         		ImageView cinemaPoster = (ImageView)findViewById(R.id.cinema_poster);
@@ -60,8 +63,9 @@ public class Cinema extends Activity implements OnItemClickListener {
         			org_title = org_title + " (год: " + cinema_main.getYear() + ")";
         		}
         		cinema_orig_title.setText(Html.fromHtml(org_title));
-        		TextView cinema_description = (TextView)findViewById(R.id.cinema_description);
-        		cinema_description.setText(Html.fromHtml(cinema_main.getDescription()));
+        		
+        		View descriptionButton = findViewById(R.id.cinema_description_button);
+        		descriptionButton.setOnClickListener(this);
         		
         		
         		ListView afishaTodayList = (ListView)findViewById(R.id.afisha_today_list);
@@ -89,6 +93,20 @@ public class Cinema extends Activity implements OnItemClickListener {
 		bundle.putInt("theater_id", theater_obj.getId());
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		  case R.id.cinema_description_button:
+			Intent intent = new Intent(this, CinemaDescription.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("cinema_title", this.cinema_main.getTitle());
+			bundle.putString("cinema_content", this.cinema_main.getDescription());
+			intent.putExtras(bundle);
+			startActivity(intent);
+	        break;        
+	    }		
 	}
 
 }

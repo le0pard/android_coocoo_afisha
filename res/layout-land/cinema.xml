@@ -46,16 +46,11 @@ android:padding="3sp"
 	      </TextView>
 	    </TableRow>
 		  <TableRow android:layout_margin="1dip">
-		   <ScrollView
-				android:layout_width="fill_parent"
-				android:layout_height="fill_parent">
-				  <TextView android:layout_height="fill_parent"
-				        android:layout_width="fill_parent" android:id="@+id/cinema_description"
-				        android:text="" android:typeface="sans" android:textSize="12sp"
-				        android:paddingLeft="3dip" android:paddingRight="3dip" 
-				        android:textColor="@color/text" android:gravity="fill_horizontal">
-				  </TextView>
-				</ScrollView>
+		   <Button
+         android:id="@+id/cinema_description_button"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/cinema_description" />>
 	    </TableRow>
 		</TableLayout>
 	</LinearLayout>
