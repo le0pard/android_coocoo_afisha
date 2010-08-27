@@ -38,7 +38,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
         } else {        
 	        if (EditPreferences.getAutoUpdate(this)){
-	        	new DataProgressDialog(this);
+	        	new DataProgressDialog(this).execute();
 	        	if (Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
 	        		startService(new Intent(this, DataUpdateService.class));
 	        	}
@@ -80,7 +80,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 				 startActivity(new Intent(this, Theaters.class));
 		         break;
 			  case R.id.update_button:
-				 new DataProgressDialog(this);
+				 new DataProgressDialog(this).execute();
 		         break;         
 		      }
         }

@@ -101,7 +101,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 		   editor.commit();
 		   
 		   setDefUrls(sharedPreferences);
-		   new DataProgressDialog(this);
+		   new DataProgressDialog(this).execute();
 	   }
 	   if (key.equals(OPT_AUTO_UPD)) {
 		   ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);

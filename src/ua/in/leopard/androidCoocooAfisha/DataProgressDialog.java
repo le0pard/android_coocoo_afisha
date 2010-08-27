@@ -1,49 +1,34 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 
-public class DataProgressDialog implements Runnable {
+public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 	private final Context myContext;
 	private ProgressDialog pd;
-	private Message msg;
-	private Thread thread;
 	
 	private DataCollector dataCollectorObject;
 	
 	public DataProgressDialog(Context myContext) {
 		this.myContext = myContext;
-		pd = ProgressDialog.show(this.myContext, "Обновление данных", "Пожалуйста, подождите...", true, false);
-
-		thread = new Thread(this);
-		thread.start();
+		this.pd = ProgressDialog.show(this.myContext, "Обновление данных", "Пожалуйста, подождите...", true, false);
+		this.dataCollectorObject = new DataCollector(this.myContext);
 	}
-
-	public void run() {
-		Bundle b = null;
-		dataCollectorObject = new DataCollector(this.myContext);
-		
-		msg = handler.obtainMessage();
-		b = new Bundle(); 
-        b.putInt("phase", 1); 
-        b.putString("message", "Обновление кинотеатров..."); 
-        msg.setData(b);
-        handler.sendMessage(msg);
-        
+	
+	@Override
+	protected Void doInBackground(Void... params) {
+		publishProgress("Обновление кинотеатров...");
         dataCollectorObject.getTheatersData(); 
         
-        msg = handler.obtainMessage();
-		b = new Bundle(); 
-        b.putInt("phase", 1); 
-        b.putString("message", "Обновление фильмов..."); 
-        msg.setData(b);
-        handler.sendMessage(msg);
-        
+        publishProgress("Обновление фильмов...");
         dataCollectorObject.getCinemasData(); 
         
+        publishProgress("Удаление старых данных...");
+        dataCollectorObject.clearOldData();
+/*        
         if (dataCollectorObject.getInetError()){
         	msg = handler.obtainMessage();
     		b = new Bundle(); 
@@ -57,35 +42,42 @@ public class DataProgressDialog implements Runnable {
 				
 			}
         }
-        
-        msg = handler.obtainMessage();
-		b = new Bundle(); 
-        b.putInt("phase", 1); 
-        b.putString("message", "Удаление старых данных..."); 
-        msg.setData(b);
-        handler.sendMessage(msg);
-        
-        dataCollectorObject.clearOldData(); 
-        
-        handler.sendEmptyMessage(0);
+*/        
+		return null;
 	}
-
-	private Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			int phase = msg.getData().getInt("phase"); 
-			String message = msg.getData().getString("message");
-			
-			switch(phase) { 
-                 case 1: 
-                	  pd.setMessage(message);
-                      break;
-                 default:
-                	  pd.dismiss();
-                      break; 
-            }
+	
+	@Override
+	protected void onProgressUpdate(String... message) {
+		if (pd != null){
+			try {
+				pd.setMessage(message[0]);
+			} catch(Exception e){
+				pd = null;
+				if (!isCancelled()){
+					cancel(true);
+				}
+			}
 		}
-	};
+	}
+	
+	@Override
+	protected void onPostExecute(Void unused) {
+		try {
+			pd.dismiss();
+		} catch(Exception e){
+			pd = null;
+		}
+		if (pd != null && dataCollectorObject.getInetError()){
+			new AlertDialog.Builder(this.myContext)
+			.setTitle("Ошибка обновления")
+			.setMessage("Проверьте настройки подключения к Интернету...")
+			.setNeutralButton("Закрыть", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dlg, int sumthin) {
+					// do nothing – it will close on its own
+				}
+			}).show();
+		}
+	}
 
 
 }
