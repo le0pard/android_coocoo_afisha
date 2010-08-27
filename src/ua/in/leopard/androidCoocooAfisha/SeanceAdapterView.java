@@ -44,7 +44,9 @@ public class SeanceAdapterView extends LinearLayout {
 		if (entry.getTimes() == null){
 			cinemaTimes.setText(R.string.not_set);
 		} else {
-			cinemaTimes.setText(entry.getTimes());
+			String cinema_times = entry.getTimes();
+			cinema_times = cinema_times.replaceAll("(?i)([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]);", "$1:$2;");
+			cinemaTimes.setText(cinema_times);
 		}
 		
 		TextView cinemaPrices = (TextView)v.findViewById(R.id.cinema_prices);
