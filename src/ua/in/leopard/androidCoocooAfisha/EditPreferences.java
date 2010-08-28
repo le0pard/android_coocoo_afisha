@@ -122,6 +122,11 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   startService(new Intent(getApplicationContext(), DataUpdateService.class));
 		   }
 	   }
+	   if (key.equals(OPT_CACHED_POSTER)) {
+		   if (sharedPreferences.getBoolean(OPT_CACHED_POSTER, OPT_CACHED_POSTER_DEF)){
+			   new DataProgressDialog(this).execute();
+		   }
+	   }
    }
    
    private void setDefUrls(SharedPreferences sharedPreferences){
