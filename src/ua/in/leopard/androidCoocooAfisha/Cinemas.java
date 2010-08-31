@@ -21,7 +21,11 @@ public class Cinemas extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.cinemas);
         
-        setTitle(getString(R.string.cinemas_title) + " - " + EditPreferences.getCity(this));
+        String title = getString(R.string.cinemas_title) + " - " + EditPreferences.getCity(this);
+        if (EditPreferences.isTheatersIsFilter(this)){
+        	title = title + " (" + getString(R.string.theaters_is_filter_on) + ")";
+        }
+        setTitle(title);
         
         ListView CinemasList = (ListView)findViewById(R.id.cinemas_list);
         DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);

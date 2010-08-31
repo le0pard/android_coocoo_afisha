@@ -22,6 +22,10 @@
     <string name="cities_dialog">Выберите город</string>
     <string name="cancel">Отмена</string>
     
+    <string name="theaters_is_filter_on">фильтр</string>
+    <string name="theaters_is_filter_title">Любимые кинотеатры</string>
+    <string name="theaters_is_filter_summary">Показывать только выбраные кинотеатры</string>
+    
     <string name="settings_additional">Дополнительные</string>
     <string name="clear_db_title">Удаление данных</string>
     <string name="clear_db_summary">Очистка базы данных</string>

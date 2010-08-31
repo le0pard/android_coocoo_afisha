@@ -46,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String THEATERS_TABLE_LINK="link";
 	private static final String THEATERS_TABLE_ADDRESS="address";
 	private static final String THEATERS_TABLE_PHONE="phone";
+	private static final String THEATERS_TABLE_FILTER="is_filter";
 
 	
 	public DatabaseHelper(Context context) {
@@ -53,7 +54,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		this.myContext = context;
 	}
 	
-	public List<TheaterDB> getTheaters(){
+	public List<TheaterDB> getTheaters(Boolean force_select){
+		String filter_sql = "";
+		if (!force_select){
+			filter_sql = this.isFiltered();
+		}
+		
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor result = db.query(THEATERS_TABLE, 
 				new String[] {
@@ -62,8 +68,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_TITLE,
 				THEATERS_TABLE_LINK,
 				THEATERS_TABLE_ADDRESS,
-				THEATERS_TABLE_PHONE
-				}, THEATERS_TABLE_CITY_ID + " = ?",
+				THEATERS_TABLE_PHONE,
+				THEATERS_TABLE_FILTER
+				}, THEATERS_TABLE_CITY_ID + " = ?" + filter_sql,
 				new String[] {EditPreferences.getCityId(this.myContext)}, null, null, THEATERS_TABLE_TITLE);
 		
 		result.moveToFirst();
@@ -75,7 +82,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(THEATERS_TABLE_TITLE)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE))
+				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE)),
+				result.getInt(result.getColumnIndex(THEATERS_TABLE_FILTER))
 			));
 			result.moveToNext();
 		}
@@ -93,7 +101,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_TITLE,
 				THEATERS_TABLE_LINK,
 				THEATERS_TABLE_ADDRESS,
-				THEATERS_TABLE_PHONE
+				THEATERS_TABLE_PHONE,
+				THEATERS_TABLE_FILTER
 				}, THEATERS_TABLE_EXT_ID + " = ?",
 				new String[] {Integer.toString(id)}, null, null, THEATERS_TABLE_TITLE, "1");
 		
@@ -106,7 +115,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(THEATERS_TABLE_TITLE)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE))
+				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE)),
+				result.getInt(result.getColumnIndex(THEATERS_TABLE_FILTER))
 			);
 			result.moveToNext();
 		}
@@ -133,6 +143,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db.update(THEATERS_TABLE, cv, THEATERS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(theater_row.getId())});
 		}
 		db.close();
+	}
+	
+	public void addFilterTheater(TheaterDB theater_row){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(THEATERS_TABLE_FILTER, 1);
+		db.update(THEATERS_TABLE, cv, THEATERS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(theater_row.getId())});
+		db.close();
+	}
+	
+	public void removeFilterTheater(TheaterDB theater_row){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(THEATERS_TABLE_FILTER, 0);
+		db.update(THEATERS_TABLE, cv, THEATERS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(theater_row.getId())});
+		db.close();
+	}
+	
+	public void clearFilterTheaters(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(THEATERS_TABLE_FILTER, 0);
+		db.update(THEATERS_TABLE, cv, null, null);
+		db.close();
+	}
+	
+	public Boolean isSetFilters(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor result = db.query(THEATERS_TABLE, 
+				new String[] {
+				THEATERS_TABLE_EXT_ID, 
+				THEATERS_TABLE_FILTER
+				}, THEATERS_TABLE_FILTER + " = 1",
+				null, null, null, THEATERS_TABLE_EXT_ID);
+		Integer row_count = result.getCount();
+		result.close();
+		db.close();
+		if (row_count > 0){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private String isFiltered(){
+		if (EditPreferences.isTheatersIsFilter(this.myContext)){
+			return " AND " + THEATERS_TABLE + "." + THEATERS_TABLE_FILTER + " = 1 ";
+		} else {
+			return "";
+		}
 	}
 	
 	public CinemaDB getCinema(int id){
@@ -274,6 +334,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<TheaterDB> getTodayOrTomorrowByCinema(CinemaDB cinema, Boolean is_today){
+		String filter_sql = "";
+		filter_sql = this.isFiltered();
+		
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
@@ -290,6 +353,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE + "." + THEATERS_TABLE_LINK + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_ADDRESS + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_PHONE + "," + 
+				THEATERS_TABLE + "." + THEATERS_TABLE_FILTER + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + 
 				" FROM " + AFISHA_TABLE + 
@@ -300,6 +364,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				Integer.toString(cinema.getId()) + " AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + " >= ? " + 
+				filter_sql + 
 				" ORDER BY " + THEATERS_TABLE + "." + THEATERS_TABLE_TITLE,
 				new String[] {dateNow, dateNow});
 		
@@ -312,7 +377,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(THEATERS_TABLE_TITLE)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
-				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE))
+				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE)),
+				result.getInt(result.getColumnIndex(THEATERS_TABLE_FILTER))
 			));
 			result.moveToNext();
 		}
@@ -326,7 +392,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
-		List<TheaterDB> theaters_list = this.getTheaters();
+		List<TheaterDB> theaters_list = this.getTheaters(false);
 		String theater_ids = "";
 		for (int i = 0; i < theaters_list.size(); i++){
 			if (theater_ids != ""){
@@ -525,7 +591,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_TITLE + " TEXT, " + 
 				THEATERS_TABLE_LINK + " TEXT, " + 
 				THEATERS_TABLE_ADDRESS + " TEXT, " + 
-				THEATERS_TABLE_PHONE + " TEXT" +  
+				THEATERS_TABLE_PHONE + " TEXT, " +  
+				THEATERS_TABLE_FILTER + " INTEGER DEFAULT 0" + 
 				");");
 	}
 

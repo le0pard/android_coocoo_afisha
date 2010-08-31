@@ -48,7 +48,8 @@ public class DataCollector {
 				    			row.getString("title"), 
 				    			row.getString("link"), 
 				    			row.getString("address"), 
-				    			row.getString("phone"))
+				    			row.getString("phone"),
+				    			0)
 				    	);
 				    }
 				}

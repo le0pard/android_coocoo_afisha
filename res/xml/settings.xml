@@ -12,6 +12,11 @@
 		android:entryValues="@array/cities_ids"
 		android:dialogTitle="@string/cities_dialog" 
 		android:negativeButtonText="@string/cancel" />
+		
+	  <CheckBoxPreference
+      android:key="theaters_is_filter"
+      android:title="@string/theaters_is_filter_title"
+      android:summary="@string/theaters_is_filter_summary" />
 
   </PreferenceCategory>
   <PreferenceCategory android:title="@string/settings_for_app">

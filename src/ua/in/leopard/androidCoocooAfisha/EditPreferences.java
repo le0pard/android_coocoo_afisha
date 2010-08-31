@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -21,6 +22,8 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final String OPT_AUTO_UPD_TIME_DEF = "1";
    private static final String OPT_CACHED_POSTER = "cache_poster";
    private static final Boolean OPT_CACHED_POSTER_DEF = false;
+   private static final String OPT_THEATERS_FILTER = "theaters_is_filter";
+   private static final Boolean OPT_THEATERS_FILTER_DEF = false;
    
    private static final String SECRET_TOKEN = SecretData.getSecretToken();
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -30,6 +33,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    
    private ListPreference cities_lp;
+   private CheckBoxPreference checkbox_theaters_filter;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,23 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
       if (getPreferenceScreen().getSharedPreferences().getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF)){
 	   lp.setEnabled(true);
+	   
       } else {
 	   lp.setEnabled(false);
       }
       
-      //In future
-      //DBClearDialogPreference db_clear_pref = (DBClearDialogPreference)findPreference(OPT_CLEAR_DB_DATABASE);
+      checkbox_theaters_filter = (CheckBoxPreference)findPreference(OPT_THEATERS_FILTER);
+      if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
+    	  checkbox_theaters_filter.setEnabled(false);
+      } else {
+    	  checkbox_theaters_filter.setEnabled(true);
+    	  if (new DatabaseHelper(this).isSetFilters()){
+    		  checkbox_theaters_filter.setChecked(true);
+    	  } else {
+    		  checkbox_theaters_filter.setChecked(false);
+    	  }
+    	  
+      }
    }
    
    @Override
@@ -54,6 +69,11 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
        super.onResume();
        // Set up a listener whenever a key changes            
        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+       if (new DatabaseHelper(this).isSetFilters()){
+ 		  checkbox_theaters_filter.setChecked(true);
+ 	   } else {
+ 		  checkbox_theaters_filter.setChecked(false);
+ 	   }
    }
 
    @Override
@@ -70,6 +90,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    public static Boolean isCachedPosters(Context context) {
 	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_CACHED_POSTER, OPT_CACHED_POSTER_DEF);
+   }
+   
+   public static Boolean isTheatersIsFilter(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_THEATERS_FILTER, OPT_THEATERS_FILTER_DEF);
    }
    
    /** Get the current value of the cities option */
@@ -102,7 +126,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 		   
 		   setDefUrls(sharedPreferences);
 		   new DataProgressDialog(this).execute();
+		   checkbox_theaters_filter.setEnabled(true);
+		   checkbox_theaters_filter.setChecked(false);
 	   }
+	   /* auto updater */
 	   if (key.equals(OPT_AUTO_UPD)) {
 		   ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
 		   stopService(new Intent(getApplicationContext(), DataUpdateService.class));
@@ -113,7 +140,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   }
 		   } else {
 			   lp.setEnabled(false);
-			  
 		   }
 	   }
 	   if (key.equals(OPT_AUTO_UPD_TIME)) {
@@ -122,9 +148,18 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   startService(new Intent(getApplicationContext(), DataUpdateService.class));
 		   }
 	   }
+	   /* cache posters */
 	   if (key.equals(OPT_CACHED_POSTER)) {
 		   if (sharedPreferences.getBoolean(OPT_CACHED_POSTER, OPT_CACHED_POSTER_DEF)){
 			   new DataProgressDialog(this).execute();
+		   }
+	   }
+	   /* cinemas filter */
+	   if (key.equals(OPT_THEATERS_FILTER)) {
+		   if (sharedPreferences.getBoolean(OPT_THEATERS_FILTER, OPT_THEATERS_FILTER_DEF)){
+			   startActivity(new Intent(this, TheatersFilterDialog.class));
+		   } else {
+			   new DatabaseHelper(this).clearFilterTheaters();
 		   }
 	   }
    }

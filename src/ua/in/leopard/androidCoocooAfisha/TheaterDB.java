@@ -1,5 +1,6 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+
 public class TheaterDB {
 	private int id;
 	private int city_id;
@@ -7,9 +8,10 @@ public class TheaterDB {
 	private String link;
 	private String address;
 	private String phone;
+	private Integer is_filter;
 	
 	// Constructor for the TheaterDB class
-	public TheaterDB(int id, int city_id, String title, String link, String address, String phone) {
+	public TheaterDB(int id, int city_id, String title, String link, String address, String phone, Integer is_filter) {
 		super();
 		this.id = id;
 		this.city_id = city_id;
@@ -17,6 +19,7 @@ public class TheaterDB {
 		this.link = link;
 		this.address = address;
 		this.phone = phone;
+		this.is_filter = is_filter;
 	}
 	
 	
@@ -74,5 +77,13 @@ public class TheaterDB {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public Boolean isFiltered(){
+		if (1 == this.is_filter){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
