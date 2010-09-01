@@ -24,6 +24,8 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final Boolean OPT_CACHED_POSTER_DEF = false;
    private static final String OPT_THEATERS_FILTER = "theaters_is_filter";
    private static final Boolean OPT_THEATERS_FILTER_DEF = false;
+   private static final String OPT_NO_POSTER = "no_poster";
+   private static final Boolean OPT_NO_POSTER_DEF = false;
    
    private static final String SECRET_TOKEN = SecretData.getSecretToken();
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -34,6 +36,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    private ListPreference cities_lp;
    private CheckBoxPreference checkbox_theaters_filter;
+   private CheckBoxPreference checkbox_cached_poster;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,13 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       } else {
 	   lp.setEnabled(false);
       }
+      
+      checkbox_cached_poster = (CheckBoxPreference)findPreference(OPT_CACHED_POSTER);
+      if (EditPreferences.isNoPosters(this)){
+		   checkbox_cached_poster.setEnabled(false);
+	   } else {
+		   checkbox_cached_poster.setEnabled(true);
+	   }
       
       checkbox_theaters_filter = (CheckBoxPreference)findPreference(OPT_THEATERS_FILTER);
       if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
@@ -94,6 +104,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    public static Boolean isTheatersIsFilter(Context context) {
 	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_THEATERS_FILTER, OPT_THEATERS_FILTER_DEF);
+   }
+   
+   public static Boolean isNoPosters(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_NO_POSTER, OPT_NO_POSTER_DEF);
    }
    
    /** Get the current value of the cities option */
@@ -160,6 +174,14 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   startActivity(new Intent(this, TheatersFilterDialog.class));
 		   } else {
 			   new DatabaseHelper(this).clearFilterTheaters();
+		   }
+	   }
+	   /* no posters */
+	   if (key.equals(OPT_NO_POSTER)) {
+		   if (sharedPreferences.getBoolean(OPT_NO_POSTER, OPT_NO_POSTER_DEF)){
+			   checkbox_cached_poster.setEnabled(false);
+		   } else {
+			   checkbox_cached_poster.setEnabled(true);
 		   }
 	   }
    }

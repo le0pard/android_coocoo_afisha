@@ -19,13 +19,16 @@ public class SeanceAdapterView extends LinearLayout {
 		View v = inflate(context, R.layout.seance_row, null);
 		
 		ImageView cinemaPoster = (ImageView)v.findViewById(R.id.cinema_poster);
-		Bitmap poster = entry.getPosterImg();
-		if (poster != null){
-			cinemaPoster.setImageBitmap(poster);
+		if (EditPreferences.isNoPosters(context)){
+			cinemaPoster.setImageResource(R.drawable.no_poster);
 		} else {
-			cinemaPoster.setImageResource(R.drawable.poster);
+			Bitmap poster = entry.getPosterImg();
+			if (poster != null){
+				cinemaPoster.setImageBitmap(poster);
+			} else {
+				cinemaPoster.setImageResource(R.drawable.poster);
+			}
 		}
-		
 		
 		TextView cinemaTitle = (TextView)v.findViewById(R.id.cinema_title);
 		cinemaTitle.setText(entry.getTitle());

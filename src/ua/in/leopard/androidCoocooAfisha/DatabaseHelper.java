@@ -242,7 +242,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
 		cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
 		
-		if (EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null && tmp_obj == null){
+		if (!EditPreferences.isNoPosters(this.myContext) && EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null && tmp_obj == null){
 			byte[] poster = cinema_row.setFromInetPoster();
 			if (poster != null){
 				cv.put(CINEMAS_TABLE_POSTER_IMAGE, poster);
@@ -253,7 +253,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			db.insert(CINEMAS_TABLE, null, cv);
 		} else if (!tmp_obj.equal(cinema_row)){
 			db.update(CINEMAS_TABLE, cv, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(cinema_row.getId())});
-		} else if (tmp_obj != null && EditPreferences.isCachedPosters(this.myContext) && 
+		} else if (tmp_obj != null && !EditPreferences.isNoPosters(this.myContext) && 
+				EditPreferences.isCachedPosters(this.myContext) && 
 				tmp_obj.getPoster() != null && tmp_obj.getCachedPoster() == null){
 			
 			byte[] poster = tmp_obj.setFromInetPoster();

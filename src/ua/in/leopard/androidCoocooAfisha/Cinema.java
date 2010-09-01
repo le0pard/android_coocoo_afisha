@@ -51,12 +51,17 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         		TextView cinema_title = (TextView)findViewById(R.id.cinema_title);
         		cinema_title.setText(cinema_main.getTitle());
         		ImageView cinemaPoster = (ImageView)findViewById(R.id.cinema_poster);
-        		Bitmap poster = cinema_main.getPosterImg();
-        		if (poster != null){
-        			cinemaPoster.setImageBitmap(poster);
+        		if (EditPreferences.isNoPosters(this)){
+        			cinemaPoster.setImageResource(R.drawable.no_poster);
         		} else {
-        			cinemaPoster.setImageResource(R.drawable.poster);
+        			Bitmap poster = cinema_main.getPosterImg();
+            		if (poster != null){
+            			cinemaPoster.setImageBitmap(poster);
+            		} else {
+            			cinemaPoster.setImageResource(R.drawable.poster);
+            		}
         		}
+        		
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
         		String org_title = cinema_main.getOrigTitle();
         		if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){

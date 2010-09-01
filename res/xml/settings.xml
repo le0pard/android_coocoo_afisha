@@ -40,6 +40,11 @@
       android:key="cache_poster"
       android:title="@string/cache_poster_title"
       android:summary="@string/cache_poster_summary" />
+      
+    <CheckBoxPreference
+      android:key="no_poster"
+      android:title="@string/no_poster_title"
+      android:summary="@string/no_poster_summary" />
 
   </PreferenceCategory> 
   <PreferenceCategory android:title="@string/settings_additional">

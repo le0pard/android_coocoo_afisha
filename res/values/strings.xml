@@ -64,6 +64,9 @@
     <string name="cache_poster_title">Кешировать картинки</string>
     <string name="cache_poster_summary">Уменьшает использование трафика, увеличивает время обновления</string>
     
+    <string name="no_poster_title">Без картинок</string>
+    <string name="no_poster_summary">Режим без картинок (для экономии трафика)</string>
+    
     <string name="about_label">О программе</string>
     <string name="about_title">О программе</string>
     <string name="about_text">
