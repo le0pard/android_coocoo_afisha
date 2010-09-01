@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * sqlite3 /data/data/ua.in.leopard.androidCoocooAfisha/databases/coocoo_afisha_db
 */
 public class DatabaseHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private static final String DATABASE_NAME="coocoo_afisha_db";
 	private final Context myContext;
 	
