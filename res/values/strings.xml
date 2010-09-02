@@ -46,6 +46,7 @@
     <string name="dialog_message_theaters">Обновление кинотеатров...</string>
     <string name="dialog_message_cinemas">Обновление фильмов...</string>
     <string name="dialog_message_cleardb">Удаление старых данных...</string>
+    <string name="database_clear_message">База данных успешно очищена</string>
     
     <string name="update_error_title">Ошибка обновления</string>
     <string name="update_error_message">Проверьте настройки подключения к Интернету...</string>

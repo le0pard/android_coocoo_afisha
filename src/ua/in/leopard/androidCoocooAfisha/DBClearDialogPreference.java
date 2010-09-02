@@ -19,7 +19,7 @@ public class DBClearDialogPreference extends DialogPreference {
 		if (DialogInterface.BUTTON_POSITIVE == which){
 			DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 			DatabaseHelperObject.clearAllTables();
-			Toast.makeText(this.myContext, "База данных успешно очищена", Toast.LENGTH_LONG).show();
+			Toast.makeText(this.myContext, this.myContext.getString(R.string.database_clear_message), Toast.LENGTH_LONG).show();
 		}
 		
 	}
