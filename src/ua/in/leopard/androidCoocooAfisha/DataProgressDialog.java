@@ -14,35 +14,21 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 	
 	public DataProgressDialog(Context myContext) {
 		this.myContext = myContext;
-		this.pd = ProgressDialog.show(this.myContext, "Обновление данных", "Пожалуйста, подождите...", true, false);
+		this.pd = ProgressDialog.show(this.myContext, this.myContext.getString(R.string.dialog_title), this.myContext.getString(R.string.dialog_message), true, false);
 		this.dataCollectorObject = new DataCollector(this.myContext);
 	}
 	
 	@Override
 	protected Void doInBackground(Void... params) {
-		publishProgress("Обновление кинотеатров...");
+		publishProgress(this.myContext.getString(R.string.dialog_message_theaters));
         dataCollectorObject.getTheatersData(); 
         
-        publishProgress("Обновление фильмов...");
+        publishProgress(this.myContext.getString(R.string.dialog_message_cinemas));
         dataCollectorObject.getCinemasData(); 
         
-        publishProgress("Удаление старых данных...");
+        publishProgress(this.myContext.getString(R.string.dialog_message_cleardb));
         dataCollectorObject.clearOldData();
-/*        
-        if (dataCollectorObject.getInetError()){
-        	msg = handler.obtainMessage();
-    		b = new Bundle(); 
-            b.putInt("phase", 1); 
-            b.putString("message", "Ошибка обновления.\nПроверьте настройки подключения к Интернету..."); 
-            msg.setData(b);
-            handler.sendMessage(msg);
-            try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				
-			}
-        }
-*/        
+     
 		return null;
 	}
 	
@@ -69,9 +55,9 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 		}
 		if (pd != null && dataCollectorObject.getInetError()){
 			new AlertDialog.Builder(this.myContext)
-			.setTitle("Ошибка обновления")
-			.setMessage("Проверьте настройки подключения к Интернету...")
-			.setNeutralButton("Закрыть", new DialogInterface.OnClickListener() {
+			.setTitle(this.myContext.getString(R.string.update_error_title))
+			.setMessage(this.myContext.getString(R.string.update_error_message))
+			.setNeutralButton(this.myContext.getString(R.string.update_error_button), new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dlg, int sumthin) {
 					// do nothing – it will close on its own
 				}

@@ -43,10 +43,18 @@
     <string name="update_label">Обновить данные</string>
     <string name="dialog_title">Обновление данных</string>
     <string name="dialog_message">Пожалуйста, подождите...</string>
-    <string name="dialog_message_1">Обновление кинотеатров...</string>
+    <string name="dialog_message_theaters">Обновление кинотеатров...</string>
+    <string name="dialog_message_cinemas">Обновление фильмов...</string>
+    <string name="dialog_message_cleardb">Удаление старых данных...</string>
+    
+    <string name="update_error_title">Ошибка обновления</string>
+    <string name="update_error_message">Проверьте настройки подключения к Интернету...</string>
+    <string name="update_error_button">Закрыть</string>
     
     <string name="select_city_dialog">Пожалуйста, выберите город для афиши в настройках</string>
     
+    <string name="autoupdate_service_start">Автообновление запущенно</string>
+    <string name="autoupdate_service_stop">Автообновление остановленно</string>
     
     <string name="theater_address">Адрес:</string>
     <string name="theater_phone">Тел:</string>
@@ -56,7 +64,7 @@
     <string name="seance_times">Время:</string>
     <string name="seance_prices">Цена:</string>
     
-    <string name="cinema_year">Год:</string>
+    <string name="cinema_year">год:</string>
     <string name="cinema_description">Описание</string>
     
     <string name="not_set">Не указано</string>

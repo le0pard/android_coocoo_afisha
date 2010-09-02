@@ -31,7 +31,7 @@ public class DataUpdateService extends Service {
 
 	@Override
 	public void onDestroy() {
-		Toast.makeText(this, "Автообновление остановленно", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, getString(R.string.autoupdate_service_stop), Toast.LENGTH_LONG).show();
 		Log.d(TAG, "DataUpdateService onDestroy");
 		if (timer != null){
 			timer.cancel();
@@ -40,7 +40,7 @@ public class DataUpdateService extends Service {
 	
 	@Override
 	public void onStart(Intent intent, int startid) {
-		Toast.makeText(this, "Автообновление запущенно", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, getString(R.string.autoupdate_service_start), Toast.LENGTH_LONG).show();
 		Log.d(TAG, "DataUpdateService onStart");
 	}
 	
