@@ -65,7 +65,7 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
         		String org_title = cinema_main.getOrigTitle();
         		if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){
-        			org_title = org_title + " (" + getString(R.string.cinema_year) + ": " + 
+        			org_title = org_title + " (" + getString(R.string.cinema_year) + " " + 
         			cinema_main.getYear() + ")";
         		}
         		cinema_orig_title.setText(Html.fromHtml(org_title));
