@@ -363,6 +363,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE + "." + THEATERS_TABLE_EXT_ID + 
 				" WHERE " + AFISHA_TABLE + "." + AFISHA_TABLE_CINEMA_ID + " = " + 
 				Integer.toString(cinema.getId()) + " AND " + 
+				THEATERS_TABLE + "." + THEATERS_TABLE_CITY_ID + " = " +
+				EditPreferences.getCityId(this.myContext) + " AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + " >= ? " + 
 				filter_sql + 
