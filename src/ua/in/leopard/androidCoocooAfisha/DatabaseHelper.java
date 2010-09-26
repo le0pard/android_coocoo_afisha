@@ -348,7 +348,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
 		Cursor result = db.rawQuery("SELECT " + 
-				"DISTINCT (" + AFISHA_TABLE + "." + AFISHA_TABLE_THEATER_ID + ") AS non_used_id, " + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_EXT_ID + " AS " + THEATERS_TABLE_EXT_ID + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_CITY_ID + " AS " + THEATERS_TABLE_CITY_ID + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_TITLE + " AS " + THEATERS_TABLE_TITLE + "," + 
@@ -369,6 +368,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + " >= ? " + 
 				filter_sql + 
+				" GROUP BY " + AFISHA_TABLE + "." + AFISHA_TABLE_THEATER_ID + 
 				" ORDER BY " + THEATERS_TABLE + "." + THEATERS_TABLE_TITLE,
 				new String[] {dateNow, dateNow});
 		
@@ -503,18 +503,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 						new String[] {Integer.toString(afisha_row.getId())}, null, null, 
 						null, "1");
 				
+				ContentValues cv = new ContentValues();
+				cv.put(AFISHA_TABLE_CINEMA_ID, afisha_row.getCinemaId());
+				cv.put(AFISHA_TABLE_THEATER_ID, afisha_row.getTheaterId());
+				cv.put(AFISHA_TABLE_ZAL, afisha_row.getZalTitle());
+				cv.put(AFISHA_TABLE_DATA_BEGIN, afisha_row.getDataBegin());
+				cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
+				cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
+				cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
 				if (result.getCount() == 0){
-					ContentValues cv = new ContentValues();
 					cv.put(AFISHA_TABLE_EXT_ID, afisha_row.getId());
-					cv.put(AFISHA_TABLE_CINEMA_ID, afisha_row.getCinemaId());
-					cv.put(AFISHA_TABLE_THEATER_ID, afisha_row.getTheaterId());
-					cv.put(AFISHA_TABLE_ZAL, afisha_row.getZalTitle());
-					cv.put(AFISHA_TABLE_DATA_BEGIN, afisha_row.getDataBegin());
-					cv.put(AFISHA_TABLE_DATA_END, afisha_row.getDataEnd());
-					cv.put(AFISHA_TABLE_TIMES, afisha_row.getTimes());
-					cv.put(AFISHA_TABLE_PRICES, afisha_row.getPrices());
 					db.insert(AFISHA_TABLE, null, cv);
-				} 
+				} else {
+					db.update(AFISHA_TABLE, cv, AFISHA_TABLE_EXT_ID + " = ?", 
+							new String[] {Integer.toString(afisha_row.getId())});
+				}
 				result.close();		
 			}
 			db.setTransactionSuccessful();
