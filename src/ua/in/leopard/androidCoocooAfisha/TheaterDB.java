@@ -8,10 +8,13 @@ public class TheaterDB {
 	private String link;
 	private String address;
 	private String phone;
+	private String latitude;
+	private String longitude;
+	private String call_phone;
 	private Integer is_filter;
 	
 	// Constructor for the TheaterDB class
-	public TheaterDB(int id, int city_id, String title, String link, String address, String phone, Integer is_filter) {
+	public TheaterDB(int id, int city_id, String title, String link, String address, String phone, String latitude, String longitude, String call_phone, Integer is_filter) {
 		super();
 		this.id = id;
 		this.city_id = city_id;
@@ -19,6 +22,9 @@ public class TheaterDB {
 		this.link = link;
 		this.address = address;
 		this.phone = phone;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.call_phone = call_phone;
 		this.is_filter = is_filter;
 	}
 	
@@ -77,6 +83,24 @@ public class TheaterDB {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getCallPhone() {
+		return call_phone;
+	}
+	public void setCallPhone(String call_phone) {
+		this.call_phone = call_phone;
 	}
 	
 	public Boolean isFiltered(){

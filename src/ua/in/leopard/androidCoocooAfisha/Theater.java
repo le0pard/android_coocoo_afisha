@@ -4,17 +4,20 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Theater extends Activity implements OnItemClickListener {
+public class Theater extends Activity implements OnItemClickListener,OnClickListener {
 	private SeanceAdapter adapter_today, adapter_tomorrow;
+	private TheaterDB theater_main = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,14 +44,12 @@ public class Theater extends Activity implements OnItemClickListener {
         
         if (theater_id != 0){
         	DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
-        	TheaterDB theater_main = DatabaseHelperObject.getTheater(theater_id);
+        	theater_main = DatabaseHelperObject.getTheater(theater_id);
         	if (theater_main != null){
         		TextView theater_title = (TextView)findViewById(R.id.theater_title);
         		theater_title.setText(theater_main.getTitle());
-        		TextView theater_address = (TextView)findViewById(R.id.theater_address);
-        		theater_address.setText(Html.fromHtml(theater_main.getAddress()));
-        		TextView theater_phone = (TextView)findViewById(R.id.theater_phone);
-        		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
+        		Button theater_call_phone = (Button)findViewById(R.id.theater_call_phone);
+        		theater_call_phone.setOnClickListener(this);
         		
         		ListView seanceTodayList = (ListView)findViewById(R.id.afisha_today_list);
         		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayOrTomorrowByTheater(theater_main, true);
@@ -74,5 +75,17 @@ public class Theater extends Activity implements OnItemClickListener {
 		bundle.putInt("cinema_id", cinema_obj.getId());
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		  case R.id.theater_call_phone:
+			 if (theater_main != null){
+				String toDial="tel:" + theater_main.getCallPhone();
+				startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
+			 }
+	         break;        
+	      }
 	}
 }

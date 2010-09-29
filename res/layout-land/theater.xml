@@ -3,7 +3,7 @@
 android:orientation="horizontal"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:padding="3sp"
+android:padding="1sp"
 >
 
 <LinearLayout
@@ -18,7 +18,7 @@ android:padding="3sp"
       android:text="" android:typeface="sans" android:textSize="20sp" 
       android:textStyle="bold" android:gravity="center">
 </TextView>
-
+<!-- 
 <TableLayout
 android:layout_height="wrap_content"
 android:layout_width="fill_parent" 
@@ -53,6 +53,22 @@ android:shrinkColumns="0">
 		</TextView>
 	</TableRow>
 </TableLayout>
+ -->
+<Button
+  android:id="@+id/theater_more_info"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:drawableLeft="@drawable/theaters_button"
+  android:drawablePadding="3sp"
+  android:text="@string/theater_more_info" />
+<Button
+  android:id="@+id/theater_call_phone"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:drawableLeft="@drawable/mobile_phone"
+  android:drawablePadding="3sp"
+  android:text="@string/theater_call_phone" />
+  
 </LinearLayout>
 
 <TabHost android:id="@+id/tabhost"

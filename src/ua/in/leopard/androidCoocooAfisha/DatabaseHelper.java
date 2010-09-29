@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * sqlite3 /data/data/ua.in.leopard.androidCoocooAfisha/databases/coocoo_afisha_db
 */
 public class DatabaseHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_NAME="coocoo_afisha_db";
 	private final Context myContext;
 	
@@ -46,6 +46,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String THEATERS_TABLE_LINK="link";
 	private static final String THEATERS_TABLE_ADDRESS="address";
 	private static final String THEATERS_TABLE_PHONE="phone";
+	private static final String THEATERS_TABLE_LATITUDE="latitude";
+	private static final String THEATERS_TABLE_LONGITUDE="longitude";
+	private static final String THEATERS_TABLE_CALL_PHONE="call_phone";
 	private static final String THEATERS_TABLE_FILTER="is_filter";
 
 	
@@ -69,6 +72,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_LINK,
 				THEATERS_TABLE_ADDRESS,
 				THEATERS_TABLE_PHONE,
+				THEATERS_TABLE_LATITUDE,
+				THEATERS_TABLE_LONGITUDE,
+				THEATERS_TABLE_CALL_PHONE,
 				THEATERS_TABLE_FILTER
 				}, THEATERS_TABLE_CITY_ID + " = ?" + filter_sql,
 				new String[] {EditPreferences.getCityId(this.myContext)}, null, null, THEATERS_TABLE_TITLE);
@@ -83,6 +89,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_LATITUDE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_LONGITUDE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_CALL_PHONE)),
 				result.getInt(result.getColumnIndex(THEATERS_TABLE_FILTER))
 			));
 			result.moveToNext();
@@ -102,6 +111,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_LINK,
 				THEATERS_TABLE_ADDRESS,
 				THEATERS_TABLE_PHONE,
+				THEATERS_TABLE_LATITUDE,
+				THEATERS_TABLE_LONGITUDE,
+				THEATERS_TABLE_CALL_PHONE,
 				THEATERS_TABLE_FILTER
 				}, THEATERS_TABLE_EXT_ID + " = ?",
 				new String[] {Integer.toString(id)}, null, null, THEATERS_TABLE_TITLE, "1");
@@ -116,6 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_LATITUDE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_LONGITUDE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_CALL_PHONE)),
 				result.getInt(result.getColumnIndex(THEATERS_TABLE_FILTER))
 			);
 			result.moveToNext();
@@ -136,6 +151,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
 		cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
 		cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
+		cv.put(THEATERS_TABLE_LATITUDE, theater_row.getLatitude());
+		cv.put(THEATERS_TABLE_LONGITUDE, theater_row.getLongitude());
+		cv.put(THEATERS_TABLE_CALL_PHONE, theater_row.getCallPhone());
 		
 		if (tmp_obj == null){
 			db.insert(THEATERS_TABLE, null, cv);
@@ -354,6 +372,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE + "." + THEATERS_TABLE_LINK + " AS " + THEATERS_TABLE_LINK + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_ADDRESS + " AS " + THEATERS_TABLE_ADDRESS + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_PHONE + " AS " + THEATERS_TABLE_PHONE + "," + 
+				THEATERS_TABLE + "." + THEATERS_TABLE_LATITUDE + " AS " + THEATERS_TABLE_LATITUDE + "," + 
+				THEATERS_TABLE + "." + THEATERS_TABLE_LONGITUDE + " AS " + THEATERS_TABLE_LONGITUDE + "," + 
+				THEATERS_TABLE + "." + THEATERS_TABLE_CALL_PHONE + " AS " + THEATERS_TABLE_CALL_PHONE + "," + 
 				THEATERS_TABLE + "." + THEATERS_TABLE_FILTER + " AS " + THEATERS_TABLE_FILTER + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + 
@@ -382,6 +403,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(THEATERS_TABLE_LINK)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_ADDRESS)),
 				result.getString(result.getColumnIndex(THEATERS_TABLE_PHONE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_LATITUDE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_LONGITUDE)),
+				result.getString(result.getColumnIndex(THEATERS_TABLE_CALL_PHONE)),
 				result.getInt(result.getColumnIndex(THEATERS_TABLE_FILTER))
 			));
 			result.moveToNext();
@@ -599,6 +623,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_LINK + " TEXT, " + 
 				THEATERS_TABLE_ADDRESS + " TEXT, " + 
 				THEATERS_TABLE_PHONE + " TEXT, " +  
+				THEATERS_TABLE_LATITUDE + " TEXT, " +  
+				THEATERS_TABLE_LONGITUDE + " TEXT, " +  
+				THEATERS_TABLE_CALL_PHONE + " TEXT, " +  
 				THEATERS_TABLE_FILTER + " INTEGER DEFAULT 0" + 
 				");");
 	}

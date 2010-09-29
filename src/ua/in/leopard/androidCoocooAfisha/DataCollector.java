@@ -44,11 +44,23 @@ public class DataCollector {
 				    if (city_id == row.getInt("city_id")){
 				    	String phone = "";
 				    	String address = "";
+				    	String latitude = "";
+				    	String longitude = "";
+				    	String call_phone = "";
 				    	if (!row.isNull("phone")){
 				    		phone = row.getString("phone");
 				    	}
 				    	if (!row.isNull("address")){
 				    		address = row.getString("address");
+				    	}
+				    	if (!row.isNull("latitude")){
+				    		latitude = row.getString("latitude");
+				    	}
+				    	if (!row.isNull("longitude")){
+				    		longitude = row.getString("longitude");
+				    	}
+				    	if (!row.isNull("call_phone")){
+				    		call_phone = row.getString("call_phone");
 				    	}
 				    	DatabaseHelperObject.setTheater(new TheaterDB(
 				    			row.getInt("id"), city_id, 
@@ -56,6 +68,9 @@ public class DataCollector {
 				    			row.getString("link"), 
 				    			address, 
 				    			phone,
+				    			latitude,
+				    			longitude,
+				    			call_phone,
 				    			0)
 				    	);
 				    }
