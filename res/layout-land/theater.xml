@@ -18,42 +18,7 @@ android:padding="1sp"
       android:text="" android:typeface="sans" android:textSize="20sp" 
       android:textStyle="bold" android:gravity="center">
 </TextView>
-<!-- 
-<TableLayout
-android:layout_height="wrap_content"
-android:layout_width="fill_parent" 
-android:background="@color/border" 
-android:shrinkColumns="0">
-  <TableRow android:background="@color/background" android:layout_margin="1dip">
-    <TextView android:layout_height="wrap_content"
-          android:layout_width="fill_parent"
-          android:text="@string/theater_address" android:typeface="sans" android:textSize="14sp" 
-          android:paddingLeft="3dip" android:gravity="left" android:paddingRight="10dip">
-    </TextView>
-  </TableRow>
-	<TableRow android:background="@color/background" android:layout_margin="1dip">
-		<TextView android:layout_height="wrap_content"
-		      android:layout_width="fill_parent" android:id="@+id/theater_address"
-		      android:text="" android:typeface="sans" android:textSize="14sp" android:textStyle="bold" 
-		      android:padding="3dip">
-		</TextView>
-	</TableRow>
-	<TableRow android:background="@color/background" android:layout_margin="1dip">
-    <TextView android:layout_height="wrap_content"
-          android:layout_width="fill_parent"
-          android:text="@string/theater_phone" android:typeface="sans" android:textSize="14sp" 
-          android:paddingLeft="3dip"  android:gravity="left" android:paddingRight="10dip">
-    </TextView>
-  </TableRow>
-	<TableRow android:background="@color/background" android:layout_margin="1dip">
-		<TextView android:layout_height="wrap_content"
-		      android:layout_width="fill_parent" android:id="@+id/theater_phone"
-		      android:text="" android:typeface="sans" android:textSize="14sp" android:textStyle="bold" 
-		      android:padding="3dip">
-		</TextView>
-	</TableRow>
-</TableLayout>
- -->
+
 <Button
   android:id="@+id/theater_more_info"
   android:layout_width="fill_parent"

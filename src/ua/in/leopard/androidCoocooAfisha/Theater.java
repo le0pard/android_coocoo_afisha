@@ -48,6 +48,8 @@ public class Theater extends Activity implements OnItemClickListener,OnClickList
         	if (theater_main != null){
         		TextView theater_title = (TextView)findViewById(R.id.theater_title);
         		theater_title.setText(theater_main.getTitle());
+        		Button theater_more_info = (Button)findViewById(R.id.theater_more_info);
+        		theater_more_info.setOnClickListener(this);
         		Button theater_call_phone = (Button)findViewById(R.id.theater_call_phone);
         		theater_call_phone.setOnClickListener(this);
         		
@@ -85,7 +87,16 @@ public class Theater extends Activity implements OnItemClickListener,OnClickList
 				String toDial="tel:" + theater_main.getCallPhone();
 				startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
 			 }
-	         break;        
+	         break;  
+		  case R.id.theater_more_info:
+			 if (theater_main != null){
+				Intent intent = new Intent(this, TheaterInfo.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("theater_id", theater_main.getId());
+				intent.putExtras(bundle);
+				startActivity(intent);
+			 }
+	         break; 
 	      }
 	}
 }

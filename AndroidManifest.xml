@@ -28,6 +28,7 @@
 <activity android:name="Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="CinemaDescription"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="TheatersFilterDialog"></activity>
+<activity android:theme="@android:style/Theme.Dialog" android:name="TheaterInfo"></activity>
 </application>
 
 
