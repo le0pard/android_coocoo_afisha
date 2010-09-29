@@ -27,6 +27,8 @@ public class TheaterInfo extends Activity {
         		theater_address.setText(theater_main.getAddress());
         		TextView theater_phone = (TextView)findViewById(R.id.theater_phone);
         		theater_phone.setText(theater_main.getPhone());
+        		TextView theater_link = (TextView)findViewById(R.id.theater_link);
+        		theater_link.setText(theater_main.getLink());
         	}
         }
 	}
