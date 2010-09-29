@@ -58,7 +58,7 @@ android:shrinkColumns="0">
   android:id="@+id/theater_more_info"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content"
-  android:drawableLeft="@drawable/theaters_button"
+  android:drawableLeft="@drawable/information"
   android:drawablePadding="3sp"
   android:text="@string/theater_more_info" />
 <Button
