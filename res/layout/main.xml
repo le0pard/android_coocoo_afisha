@@ -38,6 +38,11 @@
          android:layout_height="wrap_content"
          android:text="@string/theaters_label" />
       <Button
+         android:id="@+id/theaters_map_button"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/theaters_map_label" />
+      <Button
          android:id="@+id/update_button"
          android:layout_width="fill_parent"
          android:layout_height="wrap_content"

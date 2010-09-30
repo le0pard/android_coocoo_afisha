@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:background="@color/background"
+   android:textColor="@color/text"
+   android:layout_height="fill_parent"
+   android:layout_width="fill_parent"
+   android:padding="10dip"
+   android:orientation="horizontal">
+   <LinearLayout
+      android:orientation="vertical"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:layout_gravity="center">
+      <TextView
+         android:text="@string/main_title"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginBottom="15dip"
+         android:textSize="24.5sp" />
+      <TextView
+         android:id="@+id/current_city"
+         android:text="@string/current_city_title"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:layout_gravity="center"
+         android:layout_marginBottom="15dip"
+         android:textSize="16sp" />
+      
+      <LinearLayout
+	      android:orientation="horizontal"
+	      android:layout_height="wrap_content"
+	      android:layout_width="fill_parent"
+	      android:gravity="center"
+	      android:layout_gravity="center">
+      
+	      <LinearLayout
+		      android:orientation="vertical"
+		      android:layout_height="wrap_content"
+		      android:layout_width="wrap_content"
+		      android:gravity="center">
+	      <Button
+	         android:id="@+id/cinemas_button"
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:text="@string/cinemas_label" />
+	       <Button
+	         android:id="@+id/theaters_button"
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:text="@string/theaters_label" />
+	      </LinearLayout>
+	      
+	      <LinearLayout
+	        android:orientation="vertical"
+	        android:layout_height="wrap_content"
+	        android:layout_width="wrap_content"
+	        android:gravity="center">
+	      <Button
+	         android:id="@+id/theaters_map_button"
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:text="@string/theaters_map_label" />
+	      <Button
+	         android:id="@+id/update_button"
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:text="@string/update_label" />
+	      </LinearLayout>
+        
+      </LinearLayout>
+   </LinearLayout>
+</LinearLayout>

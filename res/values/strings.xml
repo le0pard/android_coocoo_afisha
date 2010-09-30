@@ -92,4 +92,8 @@
     </string>
     
     <string name="exit_label">Выход</string>
+    
+    <string name="theaters_map_label">Карта кинотеатров</string>
+    <string name="theaters_map_city_title">Кинотеатры города:</string>
+    <string name="gmap_api">0Py1gbGPg9zH1VcIB-teQEAz2218jb34JY6X_Cw</string>
 </resources>

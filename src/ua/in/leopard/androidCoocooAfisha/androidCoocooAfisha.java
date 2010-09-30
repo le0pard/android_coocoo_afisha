@@ -27,6 +27,8 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         cinemasButton.setOnClickListener(this);
         View theatersButton = findViewById(R.id.theaters_button);
         theatersButton.setOnClickListener(this);
+        View theatersMapButton = findViewById(R.id.theaters_map_button);
+        theatersMapButton.setOnClickListener(this);
         View updateButton = findViewById(R.id.update_button);
         updateButton.setOnClickListener(this);
         
@@ -78,6 +80,9 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 		         break;
 			  case R.id.theaters_button:
 				 startActivity(new Intent(this, Theaters.class));
+		         break;
+			  case R.id.theaters_map_button:
+				 startActivity(new Intent(this, TheatersMap.class));
 		         break;
 			  case R.id.update_button:
 				 new DataProgressDialog(this).execute();

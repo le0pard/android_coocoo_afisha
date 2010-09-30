@@ -9,6 +9,7 @@
 		android:anyDensity="true"
 		/>   
     <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <uses-library android:name="com.google.android.maps" />
         <activity android:name=".androidCoocooAfisha"
                   android:label="@string/app_name">
             <intent-filter>
@@ -29,6 +30,7 @@
 <activity android:theme="@android:style/Theme.Dialog" android:name="CinemaDescription"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="TheatersFilterDialog"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="TheaterInfo"></activity>
+<activity android:name="TheatersMap" android:theme="@android:style/Theme.NoTitleBar"></activity>
 </application>
 
 

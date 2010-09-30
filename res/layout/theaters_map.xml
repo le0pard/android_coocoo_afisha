@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainlayout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.google.android.maps.MapView
+        android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:apiKey="@string/gmap_api"
+    />
+    
+  <LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android" 
+              android:layout_width="fill_parent" 
+              android:layout_height="fill_parent"
+          android:orientation="vertical"
+          android:gravity="top"
+          android:paddingTop="1px"
+          android:paddingLeft="5px"
+          android:paddingBottom="5px"
+          android:paddingRight="5px">
+
+    <ua.in.leopard.androidCoocooAfisha.MapPanelLayout
+        android:id="@+id/transparent_panel" 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5px"
+            android:paddingLeft="5px"
+        android:paddingBottom="5px"
+        android:paddingRight="5px">
+        
+        <LinearLayout
+	      android:orientation="vertical"
+	      android:layout_height="wrap_content"
+	      android:layout_width="fill_parent"
+	      android:gravity="center">
+			        <TextView
+			         android:id="@+id/theaters_map_city"
+			         android:layout_height="wrap_content"
+			         android:layout_width="wrap_content"
+			         android:textSize="14sp" />
+			         
+			          <LinearLayout
+			            android:orientation="horizontal"
+			            android:layout_height="wrap_content"
+			            android:layout_width="fill_parent"
+			            android:layout_gravity="center">
+						        <Button android:id="@+id/button_click_me"
+						          android:layout_width="wrap_content" 
+						          android:layout_height="wrap_content"
+						          android:text="Click Me!"/>
+						        <Button android:id="@+id/button_click_me2"
+                      android:layout_width="wrap_content" 
+                      android:layout_height="wrap_content"
+                      android:text="Click Me2!"/>
+                </LinearLayout> 
+        </LinearLayout> 
+          
+    </ua.in.leopard.androidCoocooAfisha.MapPanelLayout>
+
+  </LinearLayout>
+
+</RelativeLayout>
