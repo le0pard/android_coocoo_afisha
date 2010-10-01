@@ -6,11 +6,11 @@ import java.util.TimerTask;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
+/*import android.util.Log;*/
 import android.widget.Toast;
 
 public class DataUpdateService extends Service {
-	private static final String TAG = "DataUpdateService";
+	//private static final String TAG = "DataUpdateService";
 	private Timer timer = new Timer();
 	private int hours_interval = 1;
 	private Boolean first_iteration_cycle = true;
@@ -23,7 +23,7 @@ public class DataUpdateService extends Service {
 	@Override
 	public void onCreate() {
 		//Toast.makeText(this, "My Service Created", Toast.LENGTH_LONG).show();
-		Log.d(TAG, "DataUpdateService onCreate");
+		//Log.d(TAG, "DataUpdateService onCreate");
 		this.hours_interval = Integer.parseInt(EditPreferences.getAutoUpdateTime(this));
 		this.first_iteration_cycle = true;
 		startTimer();
@@ -32,7 +32,7 @@ public class DataUpdateService extends Service {
 	@Override
 	public void onDestroy() {
 		Toast.makeText(this, getString(R.string.autoupdate_service_stop), Toast.LENGTH_LONG).show();
-		Log.d(TAG, "DataUpdateService onDestroy");
+		//Log.d(TAG, "DataUpdateService onDestroy");
 		if (timer != null){
 			timer.cancel();
 		} 
@@ -41,7 +41,7 @@ public class DataUpdateService extends Service {
 	@Override
 	public void onStart(Intent intent, int startid) {
 		Toast.makeText(this, getString(R.string.autoupdate_service_start), Toast.LENGTH_LONG).show();
-		Log.d(TAG, "DataUpdateService onStart");
+		//Log.d(TAG, "DataUpdateService onStart");
 	}
 	
 	private void startTimer(){
@@ -61,7 +61,7 @@ public class DataUpdateService extends Service {
 			DataCollector dataCollectorObject = new DataCollector(getApplicationContext());
 			dataCollectorObject.getTheatersData();
 			dataCollectorObject.getCinemasData();
-			Log.d(TAG, "dataUpdated");
+			//Log.d(TAG, "dataUpdated");
 		}
 	}
 

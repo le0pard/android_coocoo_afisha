@@ -95,6 +95,13 @@
     
     <string name="theaters_map_label">Карта кинотеатров</string>
     <string name="theaters_map_city_title">Кинотеатры города:</string>
+    <!-- <string name="gmap_api">0Py1gbGPg9zGMsC6AhSurIZ30zwcb4hhpikMQYg</string> -->
     <string name="gmap_api">0Py1gbGPg9zH1VcIB-teQEAz2218jb34JY6X_Cw</string>
     <string name="theaters_map_me">Где я?</string>
+    <string name="theaters_map_me_found_error">Координаты Вашего местаположения не определены</string>
+    <string name="theaters_map_city">Город</string>
+    <string name="theaters_map_city_syfix">, Украина</string>
+    <string name="theaters_map_city_found_error">Координаты города не определены</string>
+    <string name="theaters_map_show_seances">Афиша</string>
+    <string name="theaters_map_close_info">Скрыть</string>
 </resources>
