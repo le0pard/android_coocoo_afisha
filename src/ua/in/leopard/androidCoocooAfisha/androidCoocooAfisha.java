@@ -107,9 +107,10 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
          return true;
       	case R.id.about_button:
       	 startActivity(new Intent(this, About.class));
-         break;
+      	return true;
+      	default:
+	     return super.onOptionsItemSelected(item);
       }
-      return false;
    }
 
 }
