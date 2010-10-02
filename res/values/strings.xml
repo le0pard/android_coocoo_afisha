@@ -104,4 +104,10 @@
     <string name="theaters_map_city_found_error">Координаты города не определены</string>
     <string name="theaters_map_show_seances">Афиша</string>
     <string name="theaters_map_close_info">Скрыть</string>
+    
+    <string name="theaters_map_zoom_in">Увеличить</string>
+    <string name="theaters_map_zoom_out">Уменьшить</string>
+    <string name="theaters_map_satellit">Спутник</string>
+    <string name="theaters_map_streets">Улицы</string>
+    <string name="theaters_map_traffic">Трафик</string>
 </resources>

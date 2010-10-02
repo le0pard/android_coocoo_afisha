@@ -9,6 +9,9 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -111,6 +114,19 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		}
 	}
 	
+	public GeoPoint getMyLocation(){
+		/*
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location loc = lm.getLastKnownLocation("gps");
+		if (loc != null){
+			return new GeoPoint((int)(loc.getLatitude()*1e6),(int)(loc.getLongitude()*1e6));
+		} else {
+			return null;
+		}
+		*/
+		return me.getMyLocation();
+	}
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -134,7 +150,8 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		TheaterDB selected_theater = theatersItemizedOverlay.getSelectedTheater();
 		switch (v.getId()) {
 		  case R.id.theaters_map_my_location:
-			 GeoPoint user_location = me.getMyLocation();
+			 //GeoPoint user_location = me.getMyLocation();
+			 GeoPoint user_location = getMyLocation();
 			 if (user_location != null){
 				 mapController.animateTo(user_location);
 			 } else {
@@ -164,5 +181,67 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		      break;
 	      }
 	}
-
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean supRetVal = super.onCreateOptionsMenu(menu);
+		menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.theaters_map_zoom_in));
+		menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.theaters_map_zoom_out));
+		menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.theaters_map_satellit));
+		menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.theaters_map_streets));
+		menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.theaters_map_traffic));
+		return supRetVal;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		    case 0:
+		    	mapController.zoomIn();
+		        return true;
+		    case 1:
+		    	mapController.zoomOut();
+		        return true;
+		    case 2:
+		    	mapView.setSatellite(!mapView.isSatellite());
+		        return true;
+		    case 3:
+		    	mapView.setStreetView(!mapView.isStreetView());
+		        return true;
+		    case 4:
+		    	mapView.setTraffic(!mapView.isTraffic());
+		        return true;
+		    default:
+		        return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	@Override
+	public boolean onKeyDown(int KeyCode, KeyEvent event) {
+		switch(KeyCode){
+			case KeyEvent.KEYCODE_DPAD_UP:
+			case KeyEvent.KEYCODE_2:
+				mapController.zoomIn();
+		        return true;
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+			case KeyEvent.KEYCODE_8:
+				mapController.zoomOut();
+		        return true;
+			case KeyEvent.KEYCODE_BACK:
+				finish();
+		        return true;
+			case KeyEvent.KEYCODE_4:
+				mapView.setSatellite(!mapView.isSatellite());
+		        return true;
+			case KeyEvent.KEYCODE_5:
+				mapView.setStreetView(!mapView.isStreetView());
+		        return true;
+			case KeyEvent.KEYCODE_6:
+				mapView.setTraffic(!mapView.isTraffic());
+		        return true;
+			default:
+				return false;
+		}
+	}
+	
 }
