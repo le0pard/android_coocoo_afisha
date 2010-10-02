@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -47,7 +48,7 @@ public class Theater extends Activity implements OnItemClickListener,OnClickList
         	theater_main = DatabaseHelperObject.getTheater(theater_id);
         	if (theater_main != null){
         		TextView theater_title = (TextView)findViewById(R.id.theater_title);
-        		theater_title.setText(theater_main.getTitle());
+        		theater_title.setText(Html.fromHtml(theater_main.getTitle()));
         		Button theater_more_info = (Button)findViewById(R.id.theater_more_info);
         		theater_more_info.setOnClickListener(this);
         		Button theater_call_phone = (Button)findViewById(R.id.theater_call_phone);

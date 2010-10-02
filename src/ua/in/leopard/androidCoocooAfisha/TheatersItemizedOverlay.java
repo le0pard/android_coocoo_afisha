@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -70,7 +71,7 @@ public class TheatersItemizedOverlay extends ItemizedOverlay<TheaterOverlayItem>
 	private void initInfoBlock(TheaterOverlayItem item){
 		if (item.getTheaterObj() != null){
 			TheaterDB theater_obj = item.getTheaterObj();
-			this.view_theater_title.setText(theater_obj.getTitle());
+			this.view_theater_title.setText(Html.fromHtml(theater_obj.getTitle()));
 			this.view_info_box.setVisibility(View.VISIBLE);
 		}
 	}

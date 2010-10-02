@@ -17,7 +17,7 @@ public class TheaterAdapterView extends LinearLayout {
 		View v = inflate(context, R.layout.theater_row, null);
 		
 		TextView theaterTitle = (TextView)v.findViewById(R.id.theater_title);
-		theaterTitle.setText(entry.getTitle());
+		theaterTitle.setText(Html.fromHtml(entry.getTitle()));
 		
 		TextView theaterAddress = (TextView)v.findViewById(R.id.theater_address);
 		theaterAddress.setText(Html.fromHtml(entry.getAddress()));
