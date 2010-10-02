@@ -62,7 +62,8 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         List<TheaterDB> theaters = DatabaseHelperObject.getTheaters(false);
         for (int i = 0; i < theaters.size(); i++){
         	TheaterDB theater_row = theaters.get(i);
-        	if (theater_row.getLatitude() != "" && theater_row.getLongitude() != ""){
+        	if (theater_row.getLatitude() != null && theater_row.getLatitude().length() != 0 &&
+        			theater_row.getLongitude() != null && theater_row.getLongitude().length() != 0){
         		float latitude = Float.valueOf(theater_row.getLatitude()).floatValue();
         		float longitude = Float.valueOf(theater_row.getLongitude()).floatValue();
 	        	GeoPoint point = new GeoPoint((int)(latitude*1e6),(int)(longitude*1e6));
