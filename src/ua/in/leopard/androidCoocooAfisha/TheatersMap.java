@@ -3,11 +3,16 @@ package ua.in.leopard.androidCoocooAfisha;
 import java.io.IOException;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -70,6 +75,20 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         theatersItemizedOverlay.setViews(theater_info_block, (TextView)findViewById(R.id.theaters_map_title));
         
         initMapTheaters();
+        
+        if(!isGpsDeviceOn()){
+        	View myLocationButton = findViewById(R.id.theaters_map_my_location);
+        	myLocationButton.setEnabled(false);
+        	AlertDialog.Builder gpsWarningDialog = new AlertDialog.Builder(this);
+            gpsWarningDialog.setTitle(getString(R.string.gps_off_warning_title));
+            gpsWarningDialog.setMessage(getString(R.string.gps_off_warning));
+            gpsWarningDialog.setIcon(android.R.drawable.stat_sys_warning);
+            gpsWarningDialog.setNeutralButton(getString(R.string.gps_off_warning_button), new DialogInterface.OnClickListener() {
+            	public void onClick(DialogInterface dialog, int which) {
+            	}
+            });
+            gpsWarningDialog.show();
+        }
 	}
 	
 	private void initMapTheaters(){
@@ -160,21 +179,15 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	
 	@Override
 	public void onResume() {
-		if (this.me != null){
-			this.me.enableCompass();
-			this.me.enableMyLocation();
-			this.mapView.getOverlays().add(this.me);
-		}
 		super.onResume();
+		this.me.enableCompass();
+		this.me.enableMyLocation();
 	}
 	@Override
 	public void onPause() {
-		if (this.me != null){
-			this.me.disableMyLocation();
-			this.me.disableCompass();
-		}
 		super.onPause();
-		
+		this.me.disableMyLocation();
+		this.me.disableCompass();
 	}
 	
 	@Override
@@ -268,7 +281,21 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	
 	@Override
 	public boolean onKeyDown(int KeyCode, KeyEvent event) {
+		super.onKeyDown(KeyCode, event);
 		switch(KeyCode){
+			case KeyEvent.KEYCODE_DPAD_UP:
+				moveUp();
+                return true;
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+				moveDown();
+                return true;
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+				moveLeft();
+                return true;
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				moveRight();
+                return true;
+			case KeyEvent.KEYCODE_DPAD_CENTER:
 			case KeyEvent.KEYCODE_2:
 				mapController.zoomIn();
 		        return true;
@@ -287,9 +314,49 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 			case KeyEvent.KEYCODE_6:
 				mapView.setTraffic(!mapView.isTraffic());
 		        return true;
-			default:
-				return false;
 		}
+		mapView.invalidate();
+        return false;
+	}
+	
+	public boolean isGpsDeviceOn(){
+        String checkGpsDevice = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if(checkGpsDevice.length()==0 || checkGpsDevice==null || (!checkGpsDevice.contains(LocationManager.GPS_PROVIDER) && !checkGpsDevice.contains(LocationManager.NETWORK_PROVIDER))){
+                return false;
+        }
+        return true;
+    }
+	
+	public void moveUp(){
+        GeoPoint centerGeoPoint = mapView.getMapCenter();
+        Point centerPoint = new Point();
+        mapView.getProjection().toPixels(centerGeoPoint, centerPoint);
+        GeoPoint newCenterGeoPoint = mapView.getProjection().fromPixels(centerPoint.x, centerPoint.y - mapView.getHeight()/4);
+        mapController.animateTo(newCenterGeoPoint);
+	}
+	
+	public void moveDown(){
+        GeoPoint centerGeoPoint = mapView.getMapCenter();
+        Point centerPoint = new Point();
+        mapView.getProjection().toPixels(centerGeoPoint, centerPoint);
+        GeoPoint newCenterGeoPoint = mapView.getProjection().fromPixels(centerPoint.x, centerPoint.y + mapView.getHeight()/4);
+        mapController.animateTo(newCenterGeoPoint);
+	}
+	
+	public void moveLeft(){
+        GeoPoint centerGeoPoint = mapView.getMapCenter();
+        Point centerPoint = new Point();
+        mapView.getProjection().toPixels(centerGeoPoint, centerPoint);
+        GeoPoint newCenterGeoPoint = mapView.getProjection().fromPixels(centerPoint.x - mapView.getWidth()/4, centerPoint.y);
+        mapController.animateTo(newCenterGeoPoint);
+	}
+	
+	public void moveRight(){
+        GeoPoint centerGeoPoint = mapView.getMapCenter();
+        Point centerPoint = new Point();
+        mapView.getProjection().toPixels(centerGeoPoint, centerPoint);
+        GeoPoint newCenterGeoPoint = mapView.getProjection().fromPixels(centerPoint.x + mapView.getHeight()/4, centerPoint.y);
+        mapController.animateTo(newCenterGeoPoint);
 	}
 	
 }

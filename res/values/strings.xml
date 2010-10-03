@@ -106,6 +106,10 @@
     <string name="theaters_map_show_seances">Афиша</string>
     <string name="theaters_map_close_info">Скрыть</string>
     
+    <string name="gps_off_warning_title">Внимание</string>
+    <string name="gps_off_warning"><![CDATA[GPS не включен! Функция "Где я?" заблокирована]]></string>
+    <string name="gps_off_warning_button">Хорошо</string>
+    
     <string name="theaters_map_zoom_in">Увеличить</string>
     <string name="theaters_map_zoom_out">Уменьшить</string>
     <string name="theaters_map_satellit">Спутник</string>
