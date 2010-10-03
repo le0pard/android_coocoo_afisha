@@ -114,8 +114,8 @@
     <string name="theaters_map_hotkey_help">Помощь</string>
     <string name="about_map_text"><![CDATA[
     <b>Кнопки по управлению карты:</b><br />
-    UP, 2 - Увеличить<br />
-    DOWN, 8 - Уменьшить<br />
+    2 - Увеличить<br />
+    8 - Уменьшить<br />
     4 - Спутник<br />
     5 - Улицы<br />
     6 - Трафик

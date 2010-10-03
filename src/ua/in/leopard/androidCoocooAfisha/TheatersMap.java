@@ -254,11 +254,9 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	@Override
 	public boolean onKeyDown(int KeyCode, KeyEvent event) {
 		switch(KeyCode){
-			case KeyEvent.KEYCODE_DPAD_UP:
 			case KeyEvent.KEYCODE_2:
 				mapController.zoomIn();
 		        return true;
-			case KeyEvent.KEYCODE_DPAD_DOWN:
 			case KeyEvent.KEYCODE_8:
 				mapController.zoomOut();
 		        return true;
