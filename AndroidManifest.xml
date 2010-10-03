@@ -30,7 +30,7 @@
 <activity android:theme="@android:style/Theme.Dialog" android:name="CinemaDescription"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="TheatersFilterDialog"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="TheaterInfo"></activity>
-<activity android:name="TheatersMap" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name="TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="AboutMap" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
 </application>
 

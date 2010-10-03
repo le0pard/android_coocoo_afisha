@@ -160,15 +160,30 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	
 	@Override
 	public void onResume() {
+		if (this.me != null){
+			this.me.enableCompass();
+			this.me.enableMyLocation();
+			this.mapView.getOverlays().add(this.me);
+		}
 		super.onResume();
-		me.enableCompass();
-		me.enableMyLocation();
 	}
 	@Override
 	public void onPause() {
+		if (this.me != null){
+			this.me.disableMyLocation();
+			this.me.disableCompass();
+		}
 		super.onPause();
-		me.disableCompass();
-		me.disableMyLocation();
+		
+	}
+	
+	@Override
+	public void onDestroy() {
+		if (this.me != null){
+			this.me.disableMyLocation();
+			this.me.disableCompass();
+		}
+		super.onDestroy();
 	}
 
 	@Override
