@@ -48,7 +48,19 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         me = new MyLocationOverlay(this, mapView);
         mapOverlays.add(me);
         
-        moveToCityLocation();
+        Bundle extras = getIntent().getExtras();
+        int get_theater_id = 0;
+        if(extras != null) {
+        	get_theater_id = extras.getInt("theater_id", 0);
+        }
+        
+        if (get_theater_id != 0){
+        	moveToTheater(get_theater_id);
+        } else {
+        	moveToCityLocation();
+        }
+        
+        
         initMapPanel();
         
         theatersItemizedOverlay = new TheatersItemizedOverlay(
@@ -112,6 +124,25 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 			//e.printStackTrace();
 			Toast.makeText(this, getString(R.string.theaters_map_city_found_error), Toast.LENGTH_LONG).show();
 		}
+	}
+	
+	private void moveToTheater(int theater_id){
+		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
+        TheaterDB theater = DatabaseHelperObject.getTheater(theater_id);
+        if (theater != null){
+        	if (theater.getLatitude() != null && theater.getLatitude().length() != 0 &&
+        			theater.getLongitude() != null && theater.getLongitude().length() != 0){
+        		float latitude = Float.valueOf(theater.getLatitude()).floatValue();
+        		float longitude = Float.valueOf(theater.getLongitude()).floatValue();
+	        	GeoPoint point = new GeoPoint((int)(latitude*1e6),(int)(longitude*1e6));
+	        	mapController.animateTo(point);
+	        	mapController.setZoom(16);
+        	} else {
+        		moveToCityLocation();
+        	}
+        } else {
+        	moveToCityLocation();
+        }
 	}
 	
 	public GeoPoint getMyLocation(){
@@ -185,11 +216,12 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean supRetVal = super.onCreateOptionsMenu(menu);
-		menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.theaters_map_zoom_in));
-		menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.theaters_map_zoom_out));
-		menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.theaters_map_satellit));
-		menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.theaters_map_streets));
-		menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.theaters_map_traffic));
+		menu.add(Menu.NONE, 0, Menu.NONE, R.string.theaters_map_zoom_in);
+		menu.add(Menu.NONE, 1, Menu.NONE, R.string.theaters_map_zoom_out);
+		menu.add(Menu.NONE, 2, Menu.NONE, R.string.theaters_map_satellit);
+		menu.add(Menu.NONE, 3, Menu.NONE, R.string.theaters_map_streets);
+		menu.add(Menu.NONE, 4, Menu.NONE, R.string.theaters_map_traffic);
+		menu.add(Menu.NONE, 5, Menu.NONE, R.string.theaters_map_hotkey_help);
 		return supRetVal;
 	}
 	
@@ -210,6 +242,9 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		        return true;
 		    case 4:
 		    	mapView.setTraffic(!mapView.isTraffic());
+		        return true;
+		    case 5:
+		    	startActivity(new Intent(this, AboutMap.class));
 		        return true;
 		    default:
 		        return super.onOptionsItemSelected(item);

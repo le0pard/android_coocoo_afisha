@@ -31,6 +31,14 @@ android:layout_height="wrap_content">
   android:drawableLeft="@drawable/mobile_phone"
   android:drawablePadding="3sp"
   android:text="@string/theater_call_phone" />
+  
+<Button
+  android:id="@+id/theater_map_location"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:drawableLeft="@drawable/map_pin_icon"
+  android:drawablePadding="3sp"
+  android:text="@string/theater_map_location" />
 
 </LinearLayout>
 

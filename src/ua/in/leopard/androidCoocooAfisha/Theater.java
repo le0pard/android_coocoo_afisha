@@ -53,6 +53,8 @@ public class Theater extends Activity implements OnItemClickListener,OnClickList
         		theater_more_info.setOnClickListener(this);
         		Button theater_call_phone = (Button)findViewById(R.id.theater_call_phone);
         		theater_call_phone.setOnClickListener(this);
+        		Button theater_map_location = (Button)findViewById(R.id.theater_map_location);
+        		theater_map_location.setOnClickListener(this);
         		
         		ListView seanceTodayList = (ListView)findViewById(R.id.afisha_today_list);
         		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayOrTomorrowByTheater(theater_main, true);
@@ -98,6 +100,15 @@ public class Theater extends Activity implements OnItemClickListener,OnClickList
 				startActivity(intent);
 			 }
 	         break; 
+		  case R.id.theater_map_location:
+		     if (theater_main != null){
+				Intent intent = new Intent(this, TheatersMap.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("theater_id", theater_main.getId());
+				intent.putExtras(bundle);
+				startActivity(intent);
+			 }
+			 break;
 	      }
 	}
 }

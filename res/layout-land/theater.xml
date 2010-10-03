@@ -34,6 +34,14 @@ android:padding="1sp"
   android:drawablePadding="3sp"
   android:text="@string/theater_call_phone" />
   
+<Button
+  android:id="@+id/theater_map_location"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:drawableLeft="@drawable/map_pin_icon"
+  android:drawablePadding="3sp"
+  android:text="@string/theater_map_location" />
+  
 </LinearLayout>
 
 <TabHost android:id="@+id/tabhost"
