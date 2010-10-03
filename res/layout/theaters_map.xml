@@ -54,13 +54,15 @@
 						          android:layout_height="wrap_content"
 						          android:drawableLeft="@drawable/user_icon"
                       android:drawablePadding="3sp"
-						          android:text="@string/theaters_map_me"/>
+						          android:text="@string/theaters_map_me"
+						          android:focusable="false"/>
 						        <Button android:id="@+id/theaters_map_show_city_location"
                       android:layout_width="wrap_content" 
                       android:layout_height="wrap_content"
                       android:drawableLeft="@drawable/map_pin_icon"
                       android:drawablePadding="3sp"
-                      android:text="@string/theaters_map_city"/>
+                      android:text="@string/theaters_map_city"
+                      android:focusable="false"/>
                 </LinearLayout> 
                 
                 <View android:layout_width="fill_parent"
@@ -93,20 +95,23 @@
                       android:layout_height="wrap_content"
                       android:drawableLeft="@drawable/cinemas_button"
                       android:drawablePadding="3sp"
-                      android:text="@string/theaters_map_show_seances"/>
+                      android:text="@string/theaters_map_show_seances"
+                      android:focusable="false"/>
                     <Button
 										  android:id="@+id/theaters_map_call_phone"
 										  android:layout_width="wrap_content"
 										  android:layout_height="wrap_content"
 										  android:drawableLeft="@drawable/mobile_phone"
 										  android:drawablePadding="3sp"
-										  android:text="@string/theater_call_phone" />
+										  android:text="@string/theater_call_phone"
+										  android:focusable="false" />
                     <ImageButton android:id="@+id/theaters_map_close_info"
                       android:layout_width="wrap_content" 
                       android:layout_height="wrap_content"
                       android:layout_gravity="center"
                       android:drawablePadding="5sp"
-                      android:src="@drawable/close_icon" />
+                      android:src="@drawable/close_icon"
+                      android:focusable="false" />
                 </LinearLayout> 
                   
                 </LinearLayout>
