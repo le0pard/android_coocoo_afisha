@@ -102,7 +102,7 @@ public class Theater extends Activity implements OnItemClickListener,OnClickList
 	         break; 
 		  case R.id.theater_map_location:
 		     if (theater_main != null){
-				Intent intent = new Intent(this, TheatersMap.class);
+				Intent intent = new Intent(this, MainTheatersMap.class);
 				Bundle bundle = new Bundle();
 				bundle.putInt("theater_id", theater_main.getId());
 				intent.putExtras(bundle);
