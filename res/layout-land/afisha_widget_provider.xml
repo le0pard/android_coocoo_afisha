@@ -3,11 +3,11 @@
 android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="@drawable/afisha_widget_frame"
-android:paddingTop="10sp"
-android:paddingBottom="10sp"
-android:paddingLeft="30sp"
-android:paddingRight="30sp"
+android:background="@drawable/afisha_widget_frame_landscape"
+android:paddingTop="15sp"
+android:paddingBottom="15sp"
+android:paddingLeft="25sp"
+android:paddingRight="25sp"
 
 >
 	<TextView 
