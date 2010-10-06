@@ -33,6 +33,18 @@
 <activity android:name="TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theatersMapProcess"></activity>
 <activity android:theme="@android:style/Theme.Dialog" android:name="AboutMap" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
 <activity android:name="MainTheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
+
+<receiver android:name=".AfishaWidgetProvider">
+    <meta-data android:name="android.appwidget.provider"
+            android:resource="@xml/afisha_widget_provider" />
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+    </intent-filter>
+</receiver>
+
+<receiver android:name=".AfishaWidgetBroadcastReceiver" android:enabled="true">
+</receiver>
+
 </application>
 
 <uses-sdk android:targetSdkVersion="7" android:minSdkVersion="5"></uses-sdk>
