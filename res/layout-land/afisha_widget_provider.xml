@@ -4,17 +4,24 @@ android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:background="@drawable/afisha_widget_frame_landscape"
-android:paddingTop="15sp"
-android:paddingBottom="15sp"
-android:paddingLeft="25sp"
-android:paddingRight="25sp"
+android:paddingTop="12sp"
+android:paddingBottom="12sp"
+android:paddingLeft="20sp"
+android:paddingRight="20sp"
 
 >
-	<TextView 
-	    android:id="@+id/appwidget_text"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:textColor="#ff000000"
-	    android:text="ssss!!!!!!!!!!"
-	/>
+  <LinearLayout
+	  android:orientation="vertical"
+	  android:layout_width="wrap_content"
+	  android:layout_height="fill_parent"
+	  android:gravity="center"
+	  >
+	  <ImageView
+	    android:id="@+id/cinema_poster"
+	    android:layout_width="80dip"
+	    android:layout_height="120dip"
+	    android:scaleType="fitEnd"
+	    android:layout_gravity="left"
+	  />
+  </LinearLayout>
 </LinearLayout>
