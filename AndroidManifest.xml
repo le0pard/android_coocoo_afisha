@@ -39,6 +39,7 @@
             android:resource="@xml/afisha_widget_provider" />
     <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        <action android:name="ua.in.leopard.androidCoocooAfisha.FORCE_WIDGET_UPDATE" />        
     </intent-filter>
 </receiver>
 

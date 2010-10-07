@@ -22,7 +22,7 @@ public class AfishaWidgetBroadcastReceiver extends BroadcastReceiver {
 
         final int count = app_widget_ids.length;
         for (int i=0; i< count; i++) {
-        	AfishaWidgetProvider.updateAppWidget(context, appWidgetManager, app_widget_ids[i], cinemas);
+        	//AfishaWidgetProvider.updateAppWidget(context, appWidgetManager, app_widget_ids[i], cinemas);
         }
 		
 	}

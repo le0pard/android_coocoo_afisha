@@ -15,6 +15,5 @@ android:gravity="center"
     android:layout_width="120dip"
     android:layout_height="170dip"
     android:scaleType="fitEnd"
-    android:layout_gravity="left"
   />
 </LinearLayout>

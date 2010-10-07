@@ -21,7 +21,6 @@ android:paddingRight="20sp"
 	    android:layout_width="80dip"
 	    android:layout_height="120dip"
 	    android:scaleType="fitEnd"
-	    android:layout_gravity="left"
 	  />
   </LinearLayout>
 </LinearLayout>
