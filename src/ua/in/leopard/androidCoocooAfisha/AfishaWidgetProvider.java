@@ -19,8 +19,8 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 	public static String FORCE_WIDGET_UPDATE = "ua.in.leopard.androidCoocooAfisha.FORCE_WIDGET_UPDATE";
 	private List<CinemaDB> cinemas_list = null;
 	private Context myContext = null;
-	
-	private HashMap<Integer, AppWidgetManager> app_widget_managers = new HashMap<Integer, AppWidgetManager>();
+	private AppWidgetManager myAppWidgetManager = null;
+
 	private HashMap<Integer, Timer> timers = new HashMap<Integer, Timer>();
 	private HashMap<Integer, Integer> cinemas_iterators = new HashMap<Integer, Integer>();
 	
@@ -43,12 +43,13 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 	@Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] app_widget_ids) {
 		this.myContext = context;
+		this.myAppWidgetManager = appWidgetManager;
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
-	    List<CinemaDB> cinemas = DatabaseHelperObject.getTodayCinemas();
-		
+		this.cinemas_list = DatabaseHelperObject.getTodayCinemas();
+	    
 		final int count = app_widget_ids.length;
         for (int i=0; i< count; i++) {
-            updateAppWidget(context, appWidgetManager, app_widget_ids[i], cinemas);
+            updateAppWidget(context, appWidgetManager, app_widget_ids[i]);
         }
 	}
 	
@@ -87,13 +88,9 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     }
     
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-            int app_widget_id, List<CinemaDB> cinemas) {
-    	this.myContext = context;
-    	this.cinemas_list = cinemas;
-    	
+            int app_widget_id) {
     	timers.put(app_widget_id, new Timer());
     	cinemas_iterators.put(app_widget_id, 0);
-    	app_widget_managers.put(app_widget_id, appWidgetManager);
     	
     	RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
     	view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
@@ -134,8 +131,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     		}
     		cinemas_iterators.put(id, cinemas_iterator);
 
-    		AppWidgetManager appWidgetManager = app_widget_managers.get(id);
-    		appWidgetManager.updateAppWidget(id, view);
+    		myAppWidgetManager.updateAppWidget(id, view);
         }
     }
 }
