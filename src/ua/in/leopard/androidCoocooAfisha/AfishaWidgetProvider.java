@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 public class AfishaWidgetProvider extends AppWidgetProvider {
@@ -116,9 +118,6 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     	} else {
     		startTimer(app_widget_id);
     	}
-        //Intent form = new Intent(context, HelloAndroid.class);
-        //PendingIntent main = PendingIntent.getActivity(context, 0, form, 0);
-        //views.setOnClickPendingIntent(R.id.start_program, main);
     }
     
     private void startTimer(int app_widget_id){
@@ -135,9 +134,17 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     	if (cinemas_list.size() <= cinemas_iterator){
     		cinemas_iterator = 0;
 		}
-    	Bitmap poster = cinemas_list.get(cinemas_iterator).getPosterImg();
+    	CinemaDB cinema_object = cinemas_list.get(cinemas_iterator);
+    	Bitmap poster = cinema_object.getPosterImg();
 		if (poster != null){
 			view.setImageViewBitmap(R.id.cinema_poster, poster);
+			// click
+	        Intent form = new Intent(this.myContext, Cinema.class);
+	        Bundle bundle = new Bundle();
+			bundle.putInt("cinema_id", cinema_object.getId());
+			form.putExtras(bundle);
+	        PendingIntent main = PendingIntent.getActivity(this.myContext, 0, form, PendingIntent.FLAG_UPDATE_CURRENT);
+	        view.setOnClickPendingIntent(R.id.cinema_widget_box, main);
 		}
 		
 		cinemas_iterator++;

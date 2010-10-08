@@ -8,7 +8,8 @@ android:paddingTop="12sp"
 android:paddingBottom="12sp"
 android:paddingLeft="20sp"
 android:paddingRight="20sp"
-
+android:clickable="true"
+android:id="@+id/cinema_widget_box"
 >
   <LinearLayout
 	  android:orientation="vertical"

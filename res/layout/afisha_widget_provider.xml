@@ -9,6 +9,8 @@ android:paddingBottom="12sp"
 android:paddingLeft="20sp"
 android:paddingRight="20sp"
 android:gravity="center"
+android:clickable="true"
+android:id="@+id/cinema_widget_box"
 >
 	<ImageView
     android:id="@+id/cinema_poster"
