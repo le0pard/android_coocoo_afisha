@@ -93,8 +93,9 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     	cinemas_iterators.put(app_widget_id, 0);
     	
     	RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
-    	view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
-    	
+    	if (cinemas_list.size() == 0){
+    		view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
+    	}
         startTimer(app_widget_id);
         
         //Intent form = new Intent(context, HelloAndroid.class);
