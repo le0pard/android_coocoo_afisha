@@ -16,7 +16,7 @@ import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 
 public class AfishaWidgetProvider extends AppWidgetProvider {
-	public static String FORCE_WIDGET_UPDATE = "ua.in.leopard.androidCoocooAfisha.FORCE_WIDGET_UPDATE";
+	public static String FORCE_WIDGET_UPDATE = "ua.in.leopard.androidCoocooAfisha.AfishaWidgetProvider.FORCE_WIDGET_UPDATE";
 	private List<CinemaDB> cinemas_list = null;
 	private Context myContext = null;
 	private AppWidgetManager myAppWidgetManager = null;
