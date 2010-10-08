@@ -456,6 +456,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return cinemas_list;
 	}
 	
+	public List<CinemaDB> getTodayCinemasForWidget(){
+		Calendar currentDate = Calendar.getInstance();
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
+		
+		List<TheaterDB> theaters_list = this.getTheaters(false);
+		String theater_ids = "";
+		for (int i = 0; i < theaters_list.size(); i++){
+			if (theater_ids != ""){
+				theater_ids = theater_ids + ",";
+			}
+			theater_ids = theater_ids + Integer.toString(theaters_list.get(i).getId());
+		}
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor result = db.rawQuery("SELECT * FROM " + CINEMAS_TABLE + 
+				" WHERE " + CINEMAS_TABLE_EXT_ID + " IN (SELECT DISTINCT " + 
+				AFISHA_TABLE_CINEMA_ID + " FROM " + AFISHA_TABLE + " WHERE " + 
+				AFISHA_TABLE_THEATER_ID + " IN (" + theater_ids + ") AND " + 
+				AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
+				AFISHA_TABLE_DATA_END + " >= ?) AND " + CINEMAS_TABLE_POSTER_IMAGE + 
+				" IS NOT NULL " + 
+				" ORDER BY " + CINEMAS_TABLE_TITLE,
+				new String[] {dateNow, dateNow});
+		
+		result.moveToFirst();
+		List<CinemaDB> cinemas_list = new ArrayList<CinemaDB>();
+		while (!result.isAfterLast()) {
+			cinemas_list.add(new CinemaDB(
+				result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+			));
+			result.moveToNext();
+		}
+		result.close();
+		db.close();
+		return cinemas_list;
+	}
+	
 	public AfishaDB getAfisha(int id){
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor result = db.query(AFISHA_TABLE, 

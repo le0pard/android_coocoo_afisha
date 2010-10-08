@@ -43,9 +43,6 @@
     </intent-filter>
 </receiver>
 
-<receiver android:name=".AfishaWidgetBroadcastReceiver" android:enabled="true">
-</receiver>
-
 </application>
 
 <uses-sdk android:targetSdkVersion="7" android:minSdkVersion="5"></uses-sdk>

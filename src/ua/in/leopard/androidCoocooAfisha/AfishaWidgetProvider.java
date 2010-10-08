@@ -16,11 +16,11 @@ import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 
 public class AfishaWidgetProvider extends AppWidgetProvider {
-	public static String FORCE_WIDGET_UPDATE = "ua.in.leopard.androidCoocooAfisha.FORCE_WIDGET_UPDATE";
+	public static String FORCE_WIDGET_UPDATE = "ua.in.leopard.androidCoocooAfisha.AfishaWidgetProvider.FORCE_WIDGET_UPDATE";
 	private List<CinemaDB> cinemas_list = null;
 	private Context myContext = null;
-	
-	private HashMap<Integer, AppWidgetManager> app_widget_managers = new HashMap<Integer, AppWidgetManager>();
+	private AppWidgetManager myAppWidgetManager = null;
+
 	private HashMap<Integer, Timer> timers = new HashMap<Integer, Timer>();
 	private HashMap<Integer, Integer> cinemas_iterators = new HashMap<Integer, Integer>();
 	
@@ -43,10 +43,11 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 	@Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] app_widget_ids) {
 		this.myContext = context;
+		this.myAppWidgetManager = appWidgetManager;
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
-		this.cinemas_list = DatabaseHelperObject.getTodayCinemas();
+		this.cinemas_list = DatabaseHelperObject.getTodayCinemasForWidget();
 		
-		final int count = app_widget_ids.length;
+                final int count = app_widget_ids.length;
         for (int i=0; i< count; i++) {
             updateAppWidget(context, appWidgetManager, app_widget_ids[i]);
         }
@@ -88,15 +89,14 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
             int app_widget_id) {
-    	this.myContext = context;
     	
-    	timers.put(app_widget_id, new Timer());
+        timers.put(app_widget_id, new Timer());
     	cinemas_iterators.put(app_widget_id, 0);
-    	app_widget_managers.put(app_widget_id, appWidgetManager);
     	
     	RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
-    	view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
-    	
+    	if (cinemas_list.size() == 0){
+    		view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
+    	}
         startTimer(app_widget_id);
         
         //Intent form = new Intent(context, HelloAndroid.class);
@@ -125,7 +125,6 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     		if (poster != null){
     			view.setImageViewBitmap(R.id.cinema_poster, poster);
     		}
-    		poster = null;
     		
     		cinemas_iterator++;
     		if (cinemas_list.size() <= cinemas_iterator){
@@ -133,8 +132,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     		}
     		cinemas_iterators.put(id, cinemas_iterator);
 
-    		AppWidgetManager appWidgetManager = app_widget_managers.get(id);
-    		appWidgetManager.updateAppWidget(id, view);
+    		myAppWidgetManager.updateAppWidget(id, view);
         }
     }
 }
