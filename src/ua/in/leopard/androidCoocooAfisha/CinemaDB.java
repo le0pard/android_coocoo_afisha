@@ -115,13 +115,15 @@ public class CinemaDB {
 		Bitmap bitmap = null;
 		if (this.getPoster() != ""){
 			byte[] img_bytes = this.getCachedPoster();
+			BitmapFactory.Options opts = new BitmapFactory.Options();
+			
 			if (img_bytes != null){
-				bitmap = BitmapFactory.decodeByteArray(img_bytes, 0, img_bytes.length);
+				bitmap = BitmapFactory.decodeByteArray(img_bytes, 0, img_bytes.length, opts);
 			} else {
 			
 				try{
 					URL newurl = new URL(this.getPosterUrl()); 
-					bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
+					bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream(), null, opts);
 				} catch (IOException e) {
 					//
 				}
