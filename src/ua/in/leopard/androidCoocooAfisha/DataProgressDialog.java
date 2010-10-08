@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 public class DataProgressDialog extends AsyncTask<Void, String, Void> {
@@ -63,6 +64,8 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 				}
 			}).show();
 		}
+		/* Update widgets */
+		this.myContext.sendBroadcast(new Intent(AfishaWidgetProvider.FORCE_WIDGET_UPDATE));
 	}
 
 
