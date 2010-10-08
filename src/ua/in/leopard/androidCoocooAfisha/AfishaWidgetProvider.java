@@ -44,11 +44,11 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] app_widget_ids) {
 		this.myContext = context;
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
-	    List<CinemaDB> cinemas = DatabaseHelperObject.getTodayCinemas();
+		this.cinemas_list = DatabaseHelperObject.getTodayCinemas();
 		
 		final int count = app_widget_ids.length;
         for (int i=0; i< count; i++) {
-            updateAppWidget(context, appWidgetManager, app_widget_ids[i], cinemas);
+            updateAppWidget(context, appWidgetManager, app_widget_ids[i]);
         }
 	}
 	
@@ -87,9 +87,8 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     }
     
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-            int app_widget_id, List<CinemaDB> cinemas) {
+            int app_widget_id) {
     	this.myContext = context;
-    	this.cinemas_list = cinemas;
     	
     	timers.put(app_widget_id, new Timer());
     	cinemas_iterators.put(app_widget_id, 0);
