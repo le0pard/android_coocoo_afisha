@@ -123,7 +123,6 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     		if (poster != null){
     			view.setImageViewBitmap(R.id.cinema_poster, poster);
     		}
-    		poster = null;
     		
     		cinemas_iterator++;
     		if (cinemas_list.size() <= cinemas_iterator){
