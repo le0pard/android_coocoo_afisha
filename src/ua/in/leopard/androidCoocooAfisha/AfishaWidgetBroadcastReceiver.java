@@ -18,7 +18,7 @@ public class AfishaWidgetBroadcastReceiver extends BroadcastReceiver {
         int[] app_widget_ids = appWidgetManager.getAppWidgetIds(thisWidget);
         
         DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
-	    List<CinemaDB> cinemas = DatabaseHelperObject.getTodayCinemas();
+	    List<CinemaDB> cinemas = DatabaseHelperObject.getTodayCinemasForWidget();
 
         final int count = app_widget_ids.length;
         for (int i=0; i< count; i++) {

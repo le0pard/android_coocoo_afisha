@@ -45,7 +45,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 		this.myContext = context;
 		this.myAppWidgetManager = appWidgetManager;
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
-		this.cinemas_list = DatabaseHelperObject.getTodayCinemas();
+		this.cinemas_list = DatabaseHelperObject.getTodayCinemasForWidget();
 	    
 		final int count = app_widget_ids.length;
         for (int i=0; i< count; i++) {
