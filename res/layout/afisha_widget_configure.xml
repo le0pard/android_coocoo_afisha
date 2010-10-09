@@ -29,14 +29,14 @@
          android:id="@+id/widget_ok_button"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/map_button"
+         android:drawableLeft="@drawable/tick_icon"
          android:drawablePadding="3sp"
          android:text="@string/widget_ok_label" />
       <Button
          android:id="@+id/widget_cancel_button"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/update_button"
+         android:drawableLeft="@drawable/close_icon"
          android:drawablePadding="3sp"
          android:text="@string/widget_cancel_label" />
       </LinearLayout>
