@@ -59,13 +59,26 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
             int app_widget_id) {
     	
-    	if (SingletoneStorage.get_cinemas().size() == 0){
+    	if (SingletoneStorage.get_cinemas().size() == 0 || EditPreferences.isNoPosters(context) || 
+    			!EditPreferences.isCachedPosters(context)){
+    		
+    		AfishaWidgetProvider.stopTimer(context, appWidgetManager, app_widget_id);
+    		
     		RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
     		view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
     		appWidgetManager.updateAppWidget(app_widget_id, view);
     	} else {
     		AfishaWidgetProvider.startTimer(context, appWidgetManager, app_widget_id);
     	}
+    }
+    
+    public static void stopTimer(Context context, AppWidgetManager appWidgetManager, int app_widget_id){
+    	SingletoneStorage.put_cinemas_iterators(app_widget_id, 0);
+    	
+    	Timer timer = SingletoneStorage.get_value_timers(app_widget_id);
+		if (timer != null){
+			timer.cancel();
+		}
     }
     
     public static void startTimer(Context context, AppWidgetManager appWidgetManager, int app_widget_id){
