@@ -59,26 +59,6 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 	}
 	
     @Override
-    public void onEnabled(Context context) {
-    	/*
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(
-                new ComponentName("ua.in.leopard.androidCoocooAfisha", ".AfishaWidgetBroadcastReceiver"),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-        */
-    }
-    @Override
-    public void onDisabled(Context context) {
-    	/*
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(
-                new ComponentName("ua.in.leopard.androidCoocooAfisha", ".AfishaWidgetBroadcastReceiver"),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-        */
-    }
-    @Override
     public void onDeleted(Context context, int[] app_widget_ids) {
     	super.onDeleted(context, app_widget_ids);
     	HashMap<Integer, Timer> timers = SingletoneStorage.get_timers();
