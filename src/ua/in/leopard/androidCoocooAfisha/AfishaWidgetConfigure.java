@@ -17,7 +17,7 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 	private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 	private static final String PREFS_NAME = "ua.in.leopard.androidCoocooAfisha.AfishaWidgetProvider";
 	private static final String WIDGET_PREFIX_KEY = "widget_update_interval_";
-	private static final int DEF_TIMER_INTERVAL = 10; 
+	private static final int DEF_TIMER_INTERVAL = 30; 
 	
 	public AfishaWidgetConfigure() {
         super();
@@ -56,27 +56,15 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-		int interval = 10;
-		switch(position){
-			case 0:
-			case 1:
-			case 2:
-				interval = (position + 1) * 10;
-				break;
-			case 3:
-			case 4:
-			case 5:
-				interval = (position - 2) * 60;
-				break;
-		}
-		
+		int interval = (position + 1) * 30;
 		final Context context = AfishaWidgetConfigure.this;
 		saveTimerPref(context, mAppWidgetId, interval);
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-		
+		final Context context = AfishaWidgetConfigure.this;
+		saveTimerPref(context, mAppWidgetId, DEF_TIMER_INTERVAL);
 	}
 
 	@Override

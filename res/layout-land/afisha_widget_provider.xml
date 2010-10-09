@@ -30,6 +30,6 @@ android:id="@+id/cinema_widget_box"
     android:layout_width="wrap_content"
     android:gravity="center"
     android:textColor="@color/text_widget"
-    android:textSize="14sp"
-    android:padding="20sp" />
+    android:textSize="12sp"
+    android:padding="10sp" />
 </LinearLayout>

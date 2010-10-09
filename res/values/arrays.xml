@@ -85,11 +85,11 @@
       <item>24</item>
     </string-array>
     <string-array name="widget_time_title">
-      <item>10 секунд</item>
-      <item>20 секунд</item>
       <item>30 секунд</item>
       <item>60 секунд</item>
+      <item>90 секунд</item>
       <item>120 секунд</item>
+      <item>150 секунд</item>
       <item>180 секунд</item>
     </string-array>
 </resources>

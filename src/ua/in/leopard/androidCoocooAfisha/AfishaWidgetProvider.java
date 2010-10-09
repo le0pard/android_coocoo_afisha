@@ -98,7 +98,8 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
         SingletoneStorage.put_timers(app_widget_id, new_timer);
     }
     
-    public static void updatePoster(Context context, AppWidgetManager appWidgetManager, int app_widget_id){    	
+    public static void updatePoster(Context context, AppWidgetManager appWidgetManager, int app_widget_id){ 
+    	
     	List<CinemaDB> cinemas_list = SingletoneStorage.get_cinemas();
     	int cinemas_iterator = SingletoneStorage.get_value_cinemas_iterators(app_widget_id);
     	CinemaDB cinema_object = cinemas_list.get(cinemas_iterator);
@@ -119,6 +120,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 			form.putExtras(bundle);
 	        PendingIntent main = PendingIntent.getActivity(context, 0, form, PendingIntent.FLAG_UPDATE_CURRENT);
 	        view.setOnClickPendingIntent(R.id.cinema_widget_box, main);
+	        // update view
 	        appWidgetManager.updateAppWidget(app_widget_id, view);
 		}
 		
