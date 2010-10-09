@@ -117,6 +117,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 			form.putExtras(bundle);
 	        PendingIntent main = PendingIntent.getActivity(context, 0, form, PendingIntent.FLAG_UPDATE_CURRENT);
 	        view.setOnClickPendingIntent(R.id.cinema_widget_box, main);
+	        appWidgetManager.updateAppWidget(app_widget_id, view);
 		}
 		
 		cinemas_iterator++;
@@ -124,7 +125,5 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 			cinemas_iterator = 0;
 		}
 		SingletoneStorage.put_cinemas_iterators(app_widget_id, cinemas_iterator);
-
-		appWidgetManager.updateAppWidget(app_widget_id, view);
     }
 }
