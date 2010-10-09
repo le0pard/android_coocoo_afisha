@@ -77,15 +77,15 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 		resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
 		switch (v.getId()) {
 		  case R.id.widget_ok_button:
+			  	/*
 			  	final Context context = AfishaWidgetConfigure.this;
-	            // When the button is clicked, save the string in our prefs and return that they
-	            // clicked OK.
-	            //String titlePrefix = mAppWidgetPrefix.getText().toString();
-	            //saveTitlePref(context, mAppWidgetId, titlePrefix);
 	            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 	            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
 	            appWidgetManager.updateAppWidget(mAppWidgetId, views);
-	            
+	            */
+	            //String titlePrefix = mAppWidgetPrefix.getText().toString();
+	            //saveTitlePref(context, mAppWidgetId, titlePrefix);
+
 	            setResult(RESULT_OK, resultValue);
 	            finish();
 	         break;
