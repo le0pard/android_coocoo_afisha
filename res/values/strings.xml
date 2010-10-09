@@ -124,4 +124,8 @@
     5 - Улицы<br />
     6 - Трафик
     ]]></string>
+    
+    <string name="widget_select_title">Выберите интервал обновления постеров</string>
+    <string name="widget_ok_label">Готово</string>
+    <string name="widget_cancel_label">Отмена</string>
 </resources>

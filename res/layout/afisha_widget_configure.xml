@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:background="@color/background"
+   android:textColor="@color/text"
+   android:layout_height="fill_parent"
+   android:layout_width="fill_parent"
+   android:padding="10dip"
+   android:orientation="vertical"
+   android:gravity="center">
+      <TextView
+         android:text="@string/widget_select_title"
+         android:layout_height="wrap_content"
+         android:layout_width="fill_parent"
+         android:layout_gravity="center"
+         android:textSize="14sp" />
+      <Spinner android:id="@+id/time_spinner"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:drawSelectorOnTop="true" />
+				
+		  <LinearLayout
+          android:orientation="horizontal"
+          android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:gravity="center"
+          android:layout_gravity="center">
+      <Button
+         android:id="@+id/widget_ok_button"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:drawableLeft="@drawable/map_button"
+         android:drawablePadding="3sp"
+         android:text="@string/widget_ok_label" />
+      <Button
+         android:id="@+id/widget_cancel_button"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:drawableLeft="@drawable/update_button"
+         android:drawablePadding="3sp"
+         android:text="@string/widget_cancel_label" />
+      </LinearLayout>
+</LinearLayout>

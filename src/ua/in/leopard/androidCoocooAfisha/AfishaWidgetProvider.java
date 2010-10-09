@@ -20,9 +20,6 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 	public static String FORCE_WIDGET_UPDATE = "ua.in.leopard.androidCoocooAfisha.FORCE_WIDGET_UPDATE";
 	private Context myContext = null;
 	private AppWidgetManager myAppWidgetManager = null;
-
-	private HashMap<Integer, Timer> timers = new HashMap<Integer, Timer>();
-	private HashMap<Integer, Integer> cinemas_iterators = new HashMap<Integer, Integer>();
 	
 	public class WidgetTimerTask extends TimerTask{
 		private int id;
@@ -51,23 +48,14 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
-		if (FORCE_WIDGET_UPDATE.equals(intent.getAction())) {
+		if (FORCE_WIDGET_UPDATE.equals(intent.getAction()) || AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(intent.getAction())) {
 			AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 	        ComponentName thisWidget = new ComponentName(context, AfishaWidgetProvider.class);
 	        int[] app_widget_ids = appWidgetManager.getAppWidgetIds(thisWidget);
 	        
 			updateAllWidgets(context, appWidgetManager, app_widget_ids);
 		}
-	}
-	
-	private void updateAllWidgets(Context context, AppWidgetManager appWidgetManager, int[] app_widget_ids){
-		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
-		SingletoneStorage.set_cinemas(DatabaseHelperObject.getTodayCinemasForWidget());
 		
-        final int count = app_widget_ids.length;
-        for (int i=0; i< count; i++) {
-            this.updateAppWidget(context, appWidgetManager, app_widget_ids[i]);
-        }
 	}
 	
     @Override
@@ -92,49 +80,67 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     }
     @Override
     public void onDeleted(Context context, int[] app_widget_ids) {
+    	super.onDeleted(context, app_widget_ids);
+    	HashMap<Integer, Timer> timers = SingletoneStorage.get_timers();
     	for (int i=0; i< app_widget_ids.length; i++) {
-    		Timer timer = timers.get(i);
+    		Timer timer = timers.get(app_widget_ids[i]);
     		if (timer != null){
     			timer.cancel();
     		}
         }
     }
     
+	private void updateAllWidgets(Context context, AppWidgetManager appWidgetManager, int[] app_widget_ids){
+		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
+		SingletoneStorage.set_cinemas(DatabaseHelperObject.getTodayCinemasForWidget());
+		
+        final int count = app_widget_ids.length;
+        for (int i=0; i< count; i++) {
+            updateAppWidget(context, appWidgetManager, app_widget_ids[i]);
+        }
+	}
+    
     public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
             int app_widget_id) {
-    	
-    	Timer timer = timers.get(app_widget_id);
-		if (timer != null){
-			timer.cancel();
-		}
-        timers.put(app_widget_id, new Timer());
-    	cinemas_iterators.put(app_widget_id, 0);
     	
     	if (SingletoneStorage.get_cinemas().size() == 0){
     		RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
     		view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
-    		// Tell the widget manager
     		appWidgetManager.updateAppWidget(app_widget_id, view);
     	} else {
     		startTimer(app_widget_id);
     	}
     }
     
-    private void startTimer(int app_widget_id){
-    	Timer timer = timers.get(app_widget_id);
-    	timer.scheduleAtFixedRate(
-		new WidgetTimerTask(app_widget_id), 
-		0, 1000 * 5);
-	}
+    public void startTimer(int app_widget_id){
+    	HashMap<Integer, Timer> timers = SingletoneStorage.get_timers();
+    	SingletoneStorage.put_cinemas_iterators(app_widget_id, 0);
+    	
+    	Timer old_timer = timers.get(app_widget_id);
+		if (old_timer != null){
+			old_timer.cancel();
+		}
+		
+		Timer timer = new Timer();
+        timers.put(app_widget_id, timer);
+        timer.scheduleAtFixedRate(
+        		new WidgetTimerTask(app_widget_id), 
+        		0, 1000 * 5);
+        
+        SingletoneStorage.set_timers(timers);
+    }
     
     private void updatePoster(int id){
+    	
     	List<CinemaDB> cinemas_list = SingletoneStorage.get_cinemas();
+    	int cinemas_iterator = SingletoneStorage.get_value_cinemas_iterators(id);
+    	CinemaDB cinema_object = cinemas_list.get(cinemas_iterator);
+    	
     	RemoteViews view = new RemoteViews(this.myContext.getPackageName(), R.layout.afisha_widget_provider);
-    	int cinemas_iterator = cinemas_iterators.get(id);
     	if (cinemas_list.size() <= cinemas_iterator){
     		cinemas_iterator = 0;
 		}
-    	CinemaDB cinema_object = cinemas_list.get(cinemas_iterator);
+    	
     	Bitmap poster = cinema_object.getPosterImg();
 		if (poster != null){
 			view.setImageViewBitmap(R.id.cinema_poster, poster);
@@ -151,7 +157,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 		if (cinemas_list.size() <= cinemas_iterator){
 			cinemas_iterator = 0;
 		}
-		cinemas_iterators.put(id, cinemas_iterator);
+		SingletoneStorage.put_cinemas_iterators(id, cinemas_iterator);
 
 		myAppWidgetManager.updateAppWidget(id, view);
     }
