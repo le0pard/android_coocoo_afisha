@@ -1,23 +1,23 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import java.util.HashMap;
-import java.util.Timer;
-
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.RemoteViews;
 import android.widget.Spinner;
 
 public class AfishaWidgetConfigure extends Activity implements OnClickListener, OnItemSelectedListener {
 	private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+	private static final String PREFS_NAME = "ua.in.leopard.androidCoocooAfisha.AfishaWidgetProvider";
+	private static final String WIDGET_PREFIX_KEY = "widget_update_interval_";
+	private static final int DEF_TIMER_INTERVAL = 10; 
 	
 	public AfishaWidgetConfigure() {
         super();
@@ -43,7 +43,7 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
       
       Spinner spiner = (Spinner)findViewById(R.id.time_spinner);
       spiner.setOnItemSelectedListener(this);
-      ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.widget_time_title, android.R.layout.simple_spinner_item);
+      ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.widget_time_title, android.R.layout.simple_spinner_item);
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       spiner.setAdapter(adapter);
       
@@ -53,17 +53,25 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
       cancelButton.setOnClickListener(this);
       
     }
-	
-	public void stopWidgetTimer(int id){
-		Timer timer = SingletoneStorage.get_value_timers(id);
-		if (timer != null){
-			timer.cancel();
-		}
-	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-		int interval = (position + 1) * 10;
+		int interval = 10;
+		switch(position){
+			case 0:
+			case 1:
+			case 2:
+				interval = (position + 1) * 10;
+				break;
+			case 3:
+			case 4:
+			case 5:
+				interval = (position - 2) * 60;
+				break;
+		}
+		
+		final Context context = AfishaWidgetConfigure.this;
+		saveTimerPref(context, mAppWidgetId, interval);
 	}
 
 	@Override
@@ -77,23 +85,34 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 		resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
 		switch (v.getId()) {
 		  case R.id.widget_ok_button:
-			  	/*
-			  	final Context context = AfishaWidgetConfigure.this;
-	            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-	            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
-	            appWidgetManager.updateAppWidget(mAppWidgetId, views);
-	            */
-	            //String titlePrefix = mAppWidgetPrefix.getText().toString();
-	            //saveTitlePref(context, mAppWidgetId, titlePrefix);
-
-	            setResult(RESULT_OK, resultValue);
-	            finish();
+			 final Context context = AfishaWidgetConfigure.this;
+			 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+			 AfishaWidgetProvider.startTimer(context, appWidgetManager, mAppWidgetId);
+			 
+	         setResult(RESULT_OK, resultValue);
+	         finish();
 	         break;
 		  case R.id.widget_cancel_button:
-			  setResult(RESULT_CANCELED, resultValue);
-			  stopWidgetTimer(mAppWidgetId);
-			  finish();
-			  break;      
+			 setResult(RESULT_CANCELED, resultValue);
+			 finish();
+			 break;      
 	      }
 	}
+	
+	static void saveTimerPref(Context context, int appWidgetId, int interval) {
+        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        prefs.putInt(WIDGET_PREFIX_KEY + appWidgetId, interval);
+        prefs.commit();
+    }
+	
+	static int loadTimerPref(Context context, int appWidgetId) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        return prefs.getInt(WIDGET_PREFIX_KEY + appWidgetId, DEF_TIMER_INTERVAL);
+    }
+	
+	static void deleteTimerPref(Context context, int appWidgetId) {
+		SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        prefs.remove(WIDGET_PREFIX_KEY + appWidgetId);
+        prefs.commit();
+    }
 }

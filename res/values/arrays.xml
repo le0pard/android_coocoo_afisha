@@ -88,8 +88,8 @@
       <item>10 секунд</item>
       <item>20 секунд</item>
       <item>30 секунд</item>
-      <item>40 секунд</item>
-      <item>50 секунд</item>
       <item>60 секунд</item>
+      <item>120 секунд</item>
+      <item>180 секунд</item>
     </string-array>
 </resources>
