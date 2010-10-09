@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -165,16 +167,14 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	}
 	
 	public GeoPoint getMyLocation(){
-		/*
-		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		Location loc = lm.getLastKnownLocation("gps");
-		if (loc != null){
-			return new GeoPoint((int)(loc.getLatitude()*1e6),(int)(loc.getLongitude()*1e6));
+		//return me.getMyLocation();
+		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (location != null){
+			return new GeoPoint((int)(location.getLatitude()*1e6),(int)(location.getLongitude()*1e6));
 		} else {
 			return null;
 		}
-		*/
-		return me.getMyLocation();
 	}
 	
 	@Override
