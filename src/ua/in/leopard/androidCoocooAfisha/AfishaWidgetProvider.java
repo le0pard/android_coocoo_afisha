@@ -1,7 +1,6 @@
 package ua.in.leopard.androidCoocooAfisha;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -61,9 +60,8 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] app_widget_ids) {
     	super.onDeleted(context, app_widget_ids);
-    	HashMap<Integer, Timer> timers = SingletoneStorage.get_timers();
     	for (int i=0; i< app_widget_ids.length; i++) {
-    		Timer timer = timers.get(app_widget_ids[i]);
+    		Timer timer = SingletoneStorage.get_value_timers(app_widget_ids[i]);
     		if (timer != null){
     			timer.cancel();
     		}
@@ -93,21 +91,19 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     }
     
     public void startTimer(int app_widget_id){
-    	HashMap<Integer, Timer> timers = SingletoneStorage.get_timers();
     	SingletoneStorage.put_cinemas_iterators(app_widget_id, 0);
     	
-    	Timer old_timer = timers.get(app_widget_id);
-		if (old_timer != null){
-			old_timer.cancel();
+    	Timer timer = SingletoneStorage.get_value_timers(app_widget_id);
+		if (timer != null){
+			timer.cancel();
 		}
 		
-		Timer timer = new Timer();
-        timers.put(app_widget_id, timer);
-        timer.scheduleAtFixedRate(
+		Timer new_timer = new Timer();
+		new_timer.scheduleAtFixedRate(
         		new WidgetTimerTask(app_widget_id), 
         		0, 1000 * 5);
         
-        SingletoneStorage.set_timers(timers);
+        SingletoneStorage.put_timers(app_widget_id, new_timer);
     }
     
     private void updatePoster(int id){

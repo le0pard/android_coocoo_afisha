@@ -35,8 +35,16 @@ public class SingletoneStorage {
     	getInstance().timers = timers;
     }
     
+    public static Timer get_value_timers(Integer key){
+    	return getInstance().timers.get(key);
+    }
+    
     public static HashMap<Integer, Timer> get_timers(){
     	return getInstance().timers;
+    }
+    
+    public static void put_timers(Integer key, Timer value){
+    	getInstance().timers.put(key, value);
     }
     
     public static void set_cinemas_iterators(HashMap<Integer, Integer> cinemas_iterators){

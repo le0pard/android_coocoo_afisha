@@ -55,8 +55,7 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
     }
 	
 	public void stopWidgetTimer(int id){
-		HashMap<Integer, Timer> timers = SingletoneStorage.get_timers();
-		Timer timer = timers.get(id);
+		Timer timer = SingletoneStorage.get_value_timers(id);
 		if (timer != null){
 			timer.cancel();
 		}
