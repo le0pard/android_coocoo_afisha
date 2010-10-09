@@ -66,6 +66,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     		
     		RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.afisha_widget_provider);
     		view.setImageViewResource(R.id.cinema_poster, R.drawable.poster);
+    		view.setTextViewText(R.id.cinema_title, context.getString(R.string.widget_option_no_right));
     		appWidgetManager.updateAppWidget(app_widget_id, view);
     	} else {
     		AfishaWidgetProvider.startTimer(context, appWidgetManager, app_widget_id);
@@ -110,6 +111,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     	Bitmap poster = cinema_object.getPosterImg();
 		if (poster != null){
 			view.setImageViewBitmap(R.id.cinema_poster, poster);
+			view.setTextViewText(R.id.cinema_title, cinema_object.getTitle());
 			// click
 	        Intent form = new Intent(context, Cinema.class);
 	        Bundle bundle = new Bundle();

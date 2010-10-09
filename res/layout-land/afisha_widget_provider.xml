@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
+android:orientation="horizontal"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:background="@drawable/afisha_widget_frame_landscape"
@@ -24,4 +24,12 @@ android:id="@+id/cinema_widget_box"
 	    android:scaleType="fitEnd"
 	  />
   </LinearLayout>
+    <TextView
+    android:id="@+id/cinema_title"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:textColor="@color/text_widget"
+    android:textSize="14sp"
+    android:padding="20sp" />
 </LinearLayout>

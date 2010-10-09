@@ -18,4 +18,13 @@ android:id="@+id/cinema_widget_box"
     android:layout_height="170dip"
     android:scaleType="fitEnd"
   />
+  <TextView
+    android:id="@+id/cinema_title"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:textColor="@color/text_widget"
+    android:textSize="14sp"
+    android:padding="20sp"
+    android:visibility="gone" />
 </LinearLayout>

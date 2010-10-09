@@ -4,4 +4,5 @@
    <color name="text">#FFFFFF</color>
    <color name="border">#ACA8CF</color>
    <color name="text_little">#666666</color>
+   <color name="text_widget">#000000</color>
 </resources>
