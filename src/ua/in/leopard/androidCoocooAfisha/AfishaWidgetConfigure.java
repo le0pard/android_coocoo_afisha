@@ -89,18 +89,18 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 	
 	static void saveTimerPref(Context context, int appWidgetId, int interval) {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        prefs.putInt(WIDGET_PREFIX_KEY + appWidgetId, interval);
+        prefs.putInt(WIDGET_PREFIX_KEY + Integer.toString(appWidgetId), interval);
         prefs.commit();
     }
 	
 	static int loadTimerPref(Context context, int appWidgetId) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(WIDGET_PREFIX_KEY + appWidgetId, DEF_TIMER_INTERVAL);
+        return prefs.getInt(WIDGET_PREFIX_KEY + Integer.toString(appWidgetId), DEF_TIMER_INTERVAL);
     }
 	
 	static void deleteTimerPref(Context context, int appWidgetId) {
 		SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        prefs.remove(WIDGET_PREFIX_KEY + appWidgetId);
+        prefs.remove(WIDGET_PREFIX_KEY + Integer.toString(appWidgetId));
         prefs.commit();
     }
 }
