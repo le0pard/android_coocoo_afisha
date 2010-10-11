@@ -86,6 +86,8 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 		         break;
 			  case R.id.update_button:
 				 new DataProgressDialog(this).execute();
+				 /* Update widgets */
+				 this.sendBroadcast(new Intent(AfishaWidgetProvider.FORCE_WIDGET_UPDATE));
 		         break;         
 		      }
         }

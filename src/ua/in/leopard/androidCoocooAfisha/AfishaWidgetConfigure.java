@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,7 +16,6 @@ import android.widget.Spinner;
 
 public class AfishaWidgetConfigure extends Activity implements OnClickListener, OnItemSelectedListener {
 	private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-	private static final String PREFS_NAME = "ua.in.leopard.androidCoocooAfisha.AfishaWidgetProvider";
 	private static final String WIDGET_PREFIX_KEY = "widget_update_interval_";
 	private static final int DEF_TIMER_INTERVAL = 30; 
 	
@@ -75,7 +75,7 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 		  case R.id.widget_ok_button:
 			 final Context context = AfishaWidgetConfigure.this;
 			 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-			 AfishaWidgetProvider.startTimer(context, appWidgetManager, mAppWidgetId);
+			 AfishaWidgetProvider.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 			 
 	         setResult(RESULT_OK, resultValue);
 	         finish();
@@ -88,18 +88,18 @@ public class AfishaWidgetConfigure extends Activity implements OnClickListener, 
 	}
 	
 	static void saveTimerPref(Context context, int appWidgetId, int interval) {
-        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putInt(WIDGET_PREFIX_KEY + appWidgetId, interval);
         prefs.commit();
     }
 	
 	static int loadTimerPref(Context context, int appWidgetId) {
-        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(WIDGET_PREFIX_KEY + appWidgetId, DEF_TIMER_INTERVAL);
     }
 	
 	static void deleteTimerPref(Context context, int appWidgetId) {
-		SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
+		SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.remove(WIDGET_PREFIX_KEY + appWidgetId);
         prefs.commit();
     }

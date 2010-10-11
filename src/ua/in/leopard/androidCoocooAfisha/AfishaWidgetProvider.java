@@ -56,7 +56,7 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
         }
 	}
     
-    public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
             int app_widget_id) {
     	
     	if (SingletoneStorage.get_cinemas().size() == 0 || EditPreferences.isNoPosters(context) || 
