@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -33,6 +34,12 @@ public class Theaters extends Activity implements OnItemClickListener {
         adapter = new TheaterAdapter(this, theaters);
         TheaterList.setAdapter(adapter);
         TheaterList.setOnItemClickListener(this);
+        if (theaters.size() == 0){
+        	TheaterList.setVisibility(View.GONE);
+        	TextView noDataText = (TextView)findViewById(R.id.no_data_title);
+        	noDataText.setVisibility(View.VISIBLE);
+        	noDataText.setText(R.string.no_data_maybe_update);
+        }
 	}
 	
 	@Override

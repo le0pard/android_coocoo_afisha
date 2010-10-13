@@ -133,4 +133,6 @@
     <string name="widget_select_title">Выберите интервал обновления постеров</string>
     <string name="widget_ok_label">Готово</string>
     <string name="widget_cancel_label">Отмена</string>
+    
+    <string name="no_data_maybe_update">Нет данных. Возможно нужно обновить данные :)</string>
 </resources>

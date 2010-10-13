@@ -10,4 +10,12 @@ android:layout_height="fill_parent"
   android:layout_height="fill_parent">
 
 </ListView>
+ <TextView
+   android:id="@+id/no_data_title"
+   android:layout_height="fill_parent"
+   android:layout_width="fill_parent"
+   android:gravity="center"
+   android:textSize="18sp"
+   android:padding="20sp"
+   android:visibility="gone" />
 </LinearLayout>
