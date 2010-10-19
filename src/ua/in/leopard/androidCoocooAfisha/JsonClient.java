@@ -14,8 +14,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class JsonClient {
 	
 	public static JSONObject getData(String url){
@@ -29,7 +27,7 @@ public class JsonClient {
         try {
             response = httpclient.execute(httpget);
             // Examine the response status
-            Log.i("JsonClient",response.getStatusLine().toString());
+            //Log.i("JsonClient",response.getStatusLine().toString());
  
             // Get hold of the response entity
             HttpEntity entity = response.getEntity();
@@ -48,16 +46,16 @@ public class JsonClient {
 
         } catch (ClientProtocolException e) {
             //e.printStackTrace();
-            Log.v("JsonClient","ClientProtocolException");
+            //Log.v("JsonClient","ClientProtocolException");
         } catch (IOException e) {
             //e.printStackTrace();
-            Log.v("JsonClient","IOException");
+            //Log.v("JsonClient","IOException");
         } catch (JSONException e) {
             //e.printStackTrace();
-            Log.v("JsonClient","JSONException");
+            //Log.v("JsonClient","JSONException");
         } catch (Exception e) { 
-        	e.printStackTrace();
-        	Log.v("JsonClient","Exception");
+        	//e.printStackTrace();
+        	//Log.v("JsonClient","Exception");
         }
         
         return return_data;
@@ -79,12 +77,12 @@ public class JsonClient {
                 sb.append(line + "\n");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } finally {
             try {
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
         return sb.toString();
