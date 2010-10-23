@@ -103,6 +103,10 @@ public class CinemaDB {
 			}
 		} catch (IOException e) {
 			//error
+			this.cached_poster = null;
+		} catch (Exception e) { 
+			//error
+			this.cached_poster = null;
 		}
 		return this.cached_poster;
 	}
@@ -125,7 +129,9 @@ public class CinemaDB {
 					URL newurl = new URL(this.getPosterUrl()); 
 					bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream(), null, opts);
 				} catch (IOException e) {
-					//
+					bitmap = null;
+				} catch (Exception e) { 
+					bitmap = null;
 				}
 			}
 		}
@@ -149,6 +155,9 @@ public class CinemaDB {
 				}
 			} catch (IOException e) {
 				//e.printStackTrace();
+				http_entry = null;
+			} catch (Exception e) { 
+				http_entry = null;
 			}
 		}
 		return http_entry;
