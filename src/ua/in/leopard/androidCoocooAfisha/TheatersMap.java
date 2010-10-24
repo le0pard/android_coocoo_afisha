@@ -54,6 +54,8 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         
         me = new MyLocationOverlay(this, mapView);
         mapOverlays.add(me);
+        //me.enableCompass();
+		me.enableMyLocation();
         
         Bundle extras = getIntent().getExtras();
         int get_theater_id = 0;
@@ -66,7 +68,6 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         } else {
         	moveToCityLocation();
         }
-        
         
         initMapPanel();
         
@@ -179,23 +180,14 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		this.me.enableCompass();
+		//this.me.enableCompass();
 		this.me.enableMyLocation();
 	}
 	@Override
 	public void onPause() {
 		super.onPause();
 		this.me.disableMyLocation();
-		this.me.disableCompass();
-	}
-	
-	@Override
-	public void onDestroy() {
-		if (this.me != null){
-			this.me.disableMyLocation();
-			this.me.disableCompass();
-		}
-		super.onDestroy();
+		//this.me.disableCompass();
 	}
 
 	@Override
