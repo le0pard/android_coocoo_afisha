@@ -37,12 +37,12 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] app_widget_ids) {
     	super.onDeleted(context, app_widget_ids);
-    	for (int i=0; i< app_widget_ids.length; i++) {
-    		Timer timer = SingletoneStorage.get_value_timers(app_widget_ids[i]);
+    	for (int app_widget_id : app_widget_ids) {
+    		Timer timer = SingletoneStorage.get_value_timers(app_widget_id);
     		if (timer != null){
     			timer.cancel();
     		}
-    		AfishaWidgetConfigure.deleteTimerPref(context, app_widget_ids[i]);
+    		AfishaWidgetConfigure.deleteTimerPref(context, app_widget_id);
         }
     }
     
@@ -50,9 +50,8 @@ public class AfishaWidgetProvider extends AppWidgetProvider {
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(context);
 		SingletoneStorage.set_cinemas(DatabaseHelperObject.getTodayCinemasForWidget());
 		
-        final int count = app_widget_ids.length;
-        for (int i=0; i< count; i++) {
-            updateAppWidget(context, appWidgetManager, app_widget_ids[i]);
+        for (int app_widget_id : app_widget_ids) {
+            updateAppWidget(context, appWidgetManager, app_widget_id);
         }
 	}
     

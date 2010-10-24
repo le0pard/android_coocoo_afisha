@@ -422,11 +422,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		List<TheaterDB> theaters_list = this.getTheaters(false);
 		String theater_ids = "";
-		for (int i = 0; i < theaters_list.size(); i++){
+		for (TheaterDB  theater : theaters_list){
 			if (theater_ids != ""){
 				theater_ids = theater_ids + ",";
 			}
-			theater_ids = theater_ids + Integer.toString(theaters_list.get(i).getId());
+			theater_ids = theater_ids + Integer.toString(theater.getId());
 		}
 		
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -463,11 +463,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		List<TheaterDB> theaters_list = this.getTheaters(false);
 		String theater_ids = "";
-		for (int i = 0; i < theaters_list.size(); i++){
+		for (TheaterDB theater : theaters_list){
 			if (theater_ids != ""){
 				theater_ids = theater_ids + ",";
 			}
-			theater_ids = theater_ids + Integer.toString(theaters_list.get(i).getId());
+			theater_ids = theater_ids + Integer.toString(theater.getId());
 		}
 		
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -561,8 +561,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.beginTransaction();
 		try {
-			for (int i = 0; i < afisha_data.size(); i++){
-				AfishaDB afisha_row = afisha_data.get(i);
+			for (AfishaDB afisha_row : afisha_data){
 				Cursor result = db.query(AFISHA_TABLE, 
 						new String[] {
 						AFISHA_TABLE_EXT_ID

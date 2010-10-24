@@ -39,7 +39,8 @@ public class DataCollector {
 			if (theaters_array != null){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 				int city_id = Integer.parseInt(EditPreferences.getCityId(this.myContext));
-				for (int i = 0; i < theaters_array.length(); ++i) {
+				int count = theaters_array.length();
+				for (int i = 0; i < count; ++i) {
 				    JSONObject row = theaters_array.getJSONObject(i);
 				    if (city_id == row.getInt("city_id")){
 				    	String phone = "";
@@ -91,7 +92,8 @@ public class DataCollector {
 			JSONArray cinemas_array = js_obj.getJSONArray("cinemas");
 			if (cinemas_array != null){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
-				for (int i = 0; i < cinemas_array.length(); ++i) {
+				int count = cinemas_array.length();
+				for (int i = 0; i < count; ++i) {
 				    JSONObject row = cinemas_array.getJSONObject(i);
 				    if (row != null){
 				    	String poster = null;
@@ -114,7 +116,8 @@ public class DataCollector {
 			if (afisha_array != null){
 				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 				List<AfishaDB> afisha_data = new ArrayList<AfishaDB>();
-				for (int i = 0; i < afisha_array.length(); ++i) {
+				int count = afisha_array.length();
+				for (int i = 0; i < count; ++i) {
 				    JSONObject row = afisha_array.getJSONObject(i);
 				    if (row != null){
 				    	String zal = null;
