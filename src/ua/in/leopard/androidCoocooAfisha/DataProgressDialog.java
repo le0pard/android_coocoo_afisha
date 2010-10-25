@@ -7,16 +7,29 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 public class DataProgressDialog extends AsyncTask<Void, String, Void> {
-	private final Context myContext;
+	private Context myContext;
 	private ProgressDialog pd;
-	
 	private DataCollector dataCollectorObject;
+	
 	
 	public DataProgressDialog(Context myContext) {
 		this.myContext = myContext;
+	}
+	
+	public void newView(Context myContext){
+		this.myContext = myContext;
+		this.pd = ProgressDialog.show(this.myContext, this.myContext.getString(R.string.dialog_title), this.myContext.getString(R.string.dialog_message), true, false);
+	}
+	
+	public void closeView(){
+		this.pd.dismiss();
+	}
+	
+	@Override
+    protected void onPreExecute() {
 		this.pd = ProgressDialog.show(this.myContext, this.myContext.getString(R.string.dialog_title), this.myContext.getString(R.string.dialog_message), true, false);
 		this.dataCollectorObject = new DataCollector(this.myContext);
-	}
+    }
 	
 	@Override
 	protected Void doInBackground(Void... params) {

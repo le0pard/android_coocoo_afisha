@@ -2,6 +2,7 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 public class androidCoocooAfisha extends Activity implements OnClickListener {
 	private TextView current_city;
+	private DataProgressDialog backgroudUpdater;
 	
     /** Called when the activity is first created. */
     @Override
@@ -35,17 +37,40 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         current_city=(TextView)findViewById(R.id.current_city);
         current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
         
+        restoreBackgroudUpdate();
+        
         if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
         	startActivity(new Intent(this, EditPreferences.class));
         	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
-        } else {        
-	        if (EditPreferences.getAutoUpdate(this)){
-	        	new DataProgressDialog(this).execute();
+        } else {
+
+        	if (EditPreferences.getAutoUpdate(this)){
+        		if (backgroudUpdater == null){
+        			backgroudUpdater = new DataProgressDialog(this);
+        		}
+        		if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+        			backgroudUpdater.execute();
+        		}
 	        	if (Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
 	        		startService(new Intent(this, DataUpdateService.class));
 	        	}
 	        }
         }
+    }
+    
+    private void restoreBackgroudUpdate(){
+    	if (getLastNonConfigurationInstance()!=null) {
+    		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
+    		if(backgroudUpdater.getStatus() == AsyncTask.Status.RUNNING) {
+    			backgroudUpdater.newView(this);
+    		}
+    	}
+    }
+    
+    @Override
+    public Object onRetainNonConfigurationInstance() {
+    	backgroudUpdater.closeView();
+    	return(backgroudUpdater);
     }
   
     @Override
@@ -85,7 +110,10 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
 				 startActivity(new Intent(this, TheatersMap.class));
 		         break;
 			  case R.id.update_button:
-				 new DataProgressDialog(this).execute();
+				 backgroudUpdater = new DataProgressDialog(this);
+				 if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+					 backgroudUpdater.execute();
+				 }
 				 /* Update widgets */
 				 this.sendBroadcast(new Intent(AfishaWidgetProvider.FORCE_WIDGET_UPDATE));
 		         break;         
