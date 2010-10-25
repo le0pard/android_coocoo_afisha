@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -11,6 +12,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 public class EditPreferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+   private DataProgressDialog backgroudUpdater;
    // Option names and default values
    private static final String OPT_CITY = "city_current_name";
    private static final String OPT_CITY_DEF = "Киев";
@@ -72,6 +74,23 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
     	  }
     	  
       }
+      
+      restoreBackgroudUpdate();
+   }
+   
+   private void restoreBackgroudUpdate(){
+   	if (getLastNonConfigurationInstance()!=null) {
+   		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
+   		if(backgroudUpdater.getStatus() == AsyncTask.Status.RUNNING) {
+   			backgroudUpdater.newView(this);
+   		}
+   	}
+   }
+   
+   @Override
+   public Object onRetainNonConfigurationInstance() {
+   	backgroudUpdater.closeView();
+   	return(backgroudUpdater);
    }
    
    @Override
@@ -139,7 +158,12 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 		   editor.commit();
 		   
 		   setDefUrls(sharedPreferences);
-		   new DataProgressDialog(this).execute();
+		   
+		   backgroudUpdater = new DataProgressDialog(this);
+		   if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+			   backgroudUpdater.execute();
+		   }
+		   
 		   checkbox_theaters_filter.setEnabled(true);
 		   checkbox_theaters_filter.setChecked(false);
 	   }
@@ -165,7 +189,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   /* cache posters */
 	   if (key.equals(OPT_CACHED_POSTER)) {
 		   if (sharedPreferences.getBoolean(OPT_CACHED_POSTER, OPT_CACHED_POSTER_DEF)){
-			   new DataProgressDialog(this).execute();
+			   backgroudUpdater = new DataProgressDialog(this);
+			   if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+				   backgroudUpdater.execute();
+			   }
 		   }
 	   }
 	   /* cinemas filter */
