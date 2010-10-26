@@ -89,7 +89,9 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    
    @Override
    public Object onRetainNonConfigurationInstance() {
-   	backgroudUpdater.closeView();
+	if(backgroudUpdater!= null && backgroudUpdater.getStatus() == AsyncTask.Status.RUNNING) {
+		backgroudUpdater.closeView();
+	}
    	return(backgroudUpdater);
    }
    

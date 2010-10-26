@@ -69,7 +69,9 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
     
     @Override
     public Object onRetainNonConfigurationInstance() {
-    	backgroudUpdater.closeView();
+    	if(backgroudUpdater != null && backgroudUpdater.getStatus() == AsyncTask.Status.RUNNING) {
+    		backgroudUpdater.closeView();
+    	}
     	return(backgroudUpdater);
     }
   
