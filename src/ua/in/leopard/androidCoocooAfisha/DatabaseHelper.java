@@ -163,6 +163,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	public void setTheaterTransaction(List<TheaterDB> theater_data){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			for (TheaterDB theater_row : theater_data){
+				Cursor result = db.query(THEATERS_TABLE, 
+						new String[] {
+						THEATERS_TABLE_EXT_ID
+						}, THEATERS_TABLE_EXT_ID + " = ?",
+						new String[] {Integer.toString(theater_row.getId())}, null, null, null, "1");
+				
+				ContentValues cv = new ContentValues();
+				cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
+				cv.put(THEATERS_TABLE_CITY_ID, theater_row.getCityId());
+				cv.put(THEATERS_TABLE_TITLE, theater_row.getTitle());
+				cv.put(THEATERS_TABLE_LINK, theater_row.getLink());
+				cv.put(THEATERS_TABLE_ADDRESS, theater_row.getAddress());
+				cv.put(THEATERS_TABLE_PHONE, theater_row.getPhone());
+				cv.put(THEATERS_TABLE_LATITUDE, theater_row.getLatitude());
+				cv.put(THEATERS_TABLE_LONGITUDE, theater_row.getLongitude());
+				cv.put(THEATERS_TABLE_CALL_PHONE, theater_row.getCallPhone());
+				
+				if (result.getCount() == 0){
+					cv.put(THEATERS_TABLE_EXT_ID, theater_row.getId());
+					db.insert(THEATERS_TABLE, null, cv);
+				} else {
+					db.update(THEATERS_TABLE, cv, THEATERS_TABLE_EXT_ID + " = ?", 
+							new String[] {Integer.toString(theater_row.getId())});
+				}
+				result.close();		
+			}
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+		db.close();
+	}
+	
 	public void addFilterTheater(TheaterDB theater_row){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -281,6 +319,84 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				cv_2.put(CINEMAS_TABLE_POSTER_IMAGE, poster);
 				db.update(CINEMAS_TABLE, cv_2, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(tmp_obj.getId())});
 			}
+		}
+		db.close();
+	}
+	
+	public void setCinemaTransaction(List<CinemaDB> cinema_data){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.beginTransaction();
+		try {
+			for (CinemaDB cinema_row : cinema_data){
+				Cursor result = db.query(CINEMAS_TABLE, 
+						new String[] {
+						CINEMAS_TABLE_EXT_ID, 
+						CINEMAS_TABLE_TITLE, 
+						CINEMAS_TABLE_OR_TITLE,
+						CINEMAS_TABLE_YEAR,
+						CINEMAS_TABLE_POSTER,
+						CINEMAS_TABLE_DESCRIPTION,
+						CINEMAS_TABLE_POSTER_IMAGE
+						}, CINEMAS_TABLE_EXT_ID + " = ?",
+						new String[] {Integer.toString(cinema_row.getId())}, null, null, 
+						null, "1");
+				
+				CinemaDB tmp_obj = null;
+				if (result.getCount() == 1){
+					result.moveToFirst();
+					while(!result.isAfterLast()){
+						tmp_obj = new CinemaDB(
+							result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)),
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE)),
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+						);
+						if (EditPreferences.isCachedPosters(this.myContext) && 
+								!result.isNull(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE))){
+							tmp_obj.setCachedPoster(result.getBlob(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE)));
+						}
+						result.moveToNext();
+					}
+				}
+				result.close();	
+				
+				ContentValues cv = new ContentValues();
+				cv.put(CINEMAS_TABLE_EXT_ID, cinema_row.getId());
+				cv.put(CINEMAS_TABLE_TITLE, cinema_row.getTitle());
+				cv.put(CINEMAS_TABLE_OR_TITLE, cinema_row.getOrigTitle());
+				cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
+				cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
+				cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
+				
+				if (!EditPreferences.isNoPosters(this.myContext) && EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null && tmp_obj == null){
+					byte[] poster = cinema_row.setFromInetPoster();
+					if (poster != null){
+						cv.put(CINEMAS_TABLE_POSTER_IMAGE, poster);
+					}
+				}
+				
+				if (tmp_obj == null){
+					db.insert(CINEMAS_TABLE, null, cv);
+				} else if (!tmp_obj.equal(cinema_row)){
+					db.update(CINEMAS_TABLE, cv, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(cinema_row.getId())});
+				} else if (tmp_obj != null && !EditPreferences.isNoPosters(this.myContext) && 
+						EditPreferences.isCachedPosters(this.myContext) && 
+						tmp_obj.getPoster() != null && tmp_obj.getCachedPoster() == null){
+					
+					byte[] poster = tmp_obj.setFromInetPoster();
+					if (poster != null){
+						ContentValues cv_2 = new ContentValues();
+						cv_2.put(CINEMAS_TABLE_POSTER_IMAGE, poster);
+						db.update(CINEMAS_TABLE, cv_2, CINEMAS_TABLE_EXT_ID + " = ?", new String[] {Integer.toString(tmp_obj.getId())});
+					}
+				}
+				
+			}
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
 		}
 		db.close();
 	}
@@ -599,10 +715,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(AFISHA_TABLE, AFISHA_TABLE_DATA_END + " < ?", new String[] {dateNow});
 		
 		db.beginTransaction();
 		try {
+			db.delete(AFISHA_TABLE, AFISHA_TABLE_DATA_END + " < ?", new String[] {dateNow});
+			
 			Cursor result = db.query(CINEMAS_TABLE, 
 					new String[] {
 					CINEMAS_TABLE_EXT_ID
