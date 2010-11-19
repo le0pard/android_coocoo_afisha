@@ -2,6 +2,7 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 
@@ -24,9 +25,9 @@ public class TheaterInfo extends Activity {
         	if (theater_main != null){
         		setTitle(theater_main.getTitle());
         		TextView theater_address = (TextView)findViewById(R.id.theater_address);
-        		theater_address.setText(theater_main.getAddress());
+        		theater_address.setText(Html.fromHtml(theater_main.getAddress()));
         		TextView theater_phone = (TextView)findViewById(R.id.theater_phone);
-        		theater_phone.setText(theater_main.getPhone());
+        		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
         		TextView theater_link = (TextView)findViewById(R.id.theater_link);
         		theater_link.setText(theater_main.getLink());
         	}
