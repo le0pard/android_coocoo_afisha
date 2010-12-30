@@ -1,12 +1,13 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 
 public class SingletoneStorage {
     private volatile static SingletoneStorage instance;
-    private List<CinemaDB> cinemas = null;
+    private List<CinemaDB> cinemas = new ArrayList<CinemaDB>();
     private HashMap<Integer, Timer> timers = new HashMap<Integer, Timer>();
 	private HashMap<Integer, Integer> cinemas_iterators = new HashMap<Integer, Integer>();
  

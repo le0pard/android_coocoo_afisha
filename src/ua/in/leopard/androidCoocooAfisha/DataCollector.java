@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 public class DataCollector {
 	private final Context myContext;
@@ -35,9 +34,10 @@ public class DataCollector {
 	
 	public void getTheatersDataFromJSON(JSONObject js_obj){
 		try {
+			DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 			JSONArray theaters_array = js_obj.getJSONArray("theaters");
 			if (theaters_array != null){
-				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+				List<TheaterDB> theater_data = new ArrayList<TheaterDB>();
 				int city_id = Integer.parseInt(EditPreferences.getCityId(this.myContext));
 				int count = theaters_array.length();
 				for (int i = 0; i < count; ++i) {
@@ -63,7 +63,7 @@ public class DataCollector {
 				    	if (!row.isNull("call_phone")){
 				    		call_phone = row.getString("call_phone");
 				    	}
-				    	DatabaseHelperObject.setTheater(new TheaterDB(
+				    	theater_data.add(new TheaterDB(
 				    			row.getInt("id"), city_id, 
 				    			row.getString("title"), 
 				    			row.getString("link"), 
@@ -76,22 +76,24 @@ public class DataCollector {
 				    	);
 				    }
 				}
+				DatabaseHelperObject.setTheaterTransaction(theater_data);
 			}
 		} catch (JSONException e) {
-			Log.i("dataCollector", "error data");
+			//Log.i("dataCollector", "error data");
 			//e.printStackTrace();
 		} catch (Exception e) { 
         	//e.printStackTrace();
 			this.getInetError = true;
-        	Log.v("dataCollector","Exception");
+        	//Log.v("dataCollector","Exception");
         }
 	}
 	
 	public void getCinemasDataFromJSON(JSONObject js_obj){
 		try {
+			DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 			JSONArray cinemas_array = js_obj.getJSONArray("cinemas");
 			if (cinemas_array != null){
-				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+				List<CinemaDB> cinema_data = new ArrayList<CinemaDB>();
 				int count = cinemas_array.length();
 				for (int i = 0; i < count; ++i) {
 				    JSONObject row = cinemas_array.getJSONObject(i);
@@ -100,21 +102,20 @@ public class DataCollector {
 				    	if (!row.isNull("poster")){
 				    		poster = row.getString("poster");
 				    	}
-				    	DatabaseHelperObject.setCinema(new CinemaDB(
+				    	cinema_data.add(new CinemaDB(
 				    			row.getInt("id"), 
 				    			row.getString("title"),
 				    			row.getString("orig_title"), 
 				    			row.getString("year"), 
 				    			poster, 
-				    			row.getString("description"))
-				    	);
+				    			row.getString("description")));
 				    }
 				}
+				DatabaseHelperObject.setCinemaTransaction(cinema_data);
 			}
 			
 			JSONArray afisha_array = js_obj.getJSONArray("afisha");
 			if (afisha_array != null){
-				DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 				List<AfishaDB> afisha_data = new ArrayList<AfishaDB>();
 				int count = afisha_array.length();
 				for (int i = 0; i < count; ++i) {
@@ -147,12 +148,12 @@ public class DataCollector {
 				DatabaseHelperObject.setAfishaTransaction(afisha_data);
 			}
 		} catch (JSONException e) {
-			Log.i("dataCollector", "error data");
+			//Log.i("dataCollector", "error data");
 			//e.printStackTrace();
 		} catch (Exception e) { 
         	e.printStackTrace();
 			this.getInetError = true;
-        	Log.v("dataCollector","Exception");
+        	//Log.v("dataCollector","Exception");
         }
 	}
 	
