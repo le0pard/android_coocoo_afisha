@@ -109,6 +109,7 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
 			Bundle bundle = new Bundle();
 			bundle.putString("cinema_title", this.cinema_main.getTitle());
 			bundle.putString("cinema_content", this.cinema_main.getDescription());
+			bundle.putString("cinema_casts", this.cinema_main.getCasts());
 			intent.putExtras(bundle);
 			startActivity(intent);
 	        break;        
