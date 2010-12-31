@@ -52,7 +52,7 @@ android:padding="3sp"
          android:layout_height="wrap_content"
          android:drawableLeft="@drawable/cinema_descr_button"
          android:drawablePadding="3sp"
-         android:text="@string/cinema_description" />>
+         android:text="@string/cinema_more_info" />
 	    </TableRow>
 		</TableLayout>
 	</LinearLayout>

@@ -20,6 +20,7 @@ public class CinemaDB {
 	private String year;
 	private String poster = null;
 	private String description;
+	private String casts;
 	
 	private String zal_title = null;
 	private String times = null;
@@ -28,7 +29,7 @@ public class CinemaDB {
 	
 	
 	// Constructor for the TheaterDB class
-	public CinemaDB(int id, String title, String orig_title, String year, String poster, String description) {
+	public CinemaDB(int id, String title, String orig_title, String year, String poster, String description, String casts) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -36,6 +37,7 @@ public class CinemaDB {
 		this.year = year;
 		this.poster = poster;
 		this.description = description;
+		this.casts = casts;
 	}
 	
 	
@@ -181,5 +183,11 @@ public class CinemaDB {
 	}
 	public void setPrices(String prices) {
 		this.prices = prices;
+	}
+	public String getCasts() {
+		return casts;
+	}
+	public void setCasts(String casts) {
+		this.casts = casts;
 	}
 }

@@ -70,7 +70,10 @@
     <string name="seance_prices">Цена:</string>
     
     <string name="cinema_year">год:</string>
-    <string name="cinema_description">Описание</string>
+    <string name="cinema_more_info">Информация</string>
+    <string name="cinema_casts">В ролях</string>
+    <string name="cinema_casts_not_set">Не указано</string>
+    <string name="cinema_description">Сюжет</string>
     
     <string name="not_set">Не указано</string>
     

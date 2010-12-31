@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * sqlite3 /data/data/ua.in.leopard.androidCoocooAfisha/databases/coocoo_afisha_db
 */
 public class DatabaseHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	private static final String DATABASE_NAME="coocoo_afisha_db";
 	private final Context myContext;
 	
@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String CINEMAS_TABLE_POSTER="poster";
 	private static final String CINEMAS_TABLE_DESCRIPTION="description";
 	private static final String CINEMAS_TABLE_POSTER_IMAGE="poster_img";
+	private static final String CINEMAS_TABLE_CASTS="casts";
 
 	private static final String THEATERS_TABLE="theaters";
 	private static final String THEATERS_TABLE_EXT_ID="id";
@@ -261,7 +262,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE_YEAR,
 				CINEMAS_TABLE_POSTER,
 				CINEMAS_TABLE_DESCRIPTION,
-				CINEMAS_TABLE_POSTER_IMAGE
+				CINEMAS_TABLE_POSTER_IMAGE,
+				CINEMAS_TABLE_CASTS
 				}, CINEMAS_TABLE_EXT_ID + " = ?",
 				new String[] {Integer.toString(id)}, null, null, CINEMAS_TABLE_TITLE, "1");
 		
@@ -274,7 +276,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 			);
 			if (EditPreferences.isCachedPosters(this.myContext) && 
 					!result.isNull(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE))){
@@ -297,6 +300,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
 		cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
 		cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
+		cv.put(CINEMAS_TABLE_CASTS, cinema_row.getCasts());
 		
 		if (!EditPreferences.isNoPosters(this.myContext) && EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null && tmp_obj == null){
 			byte[] poster = cinema_row.setFromInetPoster();
@@ -336,7 +340,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 						CINEMAS_TABLE_YEAR,
 						CINEMAS_TABLE_POSTER,
 						CINEMAS_TABLE_DESCRIPTION,
-						CINEMAS_TABLE_POSTER_IMAGE
+						CINEMAS_TABLE_POSTER_IMAGE,
+						CINEMAS_TABLE_CASTS
 						}, CINEMAS_TABLE_EXT_ID + " = ?",
 						new String[] {Integer.toString(cinema_row.getId())}, null, null, 
 						null, "1");
@@ -351,7 +356,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 							result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
 							result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
 							result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
-							result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
+							result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 						);
 						if (EditPreferences.isCachedPosters(this.myContext) && 
 								!result.isNull(result.getColumnIndex(CINEMAS_TABLE_POSTER_IMAGE))){
@@ -369,6 +375,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				cv.put(CINEMAS_TABLE_YEAR, cinema_row.getYear());
 				cv.put(CINEMAS_TABLE_POSTER, cinema_row.getPoster());
 				cv.put(CINEMAS_TABLE_DESCRIPTION, cinema_row.getDescription());
+				cv.put(CINEMAS_TABLE_CASTS, cinema_row.getCasts());
 				
 				if (!EditPreferences.isNoPosters(this.myContext) && EditPreferences.isCachedPosters(this.myContext) && cinema_row.getPoster() != null && tmp_obj == null){
 					byte[] poster = cinema_row.setFromInetPoster();
@@ -419,6 +426,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_YEAR + " AS " + CINEMAS_TABLE_YEAR + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER + " AS " + CINEMAS_TABLE_POSTER + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_DESCRIPTION + " AS " + CINEMAS_TABLE_DESCRIPTION + "," + 
+				CINEMAS_TABLE + "." + CINEMAS_TABLE_CASTS + " AS " + CINEMAS_TABLE_CASTS + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER_IMAGE + " AS " + CINEMAS_TABLE_POSTER_IMAGE + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_ZAL + " AS " + AFISHA_TABLE_ZAL + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
@@ -445,7 +453,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 			);
 			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_ZAL))){
 				cinema_row.setZalTitle(result.getString(result.getColumnIndex(AFISHA_TABLE_ZAL)));
@@ -563,7 +572,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 			));
 			result.moveToNext();
 		}
@@ -606,7 +616,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_YEAR)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_POSTER)),
-				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION))
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
+				result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 			));
 			result.moveToNext();
 		}
@@ -771,7 +782,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE_YEAR + " INTEGER, " + 
 				CINEMAS_TABLE_POSTER + " TEXT, " + 
 				CINEMAS_TABLE_DESCRIPTION + " TEXT, " +
-				CINEMAS_TABLE_POSTER_IMAGE + " BLOB" + 
+				CINEMAS_TABLE_POSTER_IMAGE + " BLOB, " + 
+				CINEMAS_TABLE_CASTS + " TEXT" + 
 				");");
 		
 		db.execSQL("CREATE TABLE " + THEATERS_TABLE + 
@@ -791,7 +803,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		android.util.Log.w("DatabaseHelper", "Upgrading database, which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + AFISHA_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CINEMAS_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + THEATERS_TABLE);
