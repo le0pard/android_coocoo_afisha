@@ -227,7 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public Boolean isSetFilters(){
-		SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor result = db.query(THEATERS_TABLE, 
 				new String[] {
 				THEATERS_TABLE_EXT_ID, 
