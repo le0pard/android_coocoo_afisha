@@ -67,12 +67,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
     	  checkbox_theaters_filter.setEnabled(false);
       } else {
     	  checkbox_theaters_filter.setEnabled(true);
-    	  if (new DatabaseHelper(this).isSetFilters()){
-    		  checkbox_theaters_filter.setChecked(true);
-    	  } else {
-    		  checkbox_theaters_filter.setChecked(false);
-    	  }
-    	  
       }
       
       restoreBackgroudUpdate();
