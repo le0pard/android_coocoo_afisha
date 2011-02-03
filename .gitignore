@@ -6,3 +6,4 @@ gen
 .settings
 SecretData.java
 .DS_Store
+proguard/*
