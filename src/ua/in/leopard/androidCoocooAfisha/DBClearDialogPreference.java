@@ -2,11 +2,10 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.widget.Toast;
 
-public class DBClearDialogPreference extends DialogPreference {
+public class DBClearDialogPreference extends android.preference.DialogPreference {
 	private final Context myContext;
 
 	public DBClearDialogPreference(Context context, AttributeSet attrs) {
