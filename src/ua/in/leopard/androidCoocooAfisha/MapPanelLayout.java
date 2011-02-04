@@ -6,9 +6,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
-public class MapPanelLayout extends LinearLayout {
+public class MapPanelLayout extends android.widget.LinearLayout {
 	private Paint	innerPaint, borderPaint ;
     
 	public MapPanelLayout(Context context, AttributeSet attrs) {
