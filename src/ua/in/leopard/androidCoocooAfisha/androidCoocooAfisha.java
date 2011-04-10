@@ -23,8 +23,6 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        setTitle(getString(R.string.main_title));
-        
         View cinemasButton = findViewById(R.id.cinemas_button);
         cinemasButton.setOnClickListener(this);
         View theatersButton = findViewById(R.id.theaters_button);

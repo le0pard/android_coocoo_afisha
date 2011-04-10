@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
    xmlns:android="http://schemas.android.com/apk/res/android"
-   android:background="@color/background"
-   android:textColor="@color/text"
    android:layout_height="fill_parent"
    android:layout_width="fill_parent"
-   android:padding="10dip"
-   android:orientation="horizontal"
-   android:gravity="center">
+   android:orientation="vertical">
+   
+   <include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+   
    <LinearLayout
       android:orientation="vertical"
       android:layout_height="wrap_content"
