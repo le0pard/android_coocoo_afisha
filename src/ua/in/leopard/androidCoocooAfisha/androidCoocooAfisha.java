@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class androidCoocooAfisha extends Activity implements OnClickListener {
-	private TextView current_city;
+	private TextView main_title;
 	private DataProgressDialog backgroudUpdater;
 	
     /** Called when the activity is first created. */
@@ -22,6 +22,8 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        main_title = (TextView)findViewById(R.id.main_title);
         
         View cinemasButton = findViewById(R.id.cinemas_button);
         cinemasButton.setOnClickListener(this);
@@ -31,9 +33,6 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         theatersMapButton.setOnClickListener(this);
         View updateButton = findViewById(R.id.update_button);
         updateButton.setOnClickListener(this);
-        
-        current_city=(TextView)findViewById(R.id.current_city);
-        current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
         
         restoreBackgroudUpdate();
         
@@ -76,7 +75,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
        super.onResume();
-       current_city.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
+       main_title.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
     }
 
     @Override

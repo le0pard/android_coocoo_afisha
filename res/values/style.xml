@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- buttons -->
     <style name="button_defaults">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -7,7 +8,27 @@
     <style name="search_button" parent="@style/button_defaults">
       <item name="android:layout_marginTop">0dip</item>
       <item name="android:layout_marginBottom">0dip</item>
-      <item name="android:background">@drawable/about_icon</item>
+      <item name="android:background">@drawable/dashboard_normal_bg</item>
       <item name="android:gravity">right</item>
+    </style>
+    <!-- dasboard -->
+    <style name="dasboard_bar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="dasboard_bar_spring">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <!-- title bar -->
+    <style name="title_bar_box">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="title_bar">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>
