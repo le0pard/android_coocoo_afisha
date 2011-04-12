@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,15 +24,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         setContentView(R.layout.main);
         
         main_title = (TextView)findViewById(R.id.main_title);
-        
-        View cinemasButton = findViewById(R.id.cinemas_button);
-        cinemasButton.setOnClickListener(this);
-        View theatersButton = findViewById(R.id.theaters_button);
-        theatersButton.setOnClickListener(this);
-        View theatersMapButton = findViewById(R.id.theaters_map_button);
-        theatersMapButton.setOnClickListener(this);
-        View updateButton = findViewById(R.id.update_button);
-        updateButton.setOnClickListener(this);
+        setDashboardButtons();
         
         restoreBackgroudUpdate();
         
@@ -55,6 +47,36 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         }
     }
     
+    private void setDashboardButtons(){
+    	View cinemasButton = findViewById(R.id.cinemas_button);
+        cinemasButton.setOnClickListener(this);
+        ImageView cinemasImageButton = (ImageView)cinemasButton.findViewById(R.id.dashboard_item_image);
+        cinemasImageButton.setImageResource(R.drawable.dashboard_cinema_button);
+        TextView cinemasTextButton = (TextView)cinemasButton.findViewById(R.id.dashboard_item_text_label);
+        cinemasTextButton.setText(R.string.cinemas_label);
+        
+        View theatersButton = findViewById(R.id.theaters_button);
+        theatersButton.setOnClickListener(this);
+        ImageView theatersImageButton = (ImageView)theatersButton.findViewById(R.id.dashboard_item_image);
+        theatersImageButton.setImageResource(R.drawable.dashboard_theater_button);
+        TextView theatersTextButton = (TextView)theatersButton.findViewById(R.id.dashboard_item_text_label);
+        theatersTextButton.setText(R.string.theaters_label);
+        
+        View theatersMapButton = findViewById(R.id.theaters_map_button);
+        theatersMapButton.setOnClickListener(this);
+        ImageView theatersMapImageButton = (ImageView)theatersMapButton.findViewById(R.id.dashboard_item_image);
+        theatersMapImageButton.setImageResource(R.drawable.dashboard_map_button);
+        TextView theatersMapTextButton = (TextView)theatersMapButton.findViewById(R.id.dashboard_item_text_label);
+        theatersMapTextButton.setText(R.string.theaters_map_label);     
+        
+        View updateButton = findViewById(R.id.update_button);
+        updateButton.setOnClickListener(this);
+        ImageView updateImageButton = (ImageView)updateButton.findViewById(R.id.dashboard_item_image);
+        updateImageButton.setImageResource(R.drawable.dashboard_update_button);
+        TextView updateTextButton = (TextView)updateButton.findViewById(R.id.dashboard_item_text_label);
+        updateTextButton.setText(R.string.update_label);
+    }
+    
     private void restoreBackgroudUpdate(){
     	if (getLastNonConfigurationInstance()!=null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
@@ -75,7 +97,7 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
     @Override
     protected void onResume() {
        super.onResume();
-       main_title.setText(Html.fromHtml(getString(R.string.current_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
+       main_title.setText(getString(R.string.current_city_title) + " " + EditPreferences.getCity(this));
     }
 
     @Override

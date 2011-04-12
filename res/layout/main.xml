@@ -1,58 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
    xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_height="fill_parent"
-   android:layout_width="fill_parent"
-   android:orientation="vertical">
+   style="@style/dashboard_main">
    
    <include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
    <include android:id="@+id/title_bar" layout="@layout/title_bar" />
    
-   <LinearLayout
-      android:orientation="vertical"
-      android:layout_height="fill_parent"
-      android:layout_width="fill_parent">
+   <LinearLayout style="@style/dashboard_layouts_main">
       
-      <LinearLayout
-	      android:orientation="horizontal"
-	      android:layout_height="wrap_content"
-	      android:layout_width="fill_parent"
-	      android:layout_weight="1">
+      <LinearLayout style="@style/dashboard_layouts_horizontal">
       
-      <Button
-         android:id="@+id/cinemas_button"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_weight="1"
-         android:drawableLeft="@drawable/cinemas_button"
-         android:text="@string/cinemas_label" />
-       <Button
-         android:id="@+id/theaters_button"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_weight="1"
-         android:drawableLeft="@drawable/theaters_button"
-         android:text="@string/theaters_label" />
+        <include android:id="@+id/cinemas_button" layout="@layout/dashboard_button" />
+        <include android:id="@+id/theaters_button" layout="@layout/dashboard_button" />
+      
       </LinearLayout>
-      <LinearLayout
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_weight="1">
-      <Button
-         android:id="@+id/theaters_map_button"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_weight="1"
-         android:drawableLeft="@drawable/map_button"
-         android:text="@string/theaters_map_label" />
-      <Button
-         android:id="@+id/update_button"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_weight="1"
-         android:drawableLeft="@drawable/update_button"
-         android:text="@string/update_label" />
+      <LinearLayout style="@style/dashboard_layouts_horizontal">
+        
+        <include android:id="@+id/theaters_map_button" layout="@layout/dashboard_button" />
+        <include android:id="@+id/update_button" layout="@layout/dashboard_button" />
+
       </LinearLayout>
    </LinearLayout>
 </LinearLayout>

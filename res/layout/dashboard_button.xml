@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout style="@style/dashboard_button_container"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout style="@style/dashboard_image_container">
+        <ImageView android:id="@+id/dashboard_item_image" style="@style/dashboard_item_image" />
+    </LinearLayout>
+    <TextView android:id="@+id/dashboard_item_text_label" style="@style/dashboard_item_label" />
+</LinearLayout>

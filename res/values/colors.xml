@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+   <color name="dasboard_bar_bg_color">#FFFFFFFF</color>
+   
+   <color name="title_bar_bg_color">#FFADADAD</color>
+   <color name="title_bar_text_color">#FFFFFFFF</color>
+   
+   
+   <!-- old -->
    <color name="background">#333333</color>
    <color name="text">#FFFFFF</color>
    <color name="border">#ACA8CF</color>

@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:orientation="vertical"
       style="@style/title_bar_box">
+      
+      <View style="@style/title_bar_shadow" />
+      
       <TextView
          android:id="@+id/main_title"
          android:text="@string/main_title"

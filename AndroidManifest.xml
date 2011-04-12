@@ -23,8 +23,8 @@
     <activity android:name="About" android:label="@string/about_title" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon"></activity>
 
 <activity android:name="EditPreferences" android:label="@string/settings_title"></activity>
-<activity android:label="@string/cinemas_title" android:name="Cinemas"></activity>
-<activity android:name="Theaters" android:label="@string/theaters_title"></activity>
+<activity android:label="@string/cinemas_title" android:name="Cinemas" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name="Theaters" android:label="@string/theaters_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
 
 <service android:name="DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
 <activity android:name="Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
