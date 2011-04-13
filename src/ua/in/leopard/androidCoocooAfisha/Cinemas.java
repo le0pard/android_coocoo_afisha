@@ -26,7 +26,8 @@ public class Cinemas extends Activity implements OnItemClickListener {
         if (EditPreferences.isTheatersIsFilter(this)){
         	title = title + " (" + getString(R.string.theaters_is_filter_on) + ")";
         }
-        setTitle(title);
+        TextView main_title = (TextView)findViewById(R.id.main_title);
+        main_title.setText(title);
         
         ListView CinemasList = (ListView)findViewById(R.id.cinemas_list);
         DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
@@ -38,7 +39,6 @@ public class Cinemas extends Activity implements OnItemClickListener {
         	CinemasList.setVisibility(View.GONE);
         	TextView noDataText = (TextView)findViewById(R.id.no_data_title);
         	noDataText.setVisibility(View.VISIBLE);
-        	noDataText.setText(R.string.no_data_maybe_update);
         }
 	}
 

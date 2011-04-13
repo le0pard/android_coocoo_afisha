@@ -3,6 +3,6 @@
     <item android:state_pressed="true"
           android:drawable="@drawable/dashboard_button_bg_pressed" /> <!-- pressed -->
     <item android:state_focused="true"
-          android:drawable="@drawable/dashboard_button_bg_normal" /> <!-- focused -->
+          android:drawable="@drawable/dashboard_button_bg_focused" /> <!-- focused -->
     <item android:drawable="@drawable/dashboard_button_bg_normal" /> <!-- default -->
 </selector>

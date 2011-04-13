@@ -92,7 +92,7 @@
     <style name="dashboard_item_label">
         <item name="android:textSize">14.0dip</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">#ff111111</item>
+        <item name="android:textColor">@color/dashboard_item_label</item>
         <item name="android:gravity">top|center</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
@@ -104,5 +104,78 @@
       <item name="android:layout_height">fill_parent</item>
       <item name="android:layout_weight">1</item>
       <item name="android:background">@drawable/dashboard_button_bg</item>
+    </style>
+    <style name="dasboard_horizontal_hr">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">2dip</item>
+      <item name="android:background">@drawable/dashboard_hborder_bg</item>
+    </style>
+    <style name="dasboard_vertical_hr">
+      <item name="android:layout_width">2dip</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:background">@drawable/dashboard_vborder_bg</item>
+    </style>
+    <!-- list of resourses -->
+    <style name="list_main_box">
+      <item name="android:orientation">vertical</item>
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="list_main_view">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:divider">@color/list_main_devider</item>
+      <item name="android:dividerHeight">1dip</item>
+      <item name="android:cacheColorHint">@color/list_main_box_normal</item>
+    </style>
+    <style name="list_main_no_data">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:gravity">center</item>
+      <item name="android:textSize">14dip</item>
+      <item name="android:padding">20dip</item>
+      <item name="android:text">@string/no_data_maybe_update</item>
+      <item name="android:visibility">gone</item>
+    </style>
+    <!-- list of resourses (row) -->
+    <style name="list_row_box">
+      <item name="android:orientation">horizontal</item>
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:paddingLeft">5dip</item>
+      <item name="android:paddingRight">5dip</item>
+      <item name="android:paddingTop">2dip</item>
+      <item name="android:background">@drawable/list_bg</item>
+    </style>
+    <style name="list_row_text_box">
+      <item name="android:orientation">vertical</item>
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:padding">2dip</item>
+      <item name="android:layout_alignParentLeft">true</item>
+    </style>
+    <style name="list_row_text_main">
+      <item name="android:orientation">vertical</item>
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:typeface">sans</item>
+      <item name="android:textSize">14dip</item>
+      <item name="android:textColor">@color/list_main_text</item>
+    </style>
+    <style name="list_row_text_small">
+      <item name="android:orientation">vertical</item>
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:typeface">sans</item>
+      <item name="android:textSize">12dip</item>
+      <item name="android:textColor">@color/list_small_text</item>
+    </style>
+    <style name="list_row_img">
+      <item name="android:layout_width">wrap_content</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:paddingRight">6dip</item>
+      <item name="android:src">@drawable/listview_arrow</item>
+      <item name="android:layout_alignParentRight">true</item>
+      <item name="android:layout_centerVertical">true</item>
     </style>
 </resources>

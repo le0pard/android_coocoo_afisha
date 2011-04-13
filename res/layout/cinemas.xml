@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
->
+style="@style/list_main_box">
+
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+
 <ListView
   android:id="@+id/cinemas_list"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  style="@style/list_main_view" />
 
-</ListView>
  <TextView
    android:id="@+id/no_data_title"
-   android:layout_height="fill_parent"
-   android:layout_width="fill_parent"
-   android:gravity="center"
-   android:textSize="18sp"
-   android:padding="20sp"
-   android:visibility="gone" />
+   style="@style/list_main_no_data" />
 </LinearLayout>

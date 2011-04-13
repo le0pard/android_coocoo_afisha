@@ -11,12 +11,21 @@
       <LinearLayout style="@style/dashboard_layouts_horizontal">
       
         <include android:id="@+id/cinemas_button" layout="@layout/dashboard_button" />
+        
+        <View style="@style/dasboard_vertical_hr" />
+        
         <include android:id="@+id/theaters_button" layout="@layout/dashboard_button" />
       
       </LinearLayout>
+      
+      <View style="@style/dasboard_horizontal_hr" />
+      
       <LinearLayout style="@style/dashboard_layouts_horizontal">
         
         <include android:id="@+id/theaters_map_button" layout="@layout/dashboard_button" />
+        
+        <View style="@style/dasboard_vertical_hr" />
+        
         <include android:id="@+id/update_button" layout="@layout/dashboard_button" />
 
       </LinearLayout>
