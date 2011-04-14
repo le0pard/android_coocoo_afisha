@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="layout_main">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
     <!-- buttons -->
     <style name="button_defaults">
         <item name="android:layout_width">wrap_content</item>
@@ -53,11 +58,6 @@
       <item name="android:paddingRight">3dip</item>
     </style>
     <!-- dashboard -->
-     <style name="dashboard_main">
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_width">fill_parent</item>
-    </style>
     <style name="dashboard_layouts_main">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_height">fill_parent</item>
@@ -99,12 +99,6 @@
         <item name="android:layout_marginTop">5.0dip</item>
         <item name="android:layout_weight">1.5</item>
     </style>
-    <style name="dasboard_cinemas_button">
-      <item name="android:layout_width">fill_parent</item>
-      <item name="android:layout_height">fill_parent</item>
-      <item name="android:layout_weight">1</item>
-      <item name="android:background">@drawable/dashboard_button_bg</item>
-    </style>
     <style name="dasboard_horizontal_hr">
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">2dip</item>
@@ -116,11 +110,6 @@
       <item name="android:background">@drawable/dashboard_vborder_bg</item>
     </style>
     <!-- list of resourses -->
-    <style name="list_main_box">
-      <item name="android:orientation">vertical</item>
-      <item name="android:layout_width">fill_parent</item>
-      <item name="android:layout_height">fill_parent</item>
-    </style>
     <style name="list_main_view">
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">fill_parent</item>
@@ -177,5 +166,45 @@
       <item name="android:src">@drawable/listview_arrow</item>
       <item name="android:layout_alignParentRight">true</item>
       <item name="android:layout_centerVertical">true</item>
+    </style>
+    <!-- two_buttons_bar -->
+    <style name="two_buttons_bar">
+      <item name="android:orientation">horizontal</item>
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="two_buttons_bar_divider">
+      <item name="android:layout_width">1dip</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:background">@drawable/pixel_bg</item>
+    </style>
+    <!-- two_buttons_bar (button) -->
+    <style name="two_buttons_box">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:selectable">true</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/two_buttons_bar_button_bg</item>
+    </style>
+    <style name="two_buttons_button_image">
+        <item name="android:gravity">right</item>
+        <item name="android:layout_marginRight">5.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/listview_arrow</item>
+    </style>
+    <style name="two_buttons_button_label">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/dashboard_item_label</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10.0dip</item>
+        <item name="android:layout_marginBottom">10.0dip</item>
     </style>
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           style="@style/two_buttons_bar">
+        <include android:id="@+id/two_buttons_bar_button_one" layout="@layout/two_buttons_bar_button" />
+          
+        <View style="@style/two_buttons_bar_divider" />
+          
+        <include android:id="@+id/two_buttons_bar_button_second" layout="@layout/two_buttons_bar_button" />
+</LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout style="@style/two_buttons_box"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@+id/two_buttons_button_image" style="@style/two_buttons_button_image" />
+    <TextView android:id="@+id/two_buttons_button_label" style="@style/two_buttons_button_label" />
+</LinearLayout>

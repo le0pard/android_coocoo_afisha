@@ -1,47 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:padding="1sp"
->
+style="@style/layout_main">
 
-<TextView android:layout_height="wrap_content"
-      android:layout_width="fill_parent" android:id="@+id/theater_title"
-      android:text="" android:typeface="sans" android:textSize="20sp" 
-      android:textStyle="bold" android:gravity="center">
-</TextView>
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
  
-<LinearLayout
-android:gravity="center"
-android:orientation="horizontal"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content">
-<Button
-  android:id="@+id/theater_more_info"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:drawableLeft="@drawable/information"
-  android:drawablePadding="3sp"
-  android:text="@string/theater_more_info" />
-<Button
-  android:id="@+id/theater_call_phone"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:drawableLeft="@drawable/mobile_phone"
-  android:drawablePadding="3sp"
-  android:text="@string/theater_call_phone" />
-  
-<Button
-  android:id="@+id/theater_map_location"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:drawableLeft="@drawable/map_pin_icon"
-  android:drawablePadding="3sp"
-  android:text="@string/theater_map_location" />
-
-</LinearLayout>
-
 <TabHost android:id="@+id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -53,7 +17,8 @@ android:layout_height="wrap_content">
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"

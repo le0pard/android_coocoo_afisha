@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class Theaters extends MainActivity implements OnItemClickListener {
-	private TheaterAdapter adapter;
+	private TheaterAdapter theaters_adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,8 @@ public class Theaters extends MainActivity implements OnItemClickListener {
         ListView TheaterList = (ListView)findViewById(R.id.theaters_list);
         DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
         List<TheaterDB> theaters = DatabaseHelperObject.getTheaters(false);
-        adapter = new TheaterAdapter(this, theaters);
-        TheaterList.setAdapter(adapter);
+        theaters_adapter = new TheaterAdapter(this, theaters);
+        TheaterList.setAdapter(theaters_adapter);
         TheaterList.setOnItemClickListener(this);
         if (theaters.size() == 0){
         	TheaterList.setVisibility(View.GONE);
@@ -43,7 +43,7 @@ public class Theaters extends MainActivity implements OnItemClickListener {
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		TheaterDB theater_object = (TheaterDB)adapter.getItem(position);
+		TheaterDB theater_object = (TheaterDB)theaters_adapter.getItem(position);
 		Intent intent = new Intent(this, Theater.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("theater_id", theater_object.getId());
