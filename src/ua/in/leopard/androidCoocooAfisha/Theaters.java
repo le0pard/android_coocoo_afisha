@@ -25,8 +25,7 @@ public class Theaters extends MainActivity implements OnItemClickListener {
         if (EditPreferences.isTheatersIsFilter(this)){
         	title = title + " (" + getString(R.string.theaters_is_filter_on) + ")";
         }
-        TextView main_title = (TextView)findViewById(R.id.main_title);
-        main_title.setText(title);
+        setTitle(title);
         
         ListView TheaterList = (ListView)findViewById(R.id.theaters_list);
         DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);

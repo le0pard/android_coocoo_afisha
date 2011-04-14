@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class androidCoocooAfisha extends MainActivity implements OnClickListener {
-	private TextView main_title;
 	private DataProgressDialog backgroudUpdater;
 	
     /** Called when the activity is first created. */
@@ -21,8 +20,7 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        main_title = (TextView)findViewById(R.id.main_title);
+
         setDashboardButtons();
         
         restoreBackgroudUpdate();
@@ -99,7 +97,7 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     @Override
     protected void onResume() {
        super.onResume();
-       main_title.setText(getString(R.string.current_city_title) + " " + EditPreferences.getCity(this));
+       setTitle(getString(R.string.current_city_title) + " " + EditPreferences.getCity(this));
     }
 
     @Override

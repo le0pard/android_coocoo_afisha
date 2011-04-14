@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public abstract class MainActivity extends Activity {
 
@@ -44,6 +45,28 @@ public abstract class MainActivity extends Activity {
 	    final Intent intent = new Intent(context, androidCoocooAfisha.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    context.startActivity(intent);
+	}
+	
+	/**
+	 * Use the activity label to set the text in the activity's title text view.
+	 * The argument gives the name of the view.
+	 *
+	 * <p> This method is needed because we have a custom title bar rather than the default Android title bar.
+	 * See the theme definitons in styles.xml.
+	 * 
+	 * @param textViewId int
+	 * @return void
+	 */
+
+	public void setTitle(CharSequence title){
+		super.setTitle(title);
+		setTitleFromActivityLabel(title);
+	}
+	
+	public void setTitleFromActivityLabel(CharSequence title)
+	{
+	    TextView main_title = (TextView)findViewById(R.id.main_title);
+	    if (main_title != null) main_title.setText(title);
 	}
 
 	
