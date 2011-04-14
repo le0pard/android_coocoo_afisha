@@ -2,7 +2,6 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class Cinemas extends Activity implements OnItemClickListener {
+public class Cinemas extends MainActivity implements OnItemClickListener {
 	private CinemaAdapter adapter;
 
 	@Override

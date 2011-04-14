@@ -1,6 +1,5 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class androidCoocooAfisha extends Activity implements OnClickListener {
+public class androidCoocooAfisha extends MainActivity implements OnClickListener {
 	private TextView main_title;
 	private DataProgressDialog backgroudUpdater;
 	
@@ -75,6 +74,9 @@ public class androidCoocooAfisha extends Activity implements OnClickListener {
         updateImageButton.setImageResource(R.drawable.dashboard_update_button);
         TextView updateTextButton = (TextView)updateButton.findViewById(R.id.dashboard_item_text_label);
         updateTextButton.setText(R.string.update_label);
+        
+        View dashboardLogo = findViewById(R.id.dashboard_bar_logo);
+        dashboardLogo.setClickable(false);
     }
     
     private void restoreBackgroudUpdate(){
