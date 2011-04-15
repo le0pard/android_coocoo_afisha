@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout style="@style/two_buttons_box_land"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@+id/two_buttons_button_image" style="@style/two_buttons_button_image_land" />
+</LinearLayout>

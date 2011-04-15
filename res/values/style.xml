@@ -272,4 +272,30 @@
     </style>
     
     
+    
+    <!-- land -->
+    <style name="theater_layout_land">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="two_buttons_bar_land">
+      <item name="android:orientation">vertical</item>
+      <item name="android:layout_width">80dip</item>
+      <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="two_buttons_box_land" parent="@style/two_buttons_box">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="two_buttons_bar_divider_land">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">1dip</item>
+      <item name="android:background">@drawable/pixel_bg</item>
+    </style>
+    <style name="two_buttons_button_image_land" parent="@style/two_buttons_button_image">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginRight">0dip</item>
+    </style>
 </resources>

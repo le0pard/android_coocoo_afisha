@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/layout_main">
+
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+
+<LinearLayout style="@style/theater_layout_land">
+
+	<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
+	
+	<View style="@style/two_buttons_bar_divider" />
+	 
+	<TabHost android:id="@+id/tabhost"
+	    style="@style/fill_all">
+	    <LinearLayout style="@style/layout_main">
+	        <TabWidget
+	            android:id="@android:id/tabs"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:visibility="gone" />
+	        <FrameLayout
+	            android:id="@android:id/tabcontent"
+	            style="@style/fill_all">
+	            <ListView
+							  android:id="@+id/afisha_today_list"
+							  style="@style/list_main_view">
+							
+							</ListView>
+							<ListView
+	              android:id="@+id/afisha_tomorrow_list"
+	              style="@style/list_main_view">
+	            
+	            </ListView>
+	        </FrameLayout>
+	    </LinearLayout>
+	</TabHost>
+</LinearLayout>
+
+</LinearLayout>

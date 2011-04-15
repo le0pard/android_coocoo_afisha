@@ -88,7 +88,9 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 			if (two_buttons_bar_button_second != null){
 				two_buttons_bar_button_second.setOnClickListener(this);
 				TextView button_second_text = (TextView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_label);
-				button_second_text.setText(R.string.theater_more_info);
+				if (button_second_text != null){
+					button_second_text.setText(R.string.theater_more_info);
+				}
 				ImageView button_img = (ImageView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_image);
 				button_img.setImageResource(R.drawable.info_button);
 			}
@@ -101,10 +103,14 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 			ImageView button_img = (ImageView)tab_change_button.findViewById(R.id.two_buttons_button_image);
 			TextView button_text = (TextView)tab_change_button.findViewById(R.id.two_buttons_button_label);
 			if (AFISHA_TODAY_TAB == tabs.getCurrentTabTag()){
-				button_text.setText(R.string.afisha_today);
+				if (button_text != null){
+					button_text.setText(R.string.afisha_today);
+				}
 				button_img.setImageResource(R.drawable.today_button);
 			} else {
-				button_text.setText(R.string.afisha_tomorrow);
+				if (button_text != null){
+					button_text.setText(R.string.afisha_tomorrow);
+				}
 				button_img.setImageResource(R.drawable.tomorrow_button);
 			}
 			
