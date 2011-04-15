@@ -4,12 +4,10 @@
     <string name="main_title">Афиша кинотеатров</string>
     <string name="current_city_title">Текущий город: </string>
     
-    <string name="cinemas_label">Список фильмов</string>
-    <string name="theaters_label">Список кинотеатров</string>
+    <string name="cinemas_label">Фильмы</string>
+    <string name="theaters_label">Кинотеатры</string>
     
     <string name="cinemas_title">Список фильмов</string>
-    
-    
     <string name="theaters_title">Список кинотеатров</string>
     
     <string name="settings_label">Настройки</string>

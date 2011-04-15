@@ -1,76 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-  android:paddingLeft="10sp" android:paddingRight="10sp"
-  android:layout_height="fill_parent"
-  android:orientation="vertical" android:paddingTop="2sp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  style="@style/list_row_box_seanse">
 
-  <TextView android:layout_height="wrap_content"
-        android:layout_width="fill_parent" android:id="@+id/cinema_title"
-        android:text="" android:typeface="sans" android:textSize="16sp" 
-        android:textStyle="bold" android:textColor="@color/text">
-  </TextView>
+  <TextView android:id="@+id/cinema_title"
+            style="@style/list_row_seanse_title" />
 
-<LinearLayout
-  android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_height="fill_parent"
-  android:orientation="horizontal" android:paddingTop="5sp" android:paddingBottom="5sp">  
+  <LinearLayout style="@style/list_row_seanse_box">  
   
-  <ImageView
-    android:id="@+id/cinema_poster"
-    android:layout_width="120dip"
-    android:layout_height="175dip"
-    android:scaleType="fitXY"
-    android:layout_gravity="left"
-  />
+  <LinearLayout style="@style/list_row_seanse_poster_box">  
+	  <ImageView android:id="@+id/cinema_poster"
+	             style="@style/list_row_seanse_poster"/>
+  </LinearLayout>
   
-  <TableLayout
-	android:layout_height="wrap_content"
-	android:layout_width="fill_parent" 
-	android:shrinkColumns="1">
-	  <TableRow android:layout_margin="1dip">
-	    <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent" android:id="@+id/cinema_orig_title"
-            android:text="" android:typeface="sans" android:textSize="14sp"
-            android:layout_span="2" android:paddingLeft="3dip" android:paddingRight="3dip" 
-            android:textColor="@color/text">
-      </TextView>
+  <TableLayout style="@style/list_row_seanse_table">
+	  <TableRow style="@style/list_row_seanse_table_row">
+	    <TextView android:id="@+id/cinema_orig_title"
+	              style="@style/list_row_seanse_trow" />
 	  </TableRow>
-    <TableRow android:layout_margin="1dip">
-      <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:text="@string/seance_zal_title" android:typeface="sans" android:textSize="13sp" 
-            android:paddingLeft="3dip" android:gravity="right" android:paddingRight="10dip" 
-            android:textColor="@color/text_little">
-      </TextView>
-      <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent" android:id="@+id/cinema_zal_title"
-            android:text="" android:typeface="sans" android:textSize="13sp" android:textColor="@color/text">
-      </TextView> 
+    <TableRow style="@style/list_row_seanse_table_row">
+      <TextView style="@style/list_row_seanse_lrow"
+            android:text="@string/seance_zal_title" />
+      <TextView android:id="@+id/cinema_zal_title" 
+                style="@style/list_row_seanse_rrow"  />
     </TableRow>
-    <TableRow android:layout_margin="1dip">
-      <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:text="@string/seance_times" android:typeface="sans" android:textSize="13sp" 
-            android:paddingLeft="3dip" android:gravity="right" android:paddingRight="10dip" 
-            android:textColor="@color/text_little">
-      </TextView>
-      <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent" android:id="@+id/cinema_times"
-            android:text="" android:typeface="sans" android:textSize="13sp" android:textColor="@color/text">
-      </TextView> 
+    <TableRow style="@style/list_row_seanse_table_row">
+      <TextView style="@style/list_row_seanse_lrow"
+            android:text="@string/seance_times" />
+      <TextView android:id="@+id/cinema_times" 
+                style="@style/list_row_seanse_rrow"  />
     </TableRow>
-	  <TableRow android:layout_margin="1dip">
-	    <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:text="@string/seance_prices" android:typeface="sans" android:textSize="13sp" 
-            android:paddingLeft="3dip" android:gravity="right" android:paddingRight="10dip"
-            android:textColor="@color/text_little">
-      </TextView>
-		  <TextView android:layout_height="wrap_content"
-		        android:layout_width="fill_parent" android:id="@+id/cinema_prices"
-		        android:text="" android:typeface="sans" android:textSize="13sp" android:textColor="@color/text">
-		  </TextView>  
+	  <TableRow style="@style/list_row_seanse_table_row">
+	    <TextView style="@style/list_row_seanse_lrow"
+            android:text="@string/seance_prices" />
+      <TextView android:id="@+id/cinema_prices" 
+                style="@style/list_row_seanse_rrow"  /> 
 	  </TableRow>
 	</TableLayout>
  </LinearLayout>

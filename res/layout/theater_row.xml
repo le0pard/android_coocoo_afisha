@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  style="@style/list_row_box">
+  style="@style/list_row_box_h">
   
     <LinearLayout style="@style/list_row_text_box">
         <TextView android:id="@+id/theater_title" style="@style/list_row_text_main" />

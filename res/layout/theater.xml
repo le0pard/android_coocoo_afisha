@@ -7,13 +7,8 @@ style="@style/layout_main">
 <include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
  
 <TabHost android:id="@+id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginTop="5dip">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    style="@style/fill_all">
+    <LinearLayout style="@style/layout_main">
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
@@ -21,18 +16,15 @@ style="@style/layout_main">
             android:visibility="gone" />
         <FrameLayout
             android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            style="@style/fill_all">
             <ListView
 						  android:id="@+id/afisha_today_list"
-						  android:layout_width="fill_parent"
-						  android:layout_height="fill_parent">
+						  style="@style/list_main_view">
 						
 						</ListView>
 						<ListView
               android:id="@+id/afisha_tomorrow_list"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
+              style="@style/list_main_view">
             
             </ListView>
         </FrameLayout>
