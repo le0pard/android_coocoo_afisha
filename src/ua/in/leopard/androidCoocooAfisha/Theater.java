@@ -42,13 +42,6 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
         	if (theater_main != null){
         		setTitle(Html.fromHtml(theater_main.getTitle()));
         		
-        		/*
-        		Button theater_call_phone = (Button)findViewById(R.id.theater_call_phone);
-        		theater_call_phone.setOnClickListener(this);
-        		Button theater_map_location = (Button)findViewById(R.id.theater_map_location);
-        		theater_map_location.setOnClickListener(this);
-        		*/
-        		
         		ListView seanceTodayList = (ListView)findViewById(R.id.afisha_today_list);
         		List<CinemaDB> cinemas_today = DatabaseHelperObject.getTodayOrTomorrowByTheater(theater_main, true);
         		adapter_today = new SeanceAdapter(this, cinemas_today);
@@ -146,19 +139,6 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 			}
 			tabButtonChanged();
 			break;
-		  /*
-		  case R.id.theater_call_phone:
-				String toDial="tel:" + theater_main.getCallPhone();
-				startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
-		        break;
-		  case R.id.theater_map_location:
-				Intent intent_map = new Intent(this, MainTheatersMap.class);
-				Bundle bundle_map = new Bundle();
-				bundle_map.putInt("theater_id", theater_main.getId());
-				intent_map.putExtras(bundle_map);
-				startActivity(intent_map);
-				break;
-		  */
 	   }
 	}
 }
