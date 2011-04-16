@@ -271,6 +271,30 @@
         <item name="android:layout_marginBottom">10.0dip</item>
     </style>
     
+    <style name="layout_text_main" parent="@style/fill_all">
+      <item name="android:orientation">vertical</item>
+      <item name="android:background">@color/list_main_box_normal</item>
+    </style>
+    <style name="layout_text_label">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:typeface">sans</item>
+      <item name="android:textSize">12dip</item>
+      <item name="android:paddingTop">10dip</item>
+      <item name="android:paddingLeft">10dip</item>
+      <item name="android:paddingRight">10dip</item>
+      <item name="android:textColor">@color/table_lrow_text</item>
+    </style>
+    <style name="layout_text_body">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:typeface">sans</item>
+      <item name="android:textSize">13dip</item>
+      <item name="android:paddingLeft">10dip</item>
+      <item name="android:paddingRight">10dip</item>
+      <item name="android:paddingBottom">10dip</item>
+      <item name="android:textColor">@color/list_small_text</item>
+    </style>
     
     
     <!-- land -->
@@ -297,5 +321,11 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginRight">0dip</item>
+    </style>
+    
+    <style name="layout_text_divider" parent="@style/two_buttons_bar_divider_land">
+      <item name="android:paddingTop">10dip</item>
+      <item name="android:paddingBottom">10dip</item>
+      <item name="android:background">@color/table_lrow_text</item>
     </style>
 </resources>

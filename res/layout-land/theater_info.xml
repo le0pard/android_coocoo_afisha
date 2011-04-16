@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/layout_main">
+
+	<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+	<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+	
+	<LinearLayout style="@style/theater_layout_land">
+	
+	  <include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
+	  
+	  <View style="@style/two_buttons_bar_divider" />
+	
+		<LinearLayout style="@style/layout_text_main">
+		  <TextView style="@style/layout_text_label"
+		            android:text="@string/theater_address" />
+		  <TextView android:id="@+id/theater_address"
+		            style="@style/layout_text_body" />
+		
+		  <View style="@style/layout_text_divider" />
+		  
+		  <TextView style="@style/layout_text_label"
+	              android:text="@string/theater_phone" />
+	    <TextView android:id="@+id/theater_phone"
+	              style="@style/layout_text_body" />  
+		
+		  <View style="@style/layout_text_divider" />
+		  
+		  <TextView style="@style/layout_text_label"
+	              android:text="@string/theater_link" />
+	    <TextView android:id="@+id/theater_link"
+	              style="@style/layout_text_body"
+	              android:autoLink="all" />
+	              
+	    <View style="@style/layout_text_divider" />
+		</LinearLayout>
+	</LinearLayout>
+
+</LinearLayout>
