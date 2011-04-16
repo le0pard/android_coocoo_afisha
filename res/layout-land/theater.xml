@@ -5,7 +5,7 @@ style="@style/layout_main">
 <include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
 <include android:id="@+id/title_bar" layout="@layout/title_bar" />
 
-<LinearLayout style="@style/theater_layout_land">
+<LinearLayout style="@style/layout_land">
 	 
 	<TabHost android:id="@+id/tabhost"
 	    style="@style/fill_all_land">

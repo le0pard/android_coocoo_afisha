@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
 public class TheatersItemizedOverlay extends ItemizedOverlay<TheaterOverlayItem> {
@@ -18,19 +16,13 @@ public class TheatersItemizedOverlay extends ItemizedOverlay<TheaterOverlayItem>
 	private Drawable marker = null;
 	private Drawable selected_marker = null;
 	private TheaterOverlayItem selected_item = null;
+	private final MapActivity mapActivity;
 	
-	private LinearLayout view_info_box = null;
-	private TextView view_theater_title = null;
-	
-	public TheatersItemizedOverlay(Drawable defaultMarker, Drawable selected_marker) {
+	public TheatersItemizedOverlay(MapActivity mapActivity, Drawable defaultMarker, Drawable selected_marker) {
 		super(boundCenterBottom(defaultMarker));
+		this.mapActivity = mapActivity;
 		this.marker = defaultMarker;
 		this.selected_marker = selected_marker;
-	}
-	
-	public void setViews(LinearLayout view_info_box, TextView view_theater_title){
-		this.view_info_box = view_info_box;
-		this.view_theater_title = view_theater_title;
 	}
 	
 	public TheaterDB getSelectedTheater(){
@@ -71,8 +63,7 @@ public class TheatersItemizedOverlay extends ItemizedOverlay<TheaterOverlayItem>
 	private void initInfoBlock(TheaterOverlayItem item){
 		if (item.getTheaterObj() != null){
 			TheaterDB theater_obj = item.getTheaterObj();
-			this.view_theater_title.setText(Html.fromHtml(theater_obj.getTitle()));
-			this.view_info_box.setVisibility(View.VISIBLE);
+			this.mapActivity.setTitle(Html.fromHtml(theater_obj.getTitle()));
 		}
 	}
 
