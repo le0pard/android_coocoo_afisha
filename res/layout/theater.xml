@@ -19,14 +19,10 @@ style="@style/layout_main">
             style="@style/fill_all">
             <ListView
 						  android:id="@+id/afisha_today_list"
-						  style="@style/list_main_view">
-						
-						</ListView>
+						  style="@style/list_main_view" />
 						<ListView
               android:id="@+id/afisha_tomorrow_list"
-              style="@style/list_main_view">
-            
-            </ListView>
+              style="@style/list_main_view" />
         </FrameLayout>
     </LinearLayout>
 </TabHost>

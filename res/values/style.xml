@@ -6,6 +6,7 @@
     </style>
     <style name="layout_main" parent="@style/fill_all">
         <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/main_bg_color</item>
     </style>
     <!-- buttons -->
     <style name="button_defaults">
@@ -193,6 +194,11 @@
       <item name="android:padding">2dip</item>
       <item name="android:background">@color/seance_poster_bg</item>
     </style>
+    <style name="list_row_seanse_poster_box_land" parent="@style/list_row_seanse_poster_box">
+      <item name="android:gravity">center</item>
+      <item name="android:layout_gravity">center</item>
+      <item name="android:layout_margin">5dip</item>
+    </style>
     <style name="list_row_seanse_poster">
       <item name="android:layout_width">120dip</item>
       <item name="android:layout_height">175dip</item>
@@ -294,6 +300,12 @@
       <item name="android:paddingRight">10dip</item>
       <item name="android:paddingBottom">10dip</item>
       <item name="android:textColor">@color/list_small_text</item>
+    </style>
+    <style name="layout_cinema_box">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:orientation">horizontal</item>
+      <item name="android:background">@color/list_main_box_normal</item>
     </style>
     
     

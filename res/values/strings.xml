@@ -67,6 +67,7 @@
     <string name="seance_times">Время:</string>
     <string name="seance_prices">Цена:</string>
     
+    <string name="cinema_orig_title">в ориг:</string>
     <string name="cinema_year">год:</string>
     <string name="cinema_more_info">Информация</string>
     <string name="cinema_casts">В ролях</string>
