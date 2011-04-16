@@ -6,13 +6,9 @@ style="@style/layout_main">
 <include android:id="@+id/title_bar" layout="@layout/title_bar" />
 
 <LinearLayout style="@style/theater_layout_land">
-
-	<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
-	
-	<View style="@style/two_buttons_bar_divider" />
 	 
 	<TabHost android:id="@+id/tabhost"
-	    style="@style/fill_all">
+	    style="@style/fill_all_land">
 	    <LinearLayout style="@style/layout_main">
 	        <TabWidget
 	            android:id="@android:id/tabs"
@@ -35,6 +31,10 @@ style="@style/layout_main">
 	        </FrameLayout>
 	    </LinearLayout>
 	</TabHost>
+	
+	<View style="@style/two_buttons_bar_divider" />
+	
+	<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
 </LinearLayout>
 
 </LinearLayout>

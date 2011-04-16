@@ -298,6 +298,15 @@
     
     
     <!-- land -->
+    <style name="fill_all_land">
+      <item name="android:layout_width">0dip</item>
+      <item name="android:layout_height">fill_parent</item>
+      <item name="android:layout_weight">1</item>
+    </style>
+    <style name="layout_text_main_land" parent="@style/fill_all_land">
+      <item name="android:orientation">vertical</item>
+      <item name="android:background">@color/list_main_box_normal</item>
+    </style>
     <style name="theater_layout_land">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>

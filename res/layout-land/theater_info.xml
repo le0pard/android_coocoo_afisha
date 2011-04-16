@@ -7,11 +7,7 @@ style="@style/layout_main">
 	
 	<LinearLayout style="@style/theater_layout_land">
 	
-	  <include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
-	  
-	  <View style="@style/two_buttons_bar_divider" />
-	
-		<LinearLayout style="@style/layout_text_main">
+		<LinearLayout style="@style/layout_text_main_land">
 		  <TextView style="@style/layout_text_label"
 		            android:text="@string/theater_address" />
 		  <TextView android:id="@+id/theater_address"
@@ -34,6 +30,10 @@ style="@style/layout_main">
 	              
 	    <View style="@style/layout_text_divider" />
 		</LinearLayout>
+		
+		<View style="@style/two_buttons_bar_divider" />
+		
+		<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
 	</LinearLayout>
 
 </LinearLayout>
