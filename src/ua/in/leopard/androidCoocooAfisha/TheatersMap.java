@@ -124,7 +124,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 					button_second_text.setText(R.string.map_seances_label);
 				}
 				ImageView button_img = (ImageView)two_buttons_bar_button_first.findViewById(R.id.two_buttons_button_image);
-				button_img.setImageResource(R.drawable.info_button);
+				button_img.setImageResource(R.drawable.billboard_button);
 			}
 			
 			View two_buttons_bar_button_second = two_buttons_bar.findViewById(R.id.two_buttons_bar_button_second);
