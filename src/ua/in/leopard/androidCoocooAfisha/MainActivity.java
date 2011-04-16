@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
@@ -66,7 +67,7 @@ public abstract class MainActivity extends Activity {
 	public void setTitleFromActivityLabel(CharSequence title)
 	{
 	    TextView main_title = (TextView)findViewById(R.id.main_title);
-	    if (main_title != null) main_title.setText(title);
+	    if (main_title != null) main_title.setText(Html.fromHtml(title.toString()));
 	}
 
 	

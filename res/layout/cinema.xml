@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:padding="3sp"
->
+style="@style/layout_main">
+
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
 
 <TextView android:layout_height="wrap_content"
       android:layout_width="fill_parent" android:id="@+id/cinema_title"

@@ -2,7 +2,6 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,7 +15,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Cinema extends Activity implements OnClickListener, OnItemClickListener {
+public class Cinema extends MainActivity implements OnClickListener, OnItemClickListener {
+	private final String AFISHA_TODAY_TAB = "afisha_today_tag";
+	private final String AFISHA_TOMORROW_TAB = "afisha_tomorrow_tag";
+	private TabHost tabs;
 	private TheaterAdapter adapter_today, adapter_tomorrow;
 	private CinemaDB cinema_main;
 
@@ -25,17 +27,7 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.cinema);
         
-        TabHost tabs=(TabHost)findViewById(R.id.tabhost);
-        tabs.setup();
-        TabHost.TabSpec spec=tabs.newTabSpec("afisha_today_tag");
-        spec.setContent(R.id.afisha_today_list);
-        spec.setIndicator(getString(R.string.afisha_today), getResources().getDrawable(R.drawable.today_icon));
-        tabs.addTab(spec);
-        spec=tabs.newTabSpec("afisha_tomorrow_tag");
-        spec.setContent(R.id.afisha_tomorrow_list);
-        spec.setIndicator(getString(R.string.afisha_tomorrow), getResources().getDrawable(R.drawable.tomorrow_icon));
-        tabs.addTab(spec);
-        tabs.setCurrentTab(0);
+        initTabHost();
         
         Bundle extras = getIntent().getExtras();
         int cinema_id = 0;
@@ -45,9 +37,10 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         
         if (cinema_id != 0){
         	DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
-        	CinemaDB cinema_main = DatabaseHelperObject.getCinema(cinema_id);
+        	cinema_main = DatabaseHelperObject.getCinema(cinema_id);
         	if (cinema_main != null){
-        		this.cinema_main = cinema_main;
+        		setTitle(cinema_main.getTitle());
+        		
         		TextView cinema_title = (TextView)findViewById(R.id.cinema_title);
         		cinema_title.setText(cinema_main.getTitle());
         		ImageView cinemaPoster = (ImageView)findViewById(R.id.cinema_poster);
@@ -88,6 +81,20 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         	}
         }
 
+	}
+	
+	private void initTabHost(){
+		tabs = (TabHost)findViewById(R.id.tabhost);
+        tabs.setup();
+        TabHost.TabSpec spec = tabs.newTabSpec(AFISHA_TODAY_TAB);
+        spec.setContent(R.id.afisha_today_list);
+        spec.setIndicator(getString(R.string.afisha_today));
+        tabs.addTab(spec);
+        spec = tabs.newTabSpec(AFISHA_TOMORROW_TAB);
+        spec.setContent(R.id.afisha_tomorrow_list);
+        spec.setIndicator(getString(R.string.afisha_tomorrow));
+        tabs.addTab(spec);
+        tabs.setCurrentTab(0);
 	}
 
 	@Override
