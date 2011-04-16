@@ -326,7 +326,7 @@
     </style>
     <style name="two_buttons_bar_land">
       <item name="android:orientation">vertical</item>
-      <item name="android:layout_width">80dip</item>
+      <item name="android:layout_width">45dip</item>
       <item name="android:layout_height">fill_parent</item>
     </style>
     <style name="two_buttons_box_land" parent="@style/two_buttons_box">
