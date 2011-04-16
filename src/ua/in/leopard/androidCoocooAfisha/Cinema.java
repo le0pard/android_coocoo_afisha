@@ -163,11 +163,9 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 			tabButtonChanged();
 			break;
 		  case R.id.two_buttons_bar_button_second:
-			Intent intent = new Intent(this, CinemaDescription.class);
+			Intent intent = new Intent(this, CinemaInfo.class);
 			Bundle bundle = new Bundle();
-			bundle.putString("cinema_title", this.cinema_main.getTitle());
-			bundle.putString("cinema_content", this.cinema_main.getDescription());
-			bundle.putString("cinema_casts", this.cinema_main.getCasts());
+			bundle.putInt("cinema_id", this.cinema_main.getId());
 			intent.putExtras(bundle);
 			startActivity(intent);
 	        break;

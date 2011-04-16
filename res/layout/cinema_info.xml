@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/layout_main">
+
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+
+  <ScrollView style="@style/fill_all">
+    <LinearLayout style="@style/layout_text_main">
+	    <TextView style="@style/layout_text_label"
+	              android:text="@string/cinema_orig_title" />
+	    <TextView android:id="@+id/cinema_orig_title"
+	              style="@style/layout_text_body" />
+	              
+	    <View style="@style/layout_text_divider" />
+	    
+	    <TextView style="@style/layout_text_label"
+	              android:text="@string/cinema_year" />
+	    <TextView android:id="@+id/cinema_year"
+	              style="@style/layout_text_body" />
+	              
+	    <View style="@style/layout_text_divider" />
+	    
+	    <TextView style="@style/layout_text_label"
+	              android:text="@string/cinema_casts" />
+	    <TextView android:id="@+id/cinema_casts"
+	              style="@style/layout_text_body" />
+	  
+	    <View style="@style/layout_text_divider" />
+	    
+	    <TextView style="@style/layout_text_label"
+	              android:text="@string/cinema_description" />
+	    <TextView android:id="@+id/cinema_description"
+	              style="@style/layout_text_body" />  
+	  
+	    <View style="@style/layout_text_divider" />
+    </LinearLayout>
+  </ScrollView>
+
+</LinearLayout>
