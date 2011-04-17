@@ -17,6 +17,7 @@ import android.provider.Settings;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,10 +61,6 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         }
         
         if(!isGpsDeviceOn()){
-        	/*
-        	View myLocationButton = findViewById(R.id.theaters_map_my_location);
-        	myLocationButton.setEnabled(false);
-        	*/
         	AlertDialog.Builder gpsWarningDialog = new AlertDialog.Builder(this);
             gpsWarningDialog.setTitle(getString(R.string.gps_off_warning_title));
             gpsWarningDialog.setMessage(getString(R.string.gps_off_warning));
@@ -220,20 +217,6 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 			  case R.id.two_buttons_bar_button_second:
 				  	startThIntent(new Intent(this, TheaterInfo.class), selected_theater);
 					break;
-			  /*
-			  case R.id.theaters_map_my_location:
-					 //GeoPoint user_location = me.getMyLocation();
-					 GeoPoint user_location = getMyLocation();
-					 if (user_location != null){
-						 mapController.animateTo(user_location);
-					 } else {
-						 Toast.makeText(this, getString(R.string.theaters_map_me_found_error), Toast.LENGTH_LONG).show();
-					 }
-			         break;
-			  case R.id.theaters_map_show_city_location:
-				  moveToCityLocation();
-			      break;
-			  */
 		      }
 		}
 	}
@@ -247,35 +230,41 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean supRetVal = super.onCreateOptionsMenu(menu);
-		menu.add(Menu.NONE, 0, Menu.NONE, R.string.theaters_map_zoom_in);
-		menu.add(Menu.NONE, 1, Menu.NONE, R.string.theaters_map_zoom_out);
-		menu.add(Menu.NONE, 2, Menu.NONE, R.string.theaters_map_satellit);
-		menu.add(Menu.NONE, 3, Menu.NONE, R.string.theaters_map_streets);
-		menu.add(Menu.NONE, 4, Menu.NONE, R.string.theaters_map_traffic);
-		menu.add(Menu.NONE, 5, Menu.NONE, R.string.theaters_map_hotkey_help);
-		return supRetVal;
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.map_menu, menu);
+	    if(!isGpsDeviceOn()){
+        	MenuItem myLocationButton = menu.findItem(R.id.where_me);
+        	myLocationButton.setEnabled(false);
+        }
+	    return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		    case 0:
-		    	mapController.zoomIn();
+		    case R.id.where_me:
+		    	//GeoPoint user_location = me.getMyLocation();
+				GeoPoint user_location = getMyLocation();
+				if (user_location != null){
+					mapController.animateTo(user_location);
+				} else {
+					Toast.makeText(this, getString(R.string.theaters_map_me_found_error), Toast.LENGTH_LONG).show();
+				}
 		        return true;
-		    case 1:
-		    	mapController.zoomOut();
+		    case R.id.city_location:
+		    	moveToCityLocation();
 		        return true;
-		    case 2:
+		    case R.id.satellit_switch:
 		    	mapView.setSatellite(!mapView.isSatellite());
 		        return true;
-		    case 3:
+		    case R.id.streets_switch:
 		    	mapView.setStreetView(!mapView.isStreetView());
 		        return true;
-		    case 4:
+		    case R.id.traffic_switch:
 		    	mapView.setTraffic(!mapView.isTraffic());
 		        return true;
-		    case 5:
+		    case R.id.hotkey_help:
 		    	startActivity(new Intent(this, AboutMap.class));
 		        return true;
 		    default:
@@ -325,7 +314,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	
 	public boolean isGpsDeviceOn(){
         String checkGpsDevice = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        if(checkGpsDevice.length()==0 || checkGpsDevice==null || (!checkGpsDevice.contains(LocationManager.GPS_PROVIDER) && !checkGpsDevice.contains(LocationManager.NETWORK_PROVIDER))){
+        if(checkGpsDevice.length() == 0 || checkGpsDevice == null || (!checkGpsDevice.contains(LocationManager.GPS_PROVIDER) && !checkGpsDevice.contains(LocationManager.NETWORK_PROVIDER))){
                 return false;
         }
         return true;

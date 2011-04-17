@@ -4,9 +4,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -49,26 +46,5 @@ public class Cinemas extends MainActivity implements OnItemClickListener {
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
-	
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-      super.onCreateOptionsMenu(menu);
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.menu.cinemas_menu, menu);
-      return true;
-    }
-
-   @Override
-   public boolean onOptionsItemSelected(MenuItem item) {
-      switch (item.getItemId()) {
-        case R.id.theaters_list:
-          startActivity(new Intent(this, Theaters.class));
-          break;
-      	case R.id.settings_key:
-         startActivity(new Intent(this, EditPreferences.class));
-         break;
-      }
-      return false;
-   }
 
 }

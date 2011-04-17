@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <item android:id="@+id/where_me"
+      android:title="@string/theaters_map_me"
+      android:icon="@drawable/where_me_menu_button" />
+   <item android:id="@+id/city_location"
+      android:title="@string/theaters_map_city"
+      android:icon="@drawable/city_menu_button" />
+   <item android:id="@+id/satellit_switch"
+      android:title="@string/theaters_map_satellit"
+      android:icon="@drawable/satellite_menu_button" />
+   <item android:id="@+id/streets_switch"
+      android:title="@string/theaters_map_streets"
+      android:icon="@drawable/direction_menu_button" />
+   <item android:id="@+id/traffic_switch"
+      android:title="@string/theaters_map_traffic"
+      android:icon="@drawable/trafic_menu_button" />
+   <item android:id="@+id/hotkey_help"
+      android:title="@string/theaters_map_hotkey_help"
+      android:icon="@drawable/help_menu_button" />
+</menu>
