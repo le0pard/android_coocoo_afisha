@@ -1,6 +1,9 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +18,14 @@ import android.widget.Toast;
 public class androidCoocooAfisha extends MainActivity implements OnClickListener {
 	private DataProgressDialog backgroudUpdater;
 	private Intent serviceIntent;
+	private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+        	if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+				 backgroudUpdater.execute();
+			}
+        }
+    };
 	
     /** Called when the activity is first created. */
     @Override
@@ -25,20 +36,6 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         setDashboardButtons();
         
         restoreBackgroudUpdate();
-        
-        if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
-        	startActivity(new Intent(this, EditPreferences.class));
-        	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
-        } else {
-
-        	if (EditPreferences.getAutoUpdate(this)){
-        		if (backgroudUpdater == null){
-        			backgroudUpdater = new DataProgressDialog(this);
-        		}
-        		serviceIntent = new Intent(this, DataUpdateService.class);
-	        	startService(serviceIntent);
-	        }
-        }
     }
     
     private void setDashboardButtons(){
@@ -95,20 +92,35 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     protected void onResume() {
        super.onResume();
        setTitle(getString(R.string.current_city_title) + " " + EditPreferences.getCity(this));
+       
+       if (EditPreferences.getTheaterUrl(this) == "" || EditPreferences.getCinemasUrl(this) == ""){
+       	startActivity(new Intent(this, EditPreferences.class));
+       	Toast.makeText(this, getString(R.string.select_city_dialog), Toast.LENGTH_LONG).show();
+       } else {
+
+       		if (EditPreferences.getAutoUpdate(this)){
+	       		if (backgroudUpdater == null){
+	       			backgroudUpdater = new DataProgressDialog(this);
+	       		}
+	       		serviceIntent = new Intent(this, DataUpdateService.class);
+	        	startService(serviceIntent);
+	        	registerReceiver(broadcastReceiver, new IntentFilter(DataUpdateService.FORCE_DATA_UPDATE));
+	        }
+       }
     }
 
     @Override
     protected void onPause() {
        super.onPause();
+   	   if (EditPreferences.getAutoUpdate(this)){
+	   		unregisterReceiver(broadcastReceiver);
+			//stopService(serviceIntent);
+       }
     }
     
     @Override
     public void onDestroy() {
     	super.onDestroy();
-    	if (EditPreferences.getAutoUpdate(this) && 
-    		Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
-    			stopService(serviceIntent);
-    	}  	
 	}
 
 	@Override

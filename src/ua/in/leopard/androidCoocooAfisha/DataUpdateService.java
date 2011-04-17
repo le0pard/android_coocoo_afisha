@@ -9,9 +9,11 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 public class DataUpdateService extends Service {
+	public static String FORCE_DATA_UPDATE = "ua.in.leopard.androidCoocooAfisha.FORCE_DATA_UPDATE";
 	private Timer timer = new Timer();
 	private int hours_interval = 1;
 	public static final int STATUS_STARTED = 1;
+	private Intent update_intent;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -25,6 +27,8 @@ public class DataUpdateService extends Service {
 		if (0 != Integer.parseInt(EditPreferences.getAutoUpdateTime(this))){
 			startTimer();
 		}
+		update_intent = new Intent(FORCE_DATA_UPDATE);
+		sendBroadcast(update_intent);
 	}
 
 	@Override
