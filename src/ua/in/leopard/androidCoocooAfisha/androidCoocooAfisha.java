@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class androidCoocooAfisha extends MainActivity implements OnClickListener {
 	private DataProgressDialog backgroudUpdater;
+	private Intent serviceIntent;
 	
     /** Called when the activity is first created. */
     @Override
@@ -34,12 +35,8 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         		if (backgroudUpdater == null){
         			backgroudUpdater = new DataProgressDialog(this);
         		}
-        		if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
-        			backgroudUpdater.execute();
-        		}
-	        	if (Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
-	        		startService(new Intent(this, DataUpdateService.class));
-	        	}
+        		serviceIntent = new Intent(this, DataUpdateService.class);
+	        	startService(serviceIntent);
 	        }
         }
     }
@@ -110,8 +107,8 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     	super.onDestroy();
     	if (EditPreferences.getAutoUpdate(this) && 
     		Integer.parseInt(EditPreferences.getAutoUpdateTime(this)) != 0){
-    		stopService(new Intent(this, DataUpdateService.class));
-    	}    	
+    			stopService(serviceIntent);
+    	}  	
 	}
 
 	@Override

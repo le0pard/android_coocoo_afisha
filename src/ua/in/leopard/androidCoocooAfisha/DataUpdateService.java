@@ -9,9 +9,9 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 public class DataUpdateService extends Service {
-	//private static final String TAG = "DataUpdateService";
 	private Timer timer = new Timer();
 	private int hours_interval = 1;
+	public static final int STATUS_STARTED = 1;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -20,16 +20,16 @@ public class DataUpdateService extends Service {
 	
 	@Override
 	public void onCreate() {
-		//Toast.makeText(this, "My Service Created", Toast.LENGTH_LONG).show();
-		//Log.d(TAG, "DataUpdateService onCreate");
+		Toast.makeText(this, getString(R.string.autoupdate_service_start), Toast.LENGTH_LONG).show();
 		this.hours_interval = Integer.parseInt(EditPreferences.getAutoUpdateTime(this));
-		startTimer();
+		if (0 != Integer.parseInt(EditPreferences.getAutoUpdateTime(this))){
+			startTimer();
+		}
 	}
 
 	@Override
 	public void onDestroy() {
 		Toast.makeText(this, getString(R.string.autoupdate_service_stop), Toast.LENGTH_LONG).show();
-		//Log.d(TAG, "DataUpdateService onDestroy");
 		if (timer != null){
 			timer.cancel();
 		} 
@@ -37,8 +37,7 @@ public class DataUpdateService extends Service {
 	
 	@Override
 	public void onStart(Intent intent, int startid) {
-		Toast.makeText(this, getString(R.string.autoupdate_service_start), Toast.LENGTH_LONG).show();
-		//Log.d(TAG, "DataUpdateService onStart");
+		//do nothing
 	}
 	
 	private void startTimer(){
@@ -46,12 +45,17 @@ public class DataUpdateService extends Service {
 		timer.scheduleAtFixedRate(
 			new TimerTask() {
 				public void run() {
-					DataCollector dataCollectorObject = new DataCollector(getApplicationContext());
-					dataCollectorObject.getTheatersData();
-					dataCollectorObject.getCinemasData();
+					updateAppData();
 				}
 			}, 
 			timeout, timeout);
+	}
+	
+	private void updateAppData(){
+		DataCollector dataCollectorObject = new DataCollector(this);
+		dataCollectorObject.getTheatersData();
+		dataCollectorObject.getCinemasData();
+		dataCollectorObject.clearOldData();
 	}
 
 }
