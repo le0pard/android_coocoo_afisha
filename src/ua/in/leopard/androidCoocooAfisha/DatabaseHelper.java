@@ -58,6 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String FTS_SEARCH_DOCID = "cinema_id";
 	public static final String FTS_SEARCH_KEY_WORD = SearchManager.SUGGEST_COLUMN_TEXT_1;
     public static final String FTS_SEARCH_KEY_DEFINITION = SearchManager.SUGGEST_COLUMN_TEXT_2;
+    public static final String FTS_SEARCH_TITLE = "fts_title";
+    public static final String FTS_SEARCH_ORIG_TITLE = "fts_orig_title";
 
 	
 	public DatabaseHelper(Context context) {
@@ -768,6 +770,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<SearchResDB> searchCinemas(String query){
+		query = query.toLowerCase();
 		SQLiteDatabase db = this.getReadableDatabase();
 		List<SearchResDB> search_list = new ArrayList<SearchResDB>();
 		Cursor result = db.rawQuery("SELECT * " + 
@@ -777,8 +780,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		result.moveToFirst();
 		while (!result.isAfterLast()) {
 			search_list.add(new SearchResDB(result.getInt(result.getColumnIndex(FTS_SEARCH_DOCID)),
-					result.getString(result.getColumnIndex(FTS_SEARCH_KEY_WORD)),
-					result.getString(result.getColumnIndex(FTS_SEARCH_KEY_DEFINITION))));
+					result.getString(result.getColumnIndex(FTS_SEARCH_TITLE)),
+					result.getString(result.getColumnIndex(FTS_SEARCH_ORIG_TITLE))));
 			result.moveToNext();
 		}
 		result.close();
@@ -800,8 +803,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			while (!result.isAfterLast()) {
 				ContentValues cv = new ContentValues();
 				cv.put(FTS_SEARCH_DOCID, result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)));
-				cv.put(FTS_SEARCH_KEY_WORD, result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE)));
-				cv.put(FTS_SEARCH_KEY_DEFINITION, result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)));
+				String title = result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE));
+
+				cv.put(FTS_SEARCH_KEY_WORD, title.toLowerCase());
+				cv.put(FTS_SEARCH_TITLE, title);
+				
+				String orig_title = result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE));
+				cv.put(FTS_SEARCH_KEY_DEFINITION, orig_title.toLowerCase());
+				cv.put(FTS_SEARCH_ORIG_TITLE, orig_title);
 				db.insert(FTS_SEARCH_TABLE, null, cv);
 				result.moveToNext();
 			}
@@ -856,7 +865,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				" USING fts3 (" + 
 				FTS_SEARCH_DOCID + ", " + 
 				FTS_SEARCH_KEY_WORD + ", " + 
-				FTS_SEARCH_KEY_DEFINITION +
+				FTS_SEARCH_KEY_DEFINITION + ", " + 
+				FTS_SEARCH_TITLE + ", " + 
+				FTS_SEARCH_ORIG_TITLE + 
 				");");
 	}
 
@@ -865,6 +876,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + AFISHA_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CINEMAS_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + THEATERS_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + FTS_SEARCH_TABLE);
 		onCreate(db);
 	}
 	
@@ -873,6 +885,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DELETE FROM " + AFISHA_TABLE);
 		db.execSQL("DELETE FROM " + CINEMAS_TABLE);
 		db.execSQL("DELETE FROM " + THEATERS_TABLE);
+		db.execSQL("DELETE FROM " + FTS_SEARCH_TABLE);
 		db.close();
 	}
 	
