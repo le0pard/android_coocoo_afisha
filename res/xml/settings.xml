@@ -46,7 +46,24 @@
       android:title="@string/no_poster_title"
       android:summary="@string/no_poster_summary" />
 
-  </PreferenceCategory> 
+  </PreferenceCategory>
+  <PreferenceCategory android:title="@string/settings_gps">
+    <CheckBoxPreference
+      android:key="gps_onoff"
+      android:title="@string/settings_gps_switch"
+      android:summary="@string/settings_gps_switch_summary" />
+      
+    <ListPreference
+      android:key="gps_update_interval" 
+      android:dialogIcon="@drawable/cities_icon"
+      android:title="@string/settings_gps_interval"
+      android:summary="@string/settings_gps_interval_summary"
+      android:entries="@array/gps_update_interval_title"
+      android:entryValues="@array/gps_update_interval_values"
+      android:defaultValue="0" 
+      android:dialogTitle="@string/settings_gps_interval" 
+      android:negativeButtonText="@string/cancel" />
+  </PreferenceCategory>
   <PreferenceCategory android:title="@string/settings_additional">
     <ua.in.leopard.androidCoocooAfisha.DBClearDialogPreference 
       android:key="clear_db" 

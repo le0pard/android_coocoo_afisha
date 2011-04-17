@@ -19,6 +19,11 @@
     <string name="cities_summary">Выберите в всплывающем списке</string>
     <string name="cities_dialog">Выберите город</string>
     <string name="cancel">Отмена</string>
+    <string name="settings_gps">Настройки местоположения</string>
+    <string name="settings_gps_switch">Включить поиск местоположения</string>
+    <string name="settings_gps_switch_summary">Включить поиск собственного местоположения на карте</string>
+    <string name="settings_gps_interval">Интервал обновления</string>
+    <string name="settings_gps_interval_summary">Интервал обновления местоположения</string>
     
     <string name="theaters_is_filter_on">фильтр</string>
     <string name="theaters_is_filter_title">Любимые кинотеатры</string>

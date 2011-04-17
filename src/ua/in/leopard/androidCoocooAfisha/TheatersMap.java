@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -43,8 +41,9 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.theaters_map);
         
+        setTitle(Html.fromHtml(getString(R.string.theaters_map_city_title) + " " + EditPreferences.getCity(this)));
+        
         initMap();
-        initMapPanel();
         initTwoButtonsBar();
         initMapTheaters();
         
@@ -80,10 +79,10 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         mapView.setEnabled(true);
         mapController = mapView.getController();
         mapOverlays = mapView.getOverlays();
-        me = new MyLocationOverlay(this, mapView);
-        mapOverlays.add(me);
-        me.enableCompass();
-		me.enableMyLocation();
+        if (EditPreferences.getGpsStatus(this)){
+	        me = new MyLocationOverlay(this, mapView);
+	        mapOverlays.add(me);
+        }
 	}
 	
 	private void initMapTheaters(){
@@ -104,10 +103,6 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         	}
         }
         mapOverlays.add(theatersItemizedOverlay);
-	}
-	
-	private void initMapPanel(){
-		setTitle(Html.fromHtml(getString(R.string.theaters_map_city_title) + " " + EditPreferences.getCity(this)));
 	}
 	
 	private void initTwoButtonsBar(){
@@ -175,28 +170,21 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         }
 	}
 	
-	public GeoPoint getMyLocation(){
-		//return me.getMyLocation();
-		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		if (location != null){
-			return new GeoPoint((int)(location.getLatitude()*1e6),(int)(location.getLongitude()*1e6));
-		} else {
-			return null;
-		}
-	}
-	
 	@Override
 	public void onResume() {
 		super.onResume();
-		this.me.enableCompass();
-		this.me.enableMyLocation();
+		if (EditPreferences.getGpsStatus(this)){
+			this.me.enableCompass();
+			this.me.enableMyLocation();
+		}
 	}
 	@Override
 	public void onPause() {
 		super.onPause();
-		this.me.disableMyLocation();
-		this.me.disableCompass();
+		if (EditPreferences.getGpsStatus(this)){
+			this.me.disableMyLocation();
+			this.me.disableCompass();
+		}
 	}
 
 	@Override
@@ -233,7 +221,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.map_menu, menu);
-	    if(!isGpsDeviceOn()){
+	    if(!isGpsDeviceOn() || !EditPreferences.getGpsStatus(this)){
         	MenuItem myLocationButton = menu.findItem(R.id.where_me);
         	myLocationButton.setEnabled(false);
         }
@@ -244,9 +232,9 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		    case R.id.where_me:
-		    	//GeoPoint user_location = me.getMyLocation();
-				GeoPoint user_location = getMyLocation();
+		    	GeoPoint user_location = me.getMyLocation();
 				if (user_location != null){
+					mapController.setZoom(16);
 					mapController.animateTo(user_location);
 				} else {
 					Toast.makeText(this, getString(R.string.theaters_map_me_found_error), Toast.LENGTH_LONG).show();
