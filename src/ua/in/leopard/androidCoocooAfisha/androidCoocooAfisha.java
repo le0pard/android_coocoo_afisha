@@ -72,7 +72,7 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     }
     
     private void restoreBackgroudUpdate(){
-    	if (getLastNonConfigurationInstance()!=null) {
+    	if (getLastNonConfigurationInstance() != null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
     		if(backgroudUpdater.getStatus() == AsyncTask.Status.RUNNING) {
     			backgroudUpdater.newView(this);
@@ -114,6 +114,7 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
        super.onPause();
    	   if (EditPreferences.getAutoUpdate(this)){
 	   		unregisterReceiver(broadcastReceiver);
+	   		// no need to stop
 			//stopService(serviceIntent);
        }
     }
