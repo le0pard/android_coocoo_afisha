@@ -95,23 +95,4 @@
       <item>180 секунд</item>
     </string-array>
     
-    <string-array name="gps_update_interval_title">
-      <item>Не обновлять</item>
-      <item>1 минута</item>
-      <item>2 минуты</item>
-      <item>3 минуты</item>
-      <item>5 минут</item>
-      <item>10 минут</item>
-      <item>30 минут</item>
-    </string-array>
-    <string-array name="gps_update_interval_values">
-      <item>0</item>
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
-      <item>5</item>
-      <item>10</item>
-      <item>30</item>
-    </string-array>
-    
 </resources>

@@ -64,11 +64,12 @@ public abstract class MainActivity extends Activity {
 		setTitleFromActivityLabel(title);
 	}
 	
-	public void setTitleFromActivityLabel(CharSequence title)
-	{
+	public void setTitleFromActivityLabel(CharSequence title){
 	    TextView main_title = (TextView)findViewById(R.id.main_title);
 	    if (main_title != null) main_title.setText(Html.fromHtml(title.toString()));
 	}
 
-	
+	public void onClickSearch(View v){
+		onSearchRequested();
+	}
 }

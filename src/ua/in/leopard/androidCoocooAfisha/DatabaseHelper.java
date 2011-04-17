@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.SearchManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +17,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * sqlite3 /data/data/ua.in.leopard.androidCoocooAfisha/databases/coocoo_afisha_db
 */
 public class DatabaseHelper extends SQLiteOpenHelper {
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	private static final String DATABASE_NAME="coocoo_afisha_db";
 	private final Context myContext;
 	
@@ -51,6 +52,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String THEATERS_TABLE_LONGITUDE="longitude";
 	private static final String THEATERS_TABLE_CALL_PHONE="call_phone";
 	private static final String THEATERS_TABLE_FILTER="is_filter";
+	
+	/* Search */
+	private static final String FTS_SEARCH_TABLE = "FTScinemas";
+	public static final String FTS_SEARCH_DOCID = "cinema_id";
+	public static final String FTS_SEARCH_KEY_WORD = SearchManager.SUGGEST_COLUMN_TEXT_1;
+    public static final String FTS_SEARCH_KEY_DEFINITION = SearchManager.SUGGEST_COLUMN_TEXT_2;
 
 	
 	public DatabaseHelper(Context context) {
@@ -759,6 +766,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		db.close();
 	}
+	
+	public List<SearchResDB> searchCinemas(String query){
+		SQLiteDatabase db = this.getReadableDatabase();
+		List<SearchResDB> search_list = new ArrayList<SearchResDB>();
+		Cursor result = db.rawQuery("SELECT * " + 
+				" FROM " + FTS_SEARCH_TABLE + " WHERE " + 
+				FTS_SEARCH_KEY_WORD + " MATCH ?",
+				new String[] {query + "*"});
+		result.moveToFirst();
+		while (!result.isAfterLast()) {
+			search_list.add(new SearchResDB(result.getInt(result.getColumnIndex(FTS_SEARCH_DOCID)),
+					result.getString(result.getColumnIndex(FTS_SEARCH_KEY_WORD)),
+					result.getString(result.getColumnIndex(FTS_SEARCH_KEY_DEFINITION))));
+			result.moveToNext();
+		}
+		result.close();
+		db.close();
+		
+		return search_list;
+	}
+	
+	public void indexCinemaTable(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("DELETE FROM " + FTS_SEARCH_TABLE);
+		db.beginTransaction();
+		try {
+			Cursor result = db.rawQuery("SELECT " + CINEMAS_TABLE_EXT_ID + ", " + 
+					CINEMAS_TABLE_TITLE + ", " + 
+					CINEMAS_TABLE_OR_TITLE + " FROM " + CINEMAS_TABLE,
+					new String[] {});
+			result.moveToFirst();
+			while (!result.isAfterLast()) {
+				ContentValues cv = new ContentValues();
+				cv.put(FTS_SEARCH_DOCID, result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)));
+				cv.put(FTS_SEARCH_KEY_WORD, result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE)));
+				cv.put(FTS_SEARCH_KEY_DEFINITION, result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE)));
+				db.insert(FTS_SEARCH_TABLE, null, cv);
+				result.moveToNext();
+			}
+			result.close();
+			db.setTransactionSuccessful();
+		} finally {
+			db.endTransaction();
+		}
+		db.close();
+	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -798,6 +851,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				THEATERS_TABLE_LONGITUDE + " TEXT, " +  
 				THEATERS_TABLE_CALL_PHONE + " TEXT, " +  
 				THEATERS_TABLE_FILTER + " INTEGER DEFAULT 0" + 
+				");");
+		db.execSQL("CREATE VIRTUAL TABLE " + FTS_SEARCH_TABLE + 
+				" USING fts3 (" + 
+				FTS_SEARCH_DOCID + ", " + 
+				FTS_SEARCH_KEY_WORD + ", " + 
+				FTS_SEARCH_KEY_DEFINITION +
 				");");
 	}
 

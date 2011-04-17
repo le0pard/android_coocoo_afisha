@@ -42,7 +42,7 @@ public class LocationFinder {
 		if (location != null){
 			my_location = location;
 		}
-		int update_val = Integer.parseInt(EditPreferences.getGpsUpdateInterval(context));
+		int update_val = 0;//Integer.parseInt(EditPreferences.getGpsUpdateInterval(context));
 		if (0 != update_val && update_val > 0){
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, update_val * 60 * 1000, 100, locationListener);
 	 	}

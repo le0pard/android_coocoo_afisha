@@ -8,5 +8,6 @@
 		    <View style="@style/dasboard_bar_spring" />
 		      
         <ImageButton android:id="@+id/search_button"
-		        style="@style/search_button"  />
+		        style="@style/search_button"
+		        android:onClick="onClickSearch"  />
 </LinearLayout>

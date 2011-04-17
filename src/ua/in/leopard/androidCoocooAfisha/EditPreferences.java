@@ -30,8 +30,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final Boolean OPT_NO_POSTER_DEF = false;
    private static final String OPT_GPS_ONOFF = "gps_onoff";
    private static final Boolean OPT_GPS_ONOFF_DEF = true;
-   private static final String OPT_GPS_UPDATE_INTERVAL = "gps_update_interval";
-   private static final String OPT_GPS_UPDATE_INTERVAL_DEF = "0";
    
    private static final String SECRET_TOKEN = SecretData.getSecretToken();
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -40,7 +38,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final String CINEMAS_URL = "http://coocoorooza.com/api/afisha_cinemas/:city_id/:token.json";
    
    
-   private ListPreference cities_lp, gps_update_lp;
+   private ListPreference cities_lp;
    private CheckBoxPreference checkbox_theaters_filter;
    private CheckBoxPreference checkbox_cached_poster;
 
@@ -50,7 +48,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       addPreferencesFromResource(R.xml.settings);
       
       cities_lp = (ListPreference)findPreference(OPT_CITY_ID);
-      gps_update_lp = (ListPreference)findPreference(OPT_GPS_UPDATE_INTERVAL);
       
       ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
       if (getPreferenceScreen().getSharedPreferences().getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF)){
@@ -155,10 +152,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_GPS_ONOFF, OPT_GPS_ONOFF_DEF);
    }
    
-   public static String getGpsUpdateInterval(Context context) {
-	   return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_GPS_UPDATE_INTERVAL, OPT_GPS_UPDATE_INTERVAL_DEF);
-   }
-   
    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 	   if (key.equals(OPT_CITY_ID)) {
 		   SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -218,14 +211,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   checkbox_cached_poster.setEnabled(false);
 		   } else {
 			   checkbox_cached_poster.setEnabled(true);
-		   }
-	   }
-	   /* gps update */
-	   if (key.equals(OPT_GPS_ONOFF)) {
-		   if (sharedPreferences.getBoolean(OPT_GPS_ONOFF, OPT_GPS_ONOFF_DEF)){
-			   gps_update_lp.setEnabled(true);
-		   } else {
-			   gps_update_lp.setEnabled(false);
 		   }
 	   }
 	   /* Update widgets */

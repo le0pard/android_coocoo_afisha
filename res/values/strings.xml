@@ -49,6 +49,7 @@
     <string name="dialog_message_theaters">Обновление кинотеатров...</string>
     <string name="dialog_message_cinemas">Обновление фильмов...</string>
     <string name="dialog_message_cleardb">Удаление старых данных...</string>
+    <string name="dialog_message_indexdb">Индексирование...</string>
     <string name="database_clear_message">База данных успешно очищена</string>
     
     <string name="update_error_title">Ошибка обновления</string>
@@ -144,4 +145,7 @@
     <string name="widget_cancel_label">Отмена</string>
     
     <string name="no_data_maybe_update">Ничего не найдено. Возможно нужно произвести обновление данных.</string>
+    
+    <string name="search_hint">Поиск фильмов</string>
+    <string name="search_result_label">Результат поиска:</string>
 </resources>

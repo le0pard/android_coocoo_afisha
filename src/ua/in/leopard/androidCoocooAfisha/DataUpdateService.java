@@ -60,6 +60,7 @@ public class DataUpdateService extends Service {
 		dataCollectorObject.getTheatersData();
 		dataCollectorObject.getCinemasData();
 		dataCollectorObject.clearOldData();
+		dataCollectorObject.indexTables();
 	}
 
 }

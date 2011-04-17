@@ -21,22 +21,22 @@
         </activity>
 
     
-<activity android:name="About" android:label="@string/about_title" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon"></activity>
-<activity android:name="EditPreferences" android:label="@string/settings_title"></activity>
-<activity android:name="Cinemas" android:label="@string/cinemas_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:name="Theaters" android:label="@string/theaters_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".About" android:label="@string/about_title" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon"></activity>
+<activity android:name=".EditPreferences" android:label="@string/settings_title"></activity>
+<activity android:name=".Cinemas" android:label="@string/cinemas_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".Theaters" android:label="@string/theaters_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
 
-<service android:name="DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
-<activity android:name="Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:name="Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:name="CinemaInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:name="TheatersFilterDialog" android:theme="@android:style/Theme.Dialog"></activity>
-<activity android:name="TheaterInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:name="AboutMap" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
-<activity android:name="TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theatersMapProcess"></activity>
-<activity android:name="MainTheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
+<service android:name=".DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
+<activity android:name=".Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".CinemaInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".TheatersFilterDialog" android:theme="@android:style/Theme.Dialog"></activity>
+<activity android:name=".TheaterInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".AboutMap" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
+<activity android:name=".TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theatersMapProcess"></activity>
+<activity android:name=".MainTheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
 
-<receiver android:name="AfishaWidgetProvider">
+<receiver android:name=".AfishaWidgetProvider">
     <meta-data android:name="android.appwidget.provider"
             android:resource="@xml/afisha_widget_provider" />
     <intent-filter>
@@ -45,11 +45,21 @@
     </intent-filter>
 </receiver>
 
-<activity android:name="AfishaWidgetConfigure">
+<activity android:name=".AfishaWidgetConfigure">
     <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
     </intent-filter>
 </activity>
+
+<activity android:name=".SearchableActivity" android:theme="@android:style/Theme.NoTitleBar">
+    <intent-filter>
+        <action android:name="android.intent.action.SEARCH" />
+    </intent-filter>
+    <meta-data android:name="android.app.searchable"
+               android:resource="@xml/searchable" />
+</activity>
+<meta-data android:name="android.app.default_searchable" android:value=".SearchableActivity" />
+<provider android:name=".provider.SearchPopcornProvider" android:authorities="ua.in.leopard.androidCoocooAfisha.provider.SearchPopcornProvider" />
 
 </application>
 
