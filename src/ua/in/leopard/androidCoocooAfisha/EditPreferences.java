@@ -213,8 +213,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   checkbox_cached_poster.setEnabled(true);
 		   }
 	   }
-	   /* Update widgets */
-	   this.sendBroadcast(new Intent(AfishaWidgetProvider.FORCE_WIDGET_UPDATE));
    }
    
    private void setDefUrls(SharedPreferences sharedPreferences){

@@ -147,8 +147,6 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
 				 if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
 					 backgroudUpdater.execute();
 				 }
-				 /* Update widgets */
-				 this.sendBroadcast(new Intent(AfishaWidgetProvider.FORCE_WIDGET_UPDATE));
 		         break;         
 		      }
         }

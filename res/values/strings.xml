@@ -140,16 +140,7 @@
     5 - Улицы<br />
     6 - Трафик
     ]]></string>
-    
-    <string name="widget_option_text">
-      ВНИМАНИЕ! Виджет работает только при включении режима \"Кешировать картинки\" и 
-      при выключенои режиме \"Без картинок\". Без этого будет кролик :)
-    </string>
-    <string name="widget_option_no_right">Нет данных. Проверьте настройки</string>
-    <string name="widget_select_title">Выберите интервал обновления постеров</string>
-    <string name="widget_ok_label">Готово</string>
-    <string name="widget_cancel_label">Отмена</string>
-    
+      
     <string name="no_data_maybe_update">Ничего не найдено. Возможно нужно произвести обновление данных.</string>
     
     <string name="search_hint">Поиск фильмов</string>
