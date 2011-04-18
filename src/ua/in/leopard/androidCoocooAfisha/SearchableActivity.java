@@ -2,9 +2,12 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import ua.in.leopard.androidCoocooAfisha.provider.SearchPopcornProvider;
+
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,6 +26,13 @@ public class SearchableActivity extends MainActivity implements OnItemClickListe
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
           String query = intent.getStringExtra(SearchManager.QUERY);
           setTitle(getString(R.string.search_result_label) + " " + query);
+          
+          /* sugession */
+          SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+        		  SearchPopcornProvider.AUTHORITY, SearchPopcornProvider.MODE);
+          suggestions.saveRecentQuery(query, null);
+          
+          /* search result */
           
           ListView searchList = (ListView)findViewById(R.id.search_list);
           DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);

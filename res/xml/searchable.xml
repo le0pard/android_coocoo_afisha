@@ -3,5 +3,6 @@
     android:label="@string/app_name"
     android:hint="@string/search_hint" 
     android:includeInGlobalSearch="true"
-    android:searchSuggestAuthority="ua.in.leopard.androidCoocooAfisha.provider.SearchPopcornProvider">
+    android:searchSuggestAuthority="ua.in.leopard.androidCoocooAfisha.provider.SearchPopcornProvider" 
+    android:searchSuggestSelection=" ?">
 </searchable>

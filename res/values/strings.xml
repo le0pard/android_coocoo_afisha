@@ -28,6 +28,13 @@
     <string name="theaters_is_filter_summary">Показывать только выбраные кинотеатры</string>
     
     <string name="settings_additional">Дополнительные</string>
+    
+    <string name="clear_suggestions_title">Очистка истории</string>
+    <string name="clear_suggestions_summary">Очистка истории поиска</string>
+    <string name="clear_suggestions_message">Очистить историю поиска?</string>
+    <string name="clear_suggestions_yes">Да</string>
+    <string name="clear_suggestions_no">Нет</string>
+    
     <string name="clear_db_title">Удаление данных</string>
     <string name="clear_db_summary">Очистка базы данных</string>
     <string name="clear_db_message">Очистить базу данных?</string>
@@ -49,6 +56,7 @@
     <string name="dialog_message_cleardb">Удаление старых данных...</string>
     <string name="dialog_message_indexdb">Индексирование...</string>
     <string name="database_clear_message">База данных успешно очищена</string>
+    <string name="suggestions_clear_message">История поиска успешно очищена</string>
     
     <string name="update_error_title">Ошибка обновления</string>
     <string name="update_error_message">Проверьте настройки подключения к Интернету...</string>

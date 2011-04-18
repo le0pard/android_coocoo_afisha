@@ -54,6 +54,15 @@
       android:summary="@string/settings_gps_switch_summary" />
   </PreferenceCategory>
   <PreferenceCategory android:title="@string/settings_additional">
+    <ua.in.leopard.androidCoocooAfisha.SuggestionsClearDialogPreference 
+      android:key="clear_suggestions" 
+      android:title="@string/clear_suggestions_title" 
+      android:summary="@string/clear_suggestions_summary" 
+      android:dialogIcon="@drawable/db_clear_icon" 
+      android:dialogTitle="@string/clear_suggestions_title" 
+      android:dialogMessage="@string/clear_suggestions_message" 
+      android:positiveButtonText="@string/clear_suggestions_yes" 
+      android:negativeButtonText="@string/clear_suggestions_no" />
     <ua.in.leopard.androidCoocooAfisha.DBClearDialogPreference 
       android:key="clear_db" 
       android:title="@string/clear_db_title" 
