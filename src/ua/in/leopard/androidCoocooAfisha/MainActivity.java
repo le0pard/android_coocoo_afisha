@@ -3,6 +3,8 @@ package ua.in.leopard.androidCoocooAfisha;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -71,5 +73,16 @@ public abstract class MainActivity extends Activity {
 
 	public void onClickSearch(View v){
 		onSearchRequested();
+	}
+	
+	
+	/* check if is online */
+	public Boolean isOnline(){
+		ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if(null == info || !info.isConnected()){
+			return false;
+		}		
+		return true;
 	}
 }

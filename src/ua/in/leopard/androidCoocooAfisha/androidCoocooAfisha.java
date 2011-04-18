@@ -21,9 +21,11 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
 	private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-        	if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
-				 backgroudUpdater.execute();
-			}
+        	if (isOnline()){
+	        	if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+					 backgroudUpdater.execute();
+				}
+        	}
         }
     };
 	
