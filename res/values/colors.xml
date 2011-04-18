@@ -18,12 +18,5 @@
    <color name="table_lrow_text">#FF666666</color>
    <color name="seance_poster_bg">#FF111111</color>
    
-   
-   
-   <!-- old -->
-   <color name="background">#333333</color>
-   <color name="text">#FFFFFF</color>
-   <color name="border">#ACA8CF</color>
-   <color name="text_little">#666666</color>
-   <color name="text_widget">#000000</color>
+   <color name="black_font_links">#FFFFFFFF</color>
 </resources>
