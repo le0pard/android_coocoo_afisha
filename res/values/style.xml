@@ -128,6 +128,7 @@
       <item name="android:padding">20dip</item>
       <item name="android:text">@string/no_data_maybe_update</item>
       <item name="android:visibility">gone</item>
+      <item name="android:textColor">@color/list_small_text</item>
     </style>
     <!-- list of resourses (row) -->
     <style name="list_row_box">

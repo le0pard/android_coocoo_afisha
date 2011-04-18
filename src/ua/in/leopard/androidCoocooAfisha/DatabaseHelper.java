@@ -57,7 +57,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String FTS_SEARCH_TABLE = "FTScinemas";
 	public static final String FTS_SEARCH_DOCID = "cinema_id";
 	public static final String FTS_SEARCH_KEY_WORD = SearchManager.SUGGEST_COLUMN_TEXT_1;
-    public static final String FTS_SEARCH_KEY_DEFINITION = SearchManager.SUGGEST_COLUMN_TEXT_2;
     public static final String FTS_SEARCH_TITLE = "fts_title";
     public static final String FTS_SEARCH_ORIG_TITLE = "fts_orig_title";
 
@@ -804,12 +803,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				ContentValues cv = new ContentValues();
 				cv.put(FTS_SEARCH_DOCID, result.getInt(result.getColumnIndex(CINEMAS_TABLE_EXT_ID)));
 				String title = result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE));
-
-				cv.put(FTS_SEARCH_KEY_WORD, title.toLowerCase());
-				cv.put(FTS_SEARCH_TITLE, title);
-				
 				String orig_title = result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE));
-				cv.put(FTS_SEARCH_KEY_DEFINITION, orig_title.toLowerCase());
+
+				cv.put(FTS_SEARCH_KEY_WORD, title.toLowerCase() + " " + orig_title.toLowerCase());
+
+				cv.put(FTS_SEARCH_TITLE, title);
 				cv.put(FTS_SEARCH_ORIG_TITLE, orig_title);
 				db.insert(FTS_SEARCH_TABLE, null, cv);
 				result.moveToNext();
@@ -864,8 +862,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE VIRTUAL TABLE " + FTS_SEARCH_TABLE + 
 				" USING fts3 (" + 
 				FTS_SEARCH_DOCID + ", " + 
-				FTS_SEARCH_KEY_WORD + ", " + 
-				FTS_SEARCH_KEY_DEFINITION + ", " + 
+				FTS_SEARCH_KEY_WORD + ", " +
 				FTS_SEARCH_TITLE + ", " + 
 				FTS_SEARCH_ORIG_TITLE + 
 				");");
