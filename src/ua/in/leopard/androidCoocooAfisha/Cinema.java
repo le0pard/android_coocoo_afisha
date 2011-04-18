@@ -61,15 +61,21 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
         		
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
         		if (cinema_orig_title != null){
-        			cinema_orig_title.setText(Html.fromHtml(cinema_main.getOrigTitle()));
-        		}
-        		
-        		if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){
-        			TextView cinema_year = (TextView)findViewById(R.id.cinema_year);
-        			if (cinema_year != null){
-        				cinema_year.setText(cinema_main.getYear());
+        			if (cinema_main.getOrigTitle() != null && cinema_main.getOrigTitle().length() > 0){
+        				cinema_orig_title.setText(Html.fromHtml(cinema_main.getOrigTitle()));
+        			} else {
+        				cinema_orig_title.setText(R.string.not_set);
         			}
         		}
+        		
+        		TextView cinema_year = (TextView)findViewById(R.id.cinema_year);
+    			if (cinema_year != null){
+    				if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){
+    					cinema_year.setText(cinema_main.getYear());
+    				} else {
+    					cinema_year.setText(R.string.not_set);
+    				}
+    			}
         		
         		ListView afishaTodayList = (ListView)findViewById(R.id.afisha_today_list);
                 List<TheaterDB> theaters_today = DatabaseHelperObject.getTodayOrTomorrowByCinema(cinema_main, true);

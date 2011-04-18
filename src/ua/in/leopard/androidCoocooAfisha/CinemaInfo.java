@@ -24,25 +24,35 @@ public class CinemaInfo extends MainActivity{
 	        		
 	        		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
 	        		if (cinema_orig_title != null){
-	        			cinema_orig_title.setText(Html.fromHtml(cinema_main.getOrigTitle()));
-	        		}
-	        		
-	        		if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){
-	        			TextView cinema_year = (TextView)findViewById(R.id.cinema_year);
-	        			if (cinema_year != null){
-	        				cinema_year.setText(cinema_main.getYear());
+	        			if (cinema_main.getOrigTitle() != null && cinema_main.getOrigTitle().length() > 0){
+	        				cinema_orig_title.setText(Html.fromHtml(cinema_main.getOrigTitle()));
+	        			} else {
+	        				cinema_orig_title.setText(R.string.not_set);
 	        			}
 	        		}
 	        		
+	        		TextView cinema_year = (TextView)findViewById(R.id.cinema_year);
+	        		if (cinema_year != null){
+		        		if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) > 0){
+		        			cinema_year.setText(cinema_main.getYear());
+		        		} else {
+		        			cinema_year.setText(R.string.not_set);
+		        		}
+	        		}
+	        		
 	        		TextView cinema_description = (TextView)findViewById(R.id.cinema_description);
-        		    cinema_description.setText(Html.fromHtml(cinema_main.getDescription()));
+	        		if (cinema_main.getDescription() != null && cinema_main.getDescription().length() > 0){
+	        			cinema_description.setText(Html.fromHtml(cinema_main.getDescription()));
+	        		} else {
+	        			cinema_description.setText(R.string.not_set);
+	        		}
         		    
         		    String cinema_casts_data = cinema_main.getCasts();
         		    TextView cinema_casts = (TextView)findViewById(R.id.cinema_casts);
-        		    if (cinema_casts_data.length() == 0){
-        			  cinema_casts.setText(getString(R.string.cinema_casts_not_set));
+        		    if (cinema_casts_data != null && cinema_casts_data.length() > 0){
+        		    	cinema_casts.setText(cinema_casts_data);
         		    } else {
-        			  cinema_casts.setText(cinema_casts_data);
+        		    	cinema_casts.setText(R.string.not_set);
         		    }
 	        	}
 	      }

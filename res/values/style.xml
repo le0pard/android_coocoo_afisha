@@ -135,25 +135,21 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">fill_parent</item>
       <item name="android:background">@drawable/list_bg</item>
+      <item name="android:paddingLeft">5dip</item>
+      <item name="android:paddingRight">5dip</item>
+      <item name="android:paddingTop">2dip</item>
     </style>
     <style name="list_row_box_h" parent="@style/list_row_box">
       <item name="android:orientation">horizontal</item>
-      <item name="android:paddingLeft">5dip</item>
-      <item name="android:paddingRight">5dip</item>
-      <item name="android:paddingTop">2dip</item>
     </style>
     <style name="list_row_box_seanse" parent="@style/list_row_box">
       <item name="android:orientation">vertical</item>
-      <item name="android:paddingLeft">5dip</item>
-      <item name="android:paddingRight">5dip</item>
-      <item name="android:paddingTop">2dip</item>
     </style>
     <style name="list_row_text_box">
       <item name="android:orientation">vertical</item>
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">fill_parent</item>
       <item name="android:padding">2dip</item>
-      <item name="android:layout_alignParentLeft">true</item>
     </style>
     <style name="list_row_text_main">
       <item name="android:orientation">vertical</item>

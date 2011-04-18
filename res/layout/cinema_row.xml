@@ -2,10 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   style="@style/list_row_box_h">
   
+    <ImageView style="@style/list_row_img" />  
+  
     <LinearLayout style="@style/list_row_text_box">
         <TextView android:id="@+id/cinema_title" style="@style/list_row_text_main" />
         <TextView android:id="@+id/cinema_orig_title" style="@style/list_row_text_small" />    
     </LinearLayout>
   
-    <ImageView style="@style/list_row_img" />  
 </RelativeLayout>
