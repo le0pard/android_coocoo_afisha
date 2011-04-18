@@ -367,4 +367,20 @@
       <item name="android:paddingBottom">5dip</item>
       <item name="android:paddingRight">3dip</item>
     </style>
+    
+    
+    <style name="help_text_def">
+      <item name="android:layout_width">wrap_content</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:autoLink">all</item>
+      
+      <item name="android:typeface">sans</item>
+      <item name="android:textSize">16dip</item>
+    </style>
+    <style name="about_text" parent="@style/help_text_def">
+      <item name="android:text">@string/about_text</item>
+    </style>
+    <style name="help_map_text" parent="@style/help_text_def">
+      <item name="android:text">@string/about_map_text</item>
+    </style>
 </resources>
