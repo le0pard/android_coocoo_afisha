@@ -150,7 +150,7 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">fill_parent</item>
       <item name="android:padding">2dip</item>
-      <item name="android:layout_marginRight">15dip</item>
+      <item name="android:layout_marginRight">12dip</item>
     </style>
     <style name="list_row_text_main">
       <item name="android:orientation">vertical</item>
