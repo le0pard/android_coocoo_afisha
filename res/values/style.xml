@@ -160,7 +160,7 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">wrap_content</item>
       <item name="android:typeface">sans</item>
-      <item name="android:textSize">14dip</item>
+      <item name="android:textSize">16dip</item>
       <item name="android:textColor">@color/list_main_text</item>
     </style>
     <style name="list_row_text_small">
@@ -168,7 +168,7 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">wrap_content</item>
       <item name="android:typeface">sans</item>
-      <item name="android:textSize">12dip</item>
+      <item name="android:textSize">14dip</item>
       <item name="android:textColor">@color/list_small_text</item>
     </style>
     <style name="list_row_img">
@@ -219,7 +219,7 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:typeface">sans</item>
       <item name="android:textColor">@color/list_small_text</item>
-      <item name="android:textSize">13dip</item>
+      <item name="android:textSize">14dip</item>
     </style>
     <style name="list_row_seanse_trow" parent="@style/list_row_seanse_table_drow">
       <item name="android:paddingLeft">3dip</item>
@@ -286,7 +286,7 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">wrap_content</item>
       <item name="android:typeface">sans</item>
-      <item name="android:textSize">12dip</item>
+      <item name="android:textSize">14dip</item>
       <item name="android:paddingTop">10dip</item>
       <item name="android:paddingLeft">10dip</item>
       <item name="android:paddingRight">10dip</item>
@@ -296,7 +296,7 @@
       <item name="android:layout_width">fill_parent</item>
       <item name="android:layout_height">wrap_content</item>
       <item name="android:typeface">sans</item>
-      <item name="android:textSize">13dip</item>
+      <item name="android:textSize">16dip</item>
       <item name="android:paddingLeft">10dip</item>
       <item name="android:paddingRight">10dip</item>
       <item name="android:paddingBottom">10dip</item>
