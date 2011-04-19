@@ -51,7 +51,8 @@
     <CheckBoxPreference
       android:key="gps_onoff"
       android:title="@string/settings_gps_switch"
-      android:summary="@string/settings_gps_switch_summary" />
+      android:summary="@string/settings_gps_switch_summary"
+      android:defaultValue="true" />
   </PreferenceCategory>
   <PreferenceCategory android:title="@string/settings_additional">
     <ua.in.leopard.androidCoocooAfisha.SuggestionsClearDialogPreference 
