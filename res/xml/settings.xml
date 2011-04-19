@@ -5,7 +5,7 @@
 
 		<ListPreference
 		android:key="city_id" 
-		android:dialogIcon="@drawable/cities_icon"
+		android:dialogIcon="@drawable/popup_city_icon"
 		android:title="@string/cities_title"
 		android:summary="@string/cities_summary"
 		android:entries="@array/cities"
@@ -27,7 +27,7 @@
 			android:summary="@string/auto_update_summary" />
 	  <ListPreference
 	    android:key="auto_update_every_time" 
-	    android:dialogIcon="@drawable/cities_icon"
+	    android:dialogIcon="@drawable/popup_city_icon"
 	    android:title="@string/auto_update_every_time_title"
 	    android:summary="@string/auto_update_every_time_summary"
 	    android:entries="@array/autoupdate_title"
@@ -58,7 +58,7 @@
       android:key="clear_suggestions" 
       android:title="@string/clear_suggestions_title" 
       android:summary="@string/clear_suggestions_summary" 
-      android:dialogIcon="@drawable/db_clear_icon" 
+      android:dialogIcon="@drawable/popup_trash_icon" 
       android:dialogTitle="@string/clear_suggestions_title" 
       android:dialogMessage="@string/clear_suggestions_message" 
       android:positiveButtonText="@string/clear_suggestions_yes" 
@@ -67,7 +67,7 @@
       android:key="clear_db" 
       android:title="@string/clear_db_title" 
       android:summary="@string/clear_db_summary" 
-      android:dialogIcon="@drawable/db_clear_icon" 
+      android:dialogIcon="@drawable/popup_delete_icon" 
       android:dialogTitle="@string/clear_db_title" 
       android:dialogMessage="@string/clear_db_message" 
       android:positiveButtonText="@string/clear_db_yes" 
