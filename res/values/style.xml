@@ -6,7 +6,7 @@
     </style>
     <style name="layout_main" parent="@style/fill_all">
         <item name="android:orientation">vertical</item>
-        <item name="android:background">@drawable/dashboard_bg_normal</item>
+        <item name="android:background">@color/list_main_box_normal</item>
     </style>
     <!-- buttons -->
     <style name="button_defaults">
