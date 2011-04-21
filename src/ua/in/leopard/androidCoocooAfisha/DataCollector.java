@@ -166,4 +166,9 @@ public class DataCollector {
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
 		DatabaseHelperObject.clearOldData();
 	}
+	
+	public void indexTables(){
+		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this.myContext);
+		DatabaseHelperObject.indexCinemaTable();
+	}
 }

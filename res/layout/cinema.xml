@@ -1,85 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:padding="3sp"
->
+style="@style/layout_main">
 
-<TextView android:layout_height="wrap_content"
-      android:layout_width="fill_parent" android:id="@+id/cinema_title"
-      android:text="" android:typeface="sans" android:textSize="20sp" 
-      android:textStyle="bold" android:gravity="center">
-</TextView>
+	<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+	<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+	<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
 
-<LinearLayout
-	android:orientation="horizontal"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:padding="3sp"
->
-  <ImageView
-    android:id="@+id/cinema_poster"
-    android:layout_width="120dip"
-    android:layout_height="175dip"
-    android:scaleType="fitXY"
-    android:layout_gravity="left"
-  />
-  
-	<TableLayout
-	android:layout_height="wrap_content"
-	android:layout_width="fill_parent"  
-	android:shrinkColumns="0">
-	  <TableRow android:layout_margin="1dip">
-      <TextView android:layout_height="wrap_content"
-            android:layout_width="fill_parent" android:id="@+id/cinema_orig_title"
-            android:text="" android:typeface="sans" android:textSize="14sp"
-            android:paddingLeft="3dip" android:paddingRight="3dip" 
-            android:textColor="@color/text">
-      </TextView>
-    </TableRow>
-	  <TableRow android:layout_margin="1dip">
-	   <Button
-         android:id="@+id/cinema_description_button"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/cinema_descr_button"
-         android:drawablePadding="3sp"
-         android:text="@string/cinema_more_info" />
-    </TableRow>
-	</TableLayout>
-</LinearLayout>
-
-<TabHost android:id="@+id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginTop="5dip">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <ListView
-              android:id="@+id/afisha_today_list"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-            
-            </ListView>
-            <ListView
-              android:id="@+id/afisha_tomorrow_list"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent">
-            
-            </ListView>
-        </FrameLayout>
-    </LinearLayout>
-</TabHost>
+	<LinearLayout style="@style/layout_cinema_box">
+	  <LinearLayout style="@style/list_row_seanse_poster_box">  
+	    <ImageView android:id="@+id/cinema_poster"
+	               style="@style/list_row_seanse_poster"/>
+	  </LinearLayout>
+	  
+	  <TableLayout style="@style/list_row_seanse_table">
+	    <TableRow style="@style/list_row_seanse_table_row">
+	      <TextView android:id="@+id/cinema_title"
+	                style="@style/list_row_seanse_trow" />
+	    </TableRow>
+	    <TableRow style="@style/list_row_seanse_table_row">
+        <TextView style="@style/list_row_seanse_lrow"
+              android:text="@string/cinema_orig_title" />
+        <TextView android:id="@+id/cinema_orig_title" 
+                  style="@style/list_row_seanse_rrow"  />
+      </TableRow>
+	    <TableRow style="@style/list_row_seanse_table_row">
+	      <TextView style="@style/list_row_seanse_lrow"
+	            android:text="@string/cinema_year" />
+	      <TextView android:id="@+id/cinema_year" 
+	                style="@style/list_row_seanse_rrow"  />
+	    </TableRow>
+	  </TableLayout>
+	</LinearLayout>
+	
+	<View style="@style/layout_text_divider" />
+	
+	<TabHost android:id="@+id/tabhost"
+        style="@style/fill_all">
+        <LinearLayout style="@style/layout_main">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                style="@style/fill_all">
+                <ListView
+                  android:id="@+id/afisha_today_list"
+                  style="@style/list_main_view" />
+                <ListView
+                  android:id="@+id/afisha_tomorrow_list"
+                  style="@style/list_main_view" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 
 </LinearLayout>

@@ -28,6 +28,8 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final Boolean OPT_THEATERS_FILTER_DEF = false;
    private static final String OPT_NO_POSTER = "no_poster";
    private static final Boolean OPT_NO_POSTER_DEF = false;
+   private static final String OPT_GPS_ONOFF = "gps_onoff";
+   private static final Boolean OPT_GPS_ONOFF_DEF = true;
    
    private static final String SECRET_TOKEN = SecretData.getSecretToken();
    private static final String THEATERS_URL_KEY = "theaters_url";
@@ -146,6 +148,10 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   return PreferenceManager.getDefaultSharedPreferences(context).getString(OPT_AUTO_UPD_TIME, OPT_AUTO_UPD_TIME_DEF);
    }
    
+   public static Boolean getGpsStatus(Context context) {
+	   return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_GPS_ONOFF, OPT_GPS_ONOFF_DEF);
+   }
+   
    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 	   if (key.equals(OPT_CITY_ID)) {
 		   SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -207,8 +213,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 			   checkbox_cached_poster.setEnabled(true);
 		   }
 	   }
-	   /* Update widgets */
-	   this.sendBroadcast(new Intent(AfishaWidgetProvider.FORCE_WIDGET_UPDATE));
    }
    
    private void setDefUrls(SharedPreferences sharedPreferences){

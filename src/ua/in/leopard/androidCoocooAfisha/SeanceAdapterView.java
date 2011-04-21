@@ -34,29 +34,33 @@ public class SeanceAdapterView extends LinearLayout {
 		cinemaTitle.setText(entry.getTitle());
 		
 		TextView origTitle = (TextView)v.findViewById(R.id.cinema_orig_title);
-		origTitle.setText(Html.fromHtml(entry.getOrigTitle()));
+		if (entry.getOrigTitle() != null && entry.getOrigTitle().length() > 0){
+			origTitle.setText(Html.fromHtml(entry.getOrigTitle()));
+		} else {
+			origTitle.setText(R.string.not_set);
+		}
 		
 		TextView zalTitle = (TextView)v.findViewById(R.id.cinema_zal_title);
-		if (entry.getZalTitle() == null){
-			zalTitle.setText(R.string.not_set);
+		if (entry.getZalTitle() != null && entry.getZalTitle().length() > 0){
+			zalTitle.setText(Html.fromHtml(entry.getZalTitle()));
 		} else {
-			zalTitle.setText(Html.fromHtml(entry.getZalTitle()));	
+			zalTitle.setText(R.string.not_set);
 		}
 		
 		TextView cinemaTimes = (TextView)v.findViewById(R.id.cinema_times);
-		if (entry.getTimes() == null){
-			cinemaTimes.setText(R.string.not_set);
-		} else {
+		if (entry.getTimes() != null && entry.getTimes().length() > 0){
 			String cinema_times = entry.getTimes();
 			cinema_times = cinema_times.replaceAll("(?i)([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]);", "$1:$2;");
 			cinemaTimes.setText(cinema_times);
+		} else {
+			cinemaTimes.setText(R.string.not_set);
 		}
 		
 		TextView cinemaPrices = (TextView)v.findViewById(R.id.cinema_prices);
-		if (entry.getPrices() == null){
-			cinemaPrices.setText(R.string.not_set);
-		} else {
+		if (entry.getPrices() != null && entry.getPrices().length() > 0){
 			cinemaPrices.setText(entry.getPrices());
+		} else {
+			cinemaPrices.setText(R.string.not_set);
 		}
 		
 		

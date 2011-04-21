@@ -4,24 +4,22 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,23 +37,15 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	private List<Overlay> mapOverlays;
 	private TheatersItemizedOverlay theatersItemizedOverlay;
 	
-	private LinearLayout theater_info_block;
-	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.theaters_map);
-	    
-        mapView = (MapView) findViewById(R.id.mapview);
-        mapView.setBuiltInZoomControls(true);
-        mapView.setClickable(true);
-        mapView.setEnabled(true);
-        mapController = mapView.getController();
-        mapOverlays = mapView.getOverlays();
         
-        me = new MyLocationOverlay(this, mapView);
-        mapOverlays.add(me);
-        //me.enableCompass();
-		me.enableMyLocation();
+        setTitle(Html.fromHtml(getString(R.string.theaters_map_city_title) + " " + EditPreferences.getCity(this)));
+        
+        initMap();
+        initTwoButtonsBar();
+        initMapTheaters();
         
         Bundle extras = getIntent().getExtras();
         int get_theater_id = 0;
@@ -69,19 +59,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         	moveToCityLocation();
         }
         
-        initMapPanel();
-        
-        theatersItemizedOverlay = new TheatersItemizedOverlay(
-        		getResources().getDrawable(R.drawable.theater_map),
-        		getResources().getDrawable(R.drawable.theater_map_selected));
-        
-        theatersItemizedOverlay.setViews(theater_info_block, (TextView)findViewById(R.id.theaters_map_title));
-        
-        initMapTheaters();
-        
         if(!isGpsDeviceOn()){
-        	View myLocationButton = findViewById(R.id.theaters_map_my_location);
-        	myLocationButton.setEnabled(false);
         	AlertDialog.Builder gpsWarningDialog = new AlertDialog.Builder(this);
             gpsWarningDialog.setTitle(getString(R.string.gps_off_warning_title));
             gpsWarningDialog.setMessage(getString(R.string.gps_off_warning));
@@ -94,7 +72,23 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         }
 	}
 	
+	private void initMap(){
+		mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setBuiltInZoomControls(true);
+        mapView.setClickable(true);
+        mapView.setEnabled(true);
+        mapController = mapView.getController();
+        mapOverlays = mapView.getOverlays();
+        if (EditPreferences.getGpsStatus(this)){
+	        me = new MyLocationOverlay(this, mapView);
+	        mapOverlays.add(me);
+        }
+	}
+	
 	private void initMapTheaters(){
+		theatersItemizedOverlay = new TheatersItemizedOverlay(this,
+        		getResources().getDrawable(R.drawable.theater_map),
+        		getResources().getDrawable(R.drawable.theater_map_selected));
 		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
         List<TheaterDB> theaters = DatabaseHelperObject.getTheaters(false);
         for (TheaterDB theater_row : theaters){
@@ -111,21 +105,31 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         mapOverlays.add(theatersItemizedOverlay);
 	}
 	
-	private void initMapPanel(){
-		TextView current_city = (TextView)findViewById(R.id.theaters_map_city);
-        current_city.setText(Html.fromHtml(getString(R.string.theaters_map_city_title) + " <b>" + EditPreferences.getCity(this) + "</b>"));
-        
-        theater_info_block = (LinearLayout) findViewById(R.id.theaters_map_block_info);
-        View myLocationButton = findViewById(R.id.theaters_map_my_location);
-        myLocationButton.setOnClickListener(this);
-        View theatersLocationButton = findViewById(R.id.theaters_map_show_city_location);
-        theatersLocationButton.setOnClickListener(this);
-        View theatersSeancesButton = findViewById(R.id.theaters_map_show_seances);
-        theatersSeancesButton.setOnClickListener(this);
-        View theatersPhoneButton = findViewById(R.id.theaters_map_call_phone);
-        theatersPhoneButton.setOnClickListener(this);
-        View theatersHideButton = findViewById(R.id.theaters_map_close_info);
-        theatersHideButton.setOnClickListener(this);
+	private void initTwoButtonsBar(){
+		View two_buttons_bar = findViewById(R.id.two_buttons_bar);
+		if (two_buttons_bar != null){
+			View two_buttons_bar_button_first = two_buttons_bar.findViewById(R.id.two_buttons_bar_button_one);
+			if (two_buttons_bar_button_first != null){
+				two_buttons_bar_button_first.setOnClickListener(this);
+				TextView button_second_text = (TextView)two_buttons_bar_button_first.findViewById(R.id.two_buttons_button_label);
+				if (button_second_text != null){
+					button_second_text.setText(R.string.map_seances_label);
+				}
+				ImageView button_img = (ImageView)two_buttons_bar_button_first.findViewById(R.id.two_buttons_button_image);
+				button_img.setImageResource(R.drawable.billboard_button);
+			}
+			
+			View two_buttons_bar_button_second = two_buttons_bar.findViewById(R.id.two_buttons_bar_button_second);
+			if (two_buttons_bar_button_second != null){
+				two_buttons_bar_button_second.setOnClickListener(this);
+				TextView button_second_text = (TextView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_label);
+				if (button_second_text != null){
+					button_second_text.setText(R.string.more_info_text);
+				}
+				ImageView button_img = (ImageView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_image);
+				button_img.setImageResource(R.drawable.info_button);
+			}
+		}
 	}
 	
 	private void moveToCityLocation(){
@@ -166,28 +170,21 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         }
 	}
 	
-	public GeoPoint getMyLocation(){
-		//return me.getMyLocation();
-		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		if (location != null){
-			return new GeoPoint((int)(location.getLatitude()*1e6),(int)(location.getLongitude()*1e6));
-		} else {
-			return null;
-		}
-	}
-	
 	@Override
 	public void onResume() {
 		super.onResume();
-		//this.me.enableCompass();
-		this.me.enableMyLocation();
+		if (EditPreferences.getGpsStatus(this)){
+			this.me.enableCompass();
+			this.me.enableMyLocation();
+		}
 	}
 	@Override
 	public void onPause() {
 		super.onPause();
-		this.me.disableMyLocation();
-		//this.me.disableCompass();
+		if (EditPreferences.getGpsStatus(this)){
+			this.me.disableMyLocation();
+			this.me.disableCompass();
+		}
 	}
 
 	@Override
@@ -198,71 +195,64 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		TheaterDB selected_theater = theatersItemizedOverlay.getSelectedTheater();
-		switch (v.getId()) {
-		  case R.id.theaters_map_my_location:
-			 //GeoPoint user_location = me.getMyLocation();
-			 GeoPoint user_location = getMyLocation();
-			 if (user_location != null){
-				 mapController.animateTo(user_location);
-			 } else {
-				 Toast.makeText(this, getString(R.string.theaters_map_me_found_error), Toast.LENGTH_LONG).show();
-			 }
-	         break;
-		  case R.id.theaters_map_show_seances:
-			  if (selected_theater != null){
-				Intent intent = new Intent(this, Theater.class);
-				Bundle bundle = new Bundle();
-				bundle.putInt("theater_id", selected_theater.getId());
-				intent.putExtras(bundle);
-				startActivity(intent);
-			  }
-		      break;
-		  case R.id.theaters_map_call_phone:
-			  if (selected_theater != null){
-				  String toDial="tel:" + selected_theater.getCallPhone();
-				  startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
-			  }
-		      break;
-		  case R.id.theaters_map_show_city_location:
-			  moveToCityLocation();
-		      break;
-		  case R.id.theaters_map_close_info:
-			  theater_info_block.setVisibility(View.GONE);
-		      break;
-	      }
+		if (null == selected_theater){
+			Toast.makeText(this, getString(R.string.theaters_map_select_theater), Toast.LENGTH_LONG).show();
+		} else {
+			switch (v.getId()) {
+			  case R.id.two_buttons_bar_button_one:
+				  	startThIntent(new Intent(this, Theater.class), selected_theater);
+					break;
+			  case R.id.two_buttons_bar_button_second:
+				  	startThIntent(new Intent(this, TheaterInfo.class), selected_theater);
+					break;
+		      }
+		}
+	}
+	
+	private void startThIntent(Intent intent, TheaterDB selected_theater){
+		Bundle bundle = new Bundle();
+		bundle.putInt("theater_id", selected_theater.getId());
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean supRetVal = super.onCreateOptionsMenu(menu);
-		menu.add(Menu.NONE, 0, Menu.NONE, R.string.theaters_map_zoom_in);
-		menu.add(Menu.NONE, 1, Menu.NONE, R.string.theaters_map_zoom_out);
-		menu.add(Menu.NONE, 2, Menu.NONE, R.string.theaters_map_satellit);
-		menu.add(Menu.NONE, 3, Menu.NONE, R.string.theaters_map_streets);
-		menu.add(Menu.NONE, 4, Menu.NONE, R.string.theaters_map_traffic);
-		menu.add(Menu.NONE, 5, Menu.NONE, R.string.theaters_map_hotkey_help);
-		return supRetVal;
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.map_menu, menu);
+	    if(!isGpsDeviceOn() || !EditPreferences.getGpsStatus(this)){
+        	MenuItem myLocationButton = menu.findItem(R.id.where_me);
+        	myLocationButton.setEnabled(false);
+        }
+	    return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		    case 0:
-		    	mapController.zoomIn();
+		    case R.id.where_me:
+		    	GeoPoint user_location = me.getMyLocation();
+				if (user_location != null){
+					mapController.setZoom(16);
+					mapController.animateTo(user_location);
+				} else {
+					Toast.makeText(this, getString(R.string.theaters_map_me_found_error), Toast.LENGTH_LONG).show();
+				}
 		        return true;
-		    case 1:
-		    	mapController.zoomOut();
+		    case R.id.city_location:
+		    	moveToCityLocation();
 		        return true;
-		    case 2:
+		    case R.id.satellit_switch:
 		    	mapView.setSatellite(!mapView.isSatellite());
 		        return true;
-		    case 3:
+		    case R.id.streets_switch:
 		    	mapView.setStreetView(!mapView.isStreetView());
 		        return true;
-		    case 4:
+		    case R.id.traffic_switch:
 		    	mapView.setTraffic(!mapView.isTraffic());
 		        return true;
-		    case 5:
+		    case R.id.hotkey_help:
 		    	startActivity(new Intent(this, AboutMap.class));
 		        return true;
 		    default:
@@ -312,7 +302,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	
 	public boolean isGpsDeviceOn(){
         String checkGpsDevice = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-        if(checkGpsDevice.length()==0 || checkGpsDevice==null || (!checkGpsDevice.contains(LocationManager.GPS_PROVIDER) && !checkGpsDevice.contains(LocationManager.NETWORK_PROVIDER))){
+        if(checkGpsDevice.length() == 0 || checkGpsDevice == null || (!checkGpsDevice.contains(LocationManager.GPS_PROVIDER) && !checkGpsDevice.contains(LocationManager.NETWORK_PROVIDER))){
                 return false;
         }
         return true;
@@ -348,6 +338,17 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         mapView.getProjection().toPixels(centerGeoPoint, centerPoint);
         GeoPoint newCenterGeoPoint = mapView.getProjection().fromPixels(centerPoint.x + mapView.getHeight()/4, centerPoint.y);
         mapController.animateTo(newCenterGeoPoint);
+	}
+	
+	public void setTitle(CharSequence title){
+		super.setTitle(title);
+		setTitleFromActivityLabel(title);
+	}
+	
+	public void setTitleFromActivityLabel(CharSequence title)
+	{
+	    TextView main_title = (TextView)findViewById(R.id.main_title);
+	    if (main_title != null) main_title.setText(Html.fromHtml(title.toString()));
 	}
 	
 }

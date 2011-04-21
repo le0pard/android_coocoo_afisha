@@ -4,12 +4,10 @@
     <string name="main_title">Афиша кинотеатров</string>
     <string name="current_city_title">Текущий город: </string>
     
-    <string name="cinemas_label">Список фильмов</string>
-    <string name="theaters_label">Список кинотеатров</string>
+    <string name="cinemas_label">Фильмы</string>
+    <string name="theaters_label">Кинотеатры</string>
     
     <string name="cinemas_title">Список фильмов</string>
-    
-    
     <string name="theaters_title">Список кинотеатров</string>
     
     <string name="settings_label">Настройки</string>
@@ -21,12 +19,22 @@
     <string name="cities_summary">Выберите в всплывающем списке</string>
     <string name="cities_dialog">Выберите город</string>
     <string name="cancel">Отмена</string>
+    <string name="settings_gps">Настройки местоположения</string>
+    <string name="settings_gps_switch">Вкл поиск местоположения</string>
+    <string name="settings_gps_switch_summary">Включить поиск собственного местоположения на карте</string>
     
     <string name="theaters_is_filter_on">фильтр</string>
     <string name="theaters_is_filter_title">Любимые кинотеатры</string>
     <string name="theaters_is_filter_summary">Показывать только выбраные кинотеатры</string>
     
     <string name="settings_additional">Дополнительные</string>
+    
+    <string name="clear_suggestions_title">Очистка истории</string>
+    <string name="clear_suggestions_summary">Очистка истории поиска</string>
+    <string name="clear_suggestions_message">Очистить историю поиска?</string>
+    <string name="clear_suggestions_yes">Да</string>
+    <string name="clear_suggestions_no">Нет</string>
+    
     <string name="clear_db_title">Удаление данных</string>
     <string name="clear_db_summary">Очистка базы данных</string>
     <string name="clear_db_message">Очистить базу данных?</string>
@@ -46,7 +54,9 @@
     <string name="dialog_message_theaters">Обновление кинотеатров...</string>
     <string name="dialog_message_cinemas">Обновление фильмов...</string>
     <string name="dialog_message_cleardb">Удаление старых данных...</string>
+    <string name="dialog_message_indexdb">Индексирование...</string>
     <string name="database_clear_message">База данных успешно очищена</string>
+    <string name="suggestions_clear_message">История поиска успешно очищена</string>
     
     <string name="update_error_title">Ошибка обновления</string>
     <string name="update_error_message">Проверьте настройки подключения к Интернету...</string>
@@ -57,11 +67,12 @@
     <string name="autoupdate_service_start">Автообновление запущенно</string>
     <string name="autoupdate_service_stop">Автообновление остановленно</string>
     
+    <string name="more_info_text">Информация</string>
+    
     <string name="theater_address">Адрес:</string>
     <string name="theater_link">Сайт:</string>
-    <string name="theater_phone">Тел:</string>
-    <string name="theater_call_phone">Бронь</string>
-    <string name="theater_more_info">Информация</string>
+    <string name="theater_phone">Телефоны:</string>
+    <string name="theater_call_phone">Бронирование</string>
     <string name="theater_map_location">Карта</string>
     <string name="afisha_today">Сегодня</string>
     <string name="afisha_tomorrow">Завтра</string>
@@ -69,13 +80,15 @@
     <string name="seance_times">Время:</string>
     <string name="seance_prices">Цена:</string>
     
-    <string name="cinema_year">год:</string>
-    <string name="cinema_more_info">Информация</string>
+    <string name="cinema_orig_title">В ориг:</string>
+    <string name="cinema_year">Год:</string>
     <string name="cinema_casts">В ролях</string>
-    <string name="cinema_casts_not_set">Не указано</string>
     <string name="cinema_description">Сюжет</string>
     
     <string name="not_set">Не указано</string>
+    
+    <string name="map_seances_label">Афиша</string>
+    <string name="theaters_map_select_theater">Выберите кинотеатр</string>
     
     <string name="cache_poster_title">Кешировать картинки</string>
     <string name="cache_poster_summary">Уменьшает использование трафика, увеличивает время обновления</string>
@@ -88,7 +101,7 @@
     <string name="about_text">
       Данная программа предоставляет афишу кинотеатров Украины. 
       Данные берутся c сайта http://coocoorooza.com 
-      Официальная страница программы - http://android.coocoorooza.com 
+      Официальная страница программы - http://popcornua.coocoorooza.com 
       За возможное несоответствие информации действительности автор данной программы 
       ответственности не несет. Если вы нашли ошибку в данных программы (телефон, адрес, сеансы кинотеатра) 
       сообщите пожалуйста по адресу popcornua.by.leo@gmail.com для более быстрого исправления. 
@@ -98,19 +111,18 @@
     <string name="exit_label">Выход</string>
     
     <string name="theaters_map_label">Карта кинотеатров</string>
-    <string name="theaters_map_city_title">Кинотеатры города:</string>
+    <string name="theaters_map_city_title">Кинотеатры города</string>
     <!-- <string name="gmap_api">0Py1gbGPg9zGMsC6AhSurIZ30zwcb4hhpikMQYg</string> -->
-    <string name="gmap_api">0Py1gbGPg9zH1VcIB-teQEAz2218jb34JY6X_Cw</string>
+    <string name="gmap_api">0Py1gbGPg9zERSj9uJTe3ZNB8ebAs5O90M2UyZQ</string>
     <string name="theaters_map_me">Где я?</string>
     <string name="theaters_map_me_found_error">Координаты Вашего местаположения не определены</string>
     <string name="theaters_map_city">Город</string>
     <string name="theaters_map_city_syfix">, Украина</string>
     <string name="theaters_map_city_found_error">Координаты города не определены</string>
-    <string name="theaters_map_show_seances">Афиша</string>
     <string name="theaters_map_close_info">Скрыть</string>
     
     <string name="gps_off_warning_title">Внимание</string>
-    <string name="gps_off_warning"><![CDATA[GPS не включен! Функция "Где я?" заблокирована]]></string>
+    <string name="gps_off_warning"><![CDATA[GPS не включен! Поиск местоположения заблокирован]]></string>
     <string name="gps_off_warning_button">Хорошо</string>
     
     <string name="theaters_map_zoom_in">Увеличить</string>
@@ -127,15 +139,9 @@
     5 - Улицы<br />
     6 - Трафик
     ]]></string>
+      
+    <string name="no_data_maybe_update">Ничего не найдено. Возможно нужно произвести обновление данных.</string>
     
-    <string name="widget_option_text">
-      ВНИМАНИЕ! Виджет работает только при включении режима \"Кешировать картинки\" и 
-      при выключенои режиме \"Без картинок\". Без этого будет кролик :)
-    </string>
-    <string name="widget_option_no_right">Нет данных. Проверьте настройки</string>
-    <string name="widget_select_title">Выберите интервал обновления постеров</string>
-    <string name="widget_ok_label">Готово</string>
-    <string name="widget_cancel_label">Отмена</string>
-    
-    <string name="no_data_maybe_update">Нет данных. Возможно нужно обновить данные :)</string>
+    <string name="search_hint">Поиск фильмов</string>
+    <string name="search_result_label">Результат поиска:</string>
 </resources>

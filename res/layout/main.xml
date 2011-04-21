@@ -1,61 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
    xmlns:android="http://schemas.android.com/apk/res/android"
-   android:background="@color/background"
-   android:textColor="@color/text"
-   android:layout_height="fill_parent"
-   android:layout_width="fill_parent"
-   android:padding="10dip"
-   android:orientation="horizontal"
-   android:gravity="center">
-   <LinearLayout
-      android:orientation="vertical"
-      android:layout_height="wrap_content"
-      android:layout_width="wrap_content"
-      android:layout_gravity="center"
-      android:gravity="center">
-      <TextView
-         android:text="@string/main_title"
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:layout_gravity="center"
-         android:layout_marginBottom="15dip"
-         android:textSize="24.5sp" />
-      <TextView
-         android:id="@+id/current_city"
-         android:text="@string/current_city_title"
-         android:layout_height="wrap_content"
-         android:layout_width="wrap_content"
-         android:layout_gravity="center"
-         android:layout_marginBottom="15dip"
-         android:textSize="16sp" />
-      <Button
-         android:id="@+id/cinemas_button"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/cinemas_button"
-         android:drawablePadding="3sp"
-         android:text="@string/cinemas_label" />
-       <Button
-         android:id="@+id/theaters_button"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/theaters_button"
-         android:drawablePadding="3sp"
-         android:text="@string/theaters_label" />
-      <Button
-         android:id="@+id/theaters_map_button"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/map_button"
-         android:drawablePadding="3sp"
-         android:text="@string/theaters_map_label" />
-      <Button
-         android:id="@+id/update_button"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:drawableLeft="@drawable/update_button"
-         android:drawablePadding="3sp"
-         android:text="@string/update_label" />
+   style="@style/layout_main">
+   
+   <include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+   <include android:id="@+id/title_bar" layout="@layout/title_bar" />
+   
+   <LinearLayout style="@style/dashboard_layouts_main">
+      
+      <LinearLayout style="@style/dashboard_layouts_horizontal">
+      
+        <include android:id="@+id/cinemas_button" layout="@layout/dashboard_button" />
+        
+        <View style="@style/dasboard_vertical_hr" />
+        
+        <include android:id="@+id/theaters_button" layout="@layout/dashboard_button" />
+      
+      </LinearLayout>
+      
+      <View style="@style/dasboard_horizontal_hr" />
+      
+      <LinearLayout style="@style/dashboard_layouts_horizontal">
+        
+        <include android:id="@+id/theaters_map_button" layout="@layout/dashboard_button" />
+        
+        <View style="@style/dasboard_vertical_hr" />
+        
+        <include android:id="@+id/update_button" layout="@layout/dashboard_button" />
+
+      </LinearLayout>
    </LinearLayout>
 </LinearLayout>

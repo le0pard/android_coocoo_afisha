@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_main">
+    
+    <include android:id="@+id/title_bar" layout="@layout/title_bar" />
+    
+    <LinearLayout style="@style/layout_land">
+   
+		  <com.google.android.maps.MapView
+        android:id="@+id/mapview"
+        style="@style/fill_all_land"
+        android:clickable="true"
+        android:apiKey="@string/gmap_api"
+      />
+		  
+		  <View style="@style/two_buttons_bar_divider" />
+		  
+		  <include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
+		</LinearLayout>
+		
+</LinearLayout>

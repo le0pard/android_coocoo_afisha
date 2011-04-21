@@ -41,6 +41,9 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
         
         publishProgress(this.myContext.getString(R.string.dialog_message_cleardb));
         dataCollectorObject.clearOldData();
+        
+        publishProgress(this.myContext.getString(R.string.dialog_message_indexdb));
+        dataCollectorObject.indexTables();
      
 		return null;
 	}

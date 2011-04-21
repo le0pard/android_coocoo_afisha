@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <color name="background">#333333</color>
-   <color name="text">#FFFFFF</color>
-   <color name="border">#ACA8CF</color>
-   <color name="text_little">#666666</color>
-   <color name="text_widget">#000000</color>
+   <!-- dasboard bar -->
+   <color name="dasboard_bar_bg_color">#FFFFFFFF</color>
+   <!-- title bar -->
+   <color name="title_bar_bg_color">#FFADADAD</color>
+   <color name="title_bar_text_color">#FFFFFFFF</color>
+   <!-- dashboard -->
+   <color name="dashboard_item_label">#FF111111</color>
+   <!-- lists -->
+   <color name="list_main_box_normal">#FFFFFDEA</color>
+   <color name="list_main_box_focused">#FFFF8E00</color>
+   <color name="list_main_box_pressed">#FFFFBE00</color>
+   <color name="list_main_text">#FF0058B0</color>
+   <color name="list_small_text">#FF111111</color>
+   <color name="list_main_devider">#FFADADAD</color>
+   <color name="table_lrow_text">#FF666666</color>
+   <color name="seance_poster_bg">#FF111111</color>
+   
+   <color name="black_font_links">#FFFFFFFF</color>
 </resources>

@@ -1,124 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainlayout"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_main">
+    
+    <include android:id="@+id/title_bar" layout="@layout/title_bar" />
+    <include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
+    
     <com.google.android.maps.MapView
         android:id="@+id/mapview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        style="@style/fill_all"
         android:clickable="true"
         android:apiKey="@string/gmap_api"
     />
-    
-  <LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android" 
-              android:layout_width="fill_parent" 
-              android:layout_height="fill_parent"
-          android:orientation="vertical"
-          android:gravity="top"
-          android:paddingTop="1px"
-          android:paddingLeft="5px"
-          android:paddingBottom="5px"
-          android:paddingRight="5px">
 
-    <ua.in.leopard.androidCoocooAfisha.MapPanelLayout
-        android:id="@+id/transparent_panel" 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5px"
-            android:paddingLeft="5px"
-        android:paddingBottom="5px"
-        android:paddingRight="5px">
-        
-        <LinearLayout
-	      android:orientation="vertical"
-	      android:layout_height="wrap_content"
-	      android:layout_width="fill_parent"
-	      android:gravity="center">
-			        <TextView
-			         android:id="@+id/theaters_map_city"
-			         android:layout_height="wrap_content"
-			         android:layout_width="wrap_content"
-			         android:textSize="14sp" />
-			         
-			          <LinearLayout
-			            android:orientation="horizontal"
-			            android:layout_height="wrap_content"
-			            android:layout_width="fill_parent"
-			            android:layout_gravity="center"
-			            android:gravity="center">
-						        <Button android:id="@+id/theaters_map_my_location"
-						          android:layout_width="wrap_content" 
-						          android:layout_height="wrap_content"
-						          android:drawableLeft="@drawable/user_icon"
-                      android:drawablePadding="3sp"
-						          android:text="@string/theaters_map_me"
-						          android:focusable="false"/>
-						        <Button android:id="@+id/theaters_map_show_city_location"
-                      android:layout_width="wrap_content" 
-                      android:layout_height="wrap_content"
-                      android:drawableLeft="@drawable/map_pin_icon"
-                      android:drawablePadding="3sp"
-                      android:text="@string/theaters_map_city"
-                      android:focusable="false"/>
-                </LinearLayout> 
-                
-                <View android:layout_width="fill_parent"
-                      android:layout_height="1dip"
-                      android:background="@color/border" />
-                <LinearLayout
-                  android:id="@+id/theaters_map_block_info"
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content"
-                  android:layout_width="fill_parent"
-                  android:layout_gravity="center"
-                  android:gravity="center"
-                  android:visibility="gone">
-                  
-                  <TextView
-		               android:id="@+id/theaters_map_title"
-		               android:layout_height="wrap_content"
-		               android:layout_width="wrap_content"
-		               android:textStyle="bold" android:gravity="center"
-		               android:textSize="18sp" />
-                  
-                  <LinearLayout
-                  android:orientation="horizontal"
-                  android:layout_height="wrap_content"
-                  android:layout_width="fill_parent"
-                  android:layout_gravity="center"
-                  android:gravity="center">
-                    <Button android:id="@+id/theaters_map_show_seances"
-                      android:layout_width="wrap_content" 
-                      android:layout_height="wrap_content"
-                      android:drawableLeft="@drawable/cinemas_button"
-                      android:drawablePadding="3sp"
-                      android:text="@string/theaters_map_show_seances"
-                      android:focusable="false"/>
-                    <Button
-										  android:id="@+id/theaters_map_call_phone"
-										  android:layout_width="wrap_content"
-										  android:layout_height="wrap_content"
-										  android:drawableLeft="@drawable/mobile_phone"
-										  android:drawablePadding="3sp"
-										  android:text="@string/theater_call_phone"
-										  android:focusable="false" />
-                    <ImageButton android:id="@+id/theaters_map_close_info"
-                      android:layout_width="wrap_content" 
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:drawablePadding="5sp"
-                      android:src="@drawable/close_icon"
-                      android:focusable="false" />
-                </LinearLayout> 
-                  
-                </LinearLayout>
-        </LinearLayout> 
-          
-    </ua.in.leopard.androidCoocooAfisha.MapPanelLayout>
-
-  </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

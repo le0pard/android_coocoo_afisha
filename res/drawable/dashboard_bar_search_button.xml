@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+          android:drawable="@drawable/dasboard_bar_search_pressed" /> <!-- pressed -->
+    <item android:state_focused="true"
+          android:drawable="@drawable/dasboard_bar_search_focused" /> <!-- focused -->
+    <item android:drawable="@drawable/dasboard_bar_search_normal" /> <!-- default -->
+</selector>

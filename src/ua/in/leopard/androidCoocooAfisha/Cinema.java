@@ -2,7 +2,6 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,7 +15,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Cinema extends Activity implements OnClickListener, OnItemClickListener {
+public class Cinema extends MainActivity implements OnClickListener, OnItemClickListener {
+	private final String AFISHA_TODAY_TAB = "afisha_today_tag";
+	private final String AFISHA_TOMORROW_TAB = "afisha_tomorrow_tag";
+	private View tab_change_button;
+	private TabHost tabs;
 	private TheaterAdapter adapter_today, adapter_tomorrow;
 	private CinemaDB cinema_main;
 
@@ -25,17 +28,8 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.cinema);
         
-        TabHost tabs=(TabHost)findViewById(R.id.tabhost);
-        tabs.setup();
-        TabHost.TabSpec spec=tabs.newTabSpec("afisha_today_tag");
-        spec.setContent(R.id.afisha_today_list);
-        spec.setIndicator(getString(R.string.afisha_today), getResources().getDrawable(R.drawable.today_icon));
-        tabs.addTab(spec);
-        spec=tabs.newTabSpec("afisha_tomorrow_tag");
-        spec.setContent(R.id.afisha_tomorrow_list);
-        spec.setIndicator(getString(R.string.afisha_tomorrow), getResources().getDrawable(R.drawable.tomorrow_icon));
-        tabs.addTab(spec);
-        tabs.setCurrentTab(0);
+        initTabHost();
+        initTwoButtonsBar();
         
         Bundle extras = getIntent().getExtras();
         int cinema_id = 0;
@@ -45,11 +39,14 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         
         if (cinema_id != 0){
         	DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
-        	CinemaDB cinema_main = DatabaseHelperObject.getCinema(cinema_id);
+        	cinema_main = DatabaseHelperObject.getCinema(cinema_id);
         	if (cinema_main != null){
-        		this.cinema_main = cinema_main;
+        		setTitle(cinema_main.getTitle());
         		TextView cinema_title = (TextView)findViewById(R.id.cinema_title);
-        		cinema_title.setText(cinema_main.getTitle());
+        		if (cinema_title != null){
+        			cinema_title.setText(Html.fromHtml(cinema_main.getTitle()));
+        		}
+        		
         		ImageView cinemaPoster = (ImageView)findViewById(R.id.cinema_poster);
         		if (EditPreferences.isNoPosters(this)){
         			cinemaPoster.setImageResource(R.drawable.no_poster);
@@ -63,16 +60,22 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         		}
         		
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
-        		String org_title = cinema_main.getOrigTitle();
-        		if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){
-        			org_title = org_title + " (" + getString(R.string.cinema_year) + " " + 
-        			cinema_main.getYear() + ")";
+        		if (cinema_orig_title != null){
+        			if (cinema_main.getOrigTitle() != null && cinema_main.getOrigTitle().length() > 0){
+        				cinema_orig_title.setText(Html.fromHtml(cinema_main.getOrigTitle()));
+        			} else {
+        				cinema_orig_title.setText(R.string.not_set);
+        			}
         		}
-        		cinema_orig_title.setText(Html.fromHtml(org_title));
         		
-        		View descriptionButton = findViewById(R.id.cinema_description_button);
-        		descriptionButton.setOnClickListener(this);
-        		
+        		TextView cinema_year = (TextView)findViewById(R.id.cinema_year);
+    			if (cinema_year != null){
+    				if (cinema_main.getYear() != null && Integer.parseInt(cinema_main.getYear()) != 0){
+    					cinema_year.setText(cinema_main.getYear());
+    				} else {
+    					cinema_year.setText(R.string.not_set);
+    				}
+    			}
         		
         		ListView afishaTodayList = (ListView)findViewById(R.id.afisha_today_list);
                 List<TheaterDB> theaters_today = DatabaseHelperObject.getTodayOrTomorrowByCinema(cinema_main, true);
@@ -89,6 +92,59 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
         }
 
 	}
+	
+	private void initTabHost(){
+		tabs = (TabHost)findViewById(R.id.tabhost);
+        tabs.setup();
+        TabHost.TabSpec spec = tabs.newTabSpec(AFISHA_TODAY_TAB);
+        spec.setContent(R.id.afisha_today_list);
+        spec.setIndicator(getString(R.string.afisha_today));
+        tabs.addTab(spec);
+        spec = tabs.newTabSpec(AFISHA_TOMORROW_TAB);
+        spec.setContent(R.id.afisha_tomorrow_list);
+        spec.setIndicator(getString(R.string.afisha_tomorrow));
+        tabs.addTab(spec);
+        tabs.setCurrentTab(0);
+	}
+	
+	private void initTwoButtonsBar(){
+		View two_buttons_bar = findViewById(R.id.two_buttons_bar);
+		if (two_buttons_bar != null){
+			tab_change_button = two_buttons_bar.findViewById(R.id.two_buttons_bar_button_one);
+			tabButtonChanged();
+			
+			View two_buttons_bar_button_second = two_buttons_bar.findViewById(R.id.two_buttons_bar_button_second);
+			if (two_buttons_bar_button_second != null){
+				two_buttons_bar_button_second.setOnClickListener(this);
+				TextView button_second_text = (TextView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_label);
+				if (button_second_text != null){
+					button_second_text.setText(R.string.more_info_text);
+				}
+				ImageView button_img = (ImageView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_image);
+				button_img.setImageResource(R.drawable.info_button);
+			}
+		}
+	}
+	
+	private void tabButtonChanged(){
+		if (tab_change_button != null){
+			tab_change_button.setOnClickListener(this);
+			ImageView button_img = (ImageView)tab_change_button.findViewById(R.id.two_buttons_button_image);
+			TextView button_text = (TextView)tab_change_button.findViewById(R.id.two_buttons_button_label);
+			if (AFISHA_TODAY_TAB == tabs.getCurrentTabTag()){
+				if (button_text != null){
+					button_text.setText(R.string.afisha_today);
+				}
+				button_img.setImageResource(R.drawable.today_button);
+			} else {
+				if (button_text != null){
+					button_text.setText(R.string.afisha_tomorrow);
+				}
+				button_img.setImageResource(R.drawable.tomorrow_button);
+			}
+			
+		}
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -104,15 +160,21 @@ public class Cinema extends Activity implements OnClickListener, OnItemClickList
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		  case R.id.cinema_description_button:
-			Intent intent = new Intent(this, CinemaDescription.class);
+		  case R.id.two_buttons_bar_button_one:
+			if (AFISHA_TODAY_TAB == tabs.getCurrentTabTag()){
+				tabs.setCurrentTabByTag(AFISHA_TOMORROW_TAB);
+			} else {
+				tabs.setCurrentTabByTag(AFISHA_TODAY_TAB);
+			}
+			tabButtonChanged();
+			break;
+		  case R.id.two_buttons_bar_button_second:
+			Intent intent = new Intent(this, CinemaInfo.class);
 			Bundle bundle = new Bundle();
-			bundle.putString("cinema_title", this.cinema_main.getTitle());
-			bundle.putString("cinema_content", this.cinema_main.getDescription());
-			bundle.putString("cinema_casts", this.cinema_main.getCasts());
+			bundle.putInt("cinema_id", this.cinema_main.getId());
 			intent.putExtras(bundle);
 			startActivity(intent);
-	        break;        
+	        break;
 	    }		
 	}
 

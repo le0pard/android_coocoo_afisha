@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="ua.in.leopard.androidCoocooAfisha"
-      android:versionCode="24" android:versionName="1.4.8" 
-      android:installLocation="internalOnly">
+      android:versionCode="25" android:versionName="2.0.0" 
+      android:installLocation="auto">
     <supports-screens
 		android:largeScreens="true"
 		android:normalScreens="true"
@@ -12,43 +12,39 @@
     <application android:icon="@drawable/icon" android:label="@string/app_name">
         <uses-library android:name="com.google.android.maps" />
         <activity android:name=".androidCoocooAfisha"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-    <activity android:name="About" android:label="@string/about_title" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon"></activity>
+    
+<activity android:name=".About" android:label="@string/about_title" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon"></activity>
+<activity android:name=".EditPreferences" android:label="@string/settings_title"></activity>
+<activity android:name=".Cinemas" android:label="@string/cinemas_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".Theaters" android:label="@string/theaters_title" android:theme="@android:style/Theme.NoTitleBar"></activity>
 
-<activity android:name="EditPreferences" android:label="@string/settings_title"></activity>
-<activity android:label="@string/cinemas_title" android:name="Cinemas"></activity>
-<activity android:name="Theaters" android:label="@string/theaters_title"></activity>
+<service android:name=".DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
+<activity android:name=".Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".CinemaInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".TheatersFilterDialog" android:theme="@android:style/Theme.Dialog"></activity>
+<activity android:name=".TheaterInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".AboutMap" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
+<activity android:name=".TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theatersMapProcess"></activity>
+<activity android:name=".MainTheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
 
-<service android:name="DataUpdateService" android:label="@string/auto_update_title" android:process=":remote"></service>
-<activity android:name="Theater" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:name="Cinema" android:theme="@android:style/Theme.NoTitleBar"></activity>
-<activity android:theme="@android:style/Theme.Dialog" android:name="CinemaDescription"></activity>
-<activity android:theme="@android:style/Theme.Dialog" android:name="TheatersFilterDialog"></activity>
-<activity android:theme="@android:style/Theme.Dialog" android:name="TheaterInfo"></activity>
-<activity android:name="TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theatersMapProcess"></activity>
-<activity android:theme="@android:style/Theme.Dialog" android:name="AboutMap" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
-<activity android:name="MainTheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
-
-<receiver android:name="AfishaWidgetProvider">
-    <meta-data android:name="android.appwidget.provider"
-            android:resource="@xml/afisha_widget_provider" />
+<activity android:name=".SearchableActivity" android:theme="@android:style/Theme.NoTitleBar">
     <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-        <action android:name="ua.in.leopard.androidCoocooAfisha.FORCE_WIDGET_UPDATE" />        
+        <action android:name="android.intent.action.SEARCH" />
     </intent-filter>
-</receiver>
-
-<activity android:name="AfishaWidgetConfigure">
-    <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-    </intent-filter>
+    <meta-data android:name="android.app.searchable"
+               android:resource="@xml/searchable" />
 </activity>
+<meta-data android:name="android.app.default_searchable" android:value=".SearchableActivity" />
+<provider android:name=".provider.SearchPopcornProvider" android:authorities="ua.in.leopard.androidCoocooAfisha.provider.SearchPopcornProvider" />
 
 </application>
 
@@ -57,4 +53,5 @@
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 </manifest> 

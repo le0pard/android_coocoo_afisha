@@ -1,40 +1,33 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="fill_parent"
-android:layout_width="fill_parent" 
-android:background="@color/border" 
-android:shrinkColumns="1">
-  <TableRow android:background="@color/background" android:layout_margin="1dip">
-    <TextView 
-          android:text="@string/theater_address" android:typeface="sans" android:textSize="14sp" 
-          android:paddingLeft="3dip" android:gravity="left" android:paddingRight="10dip">
-    </TextView>
-    <TextView android:layout_height="wrap_content"
-          android:layout_width="fill_parent" android:id="@+id/theater_address"
-          android:text="" android:typeface="sans" android:textSize="16sp" android:textStyle="bold" 
-          android:padding="3dip">
-    </TextView>
-  </TableRow>
-  <TableRow android:background="@color/background" android:layout_margin="1dip">
-    <TextView 
-          android:text="@string/theater_link" android:typeface="sans" android:textSize="14sp" 
-          android:paddingLeft="3dip"  android:gravity="left" android:paddingRight="10dip">
-    </TextView>
-    <TextView android:layout_height="wrap_content"
-          android:layout_width="fill_parent" android:id="@+id/theater_link"
-          android:text="" android:typeface="sans" android:textSize="16sp" 
-          android:autoLink="all"
-          android:padding="3dip">
-    </TextView>
-  </TableRow>
-  <TableRow android:background="@color/background" android:layout_margin="1dip">
-    <TextView 
-          android:text="@string/theater_phone" android:typeface="sans" android:textSize="14sp" 
-          android:paddingLeft="3dip"  android:gravity="left" android:paddingRight="10dip">
-    </TextView>
-    <TextView android:layout_height="wrap_content"
-          android:layout_width="fill_parent" android:id="@+id/theater_phone"
-          android:text="" android:typeface="sans" android:textSize="16sp" android:textStyle="bold" 
-          android:padding="3dip">
-    </TextView>
-  </TableRow>
-</TableLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/layout_main">
+
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
+
+	<LinearLayout style="@style/layout_text_main">
+	  <TextView style="@style/layout_text_label"
+	            android:text="@string/theater_address" />
+	  <TextView android:id="@+id/theater_address"
+	            style="@style/layout_text_body" />
+	
+	  <View style="@style/layout_text_divider" />
+	  
+	  <TextView style="@style/layout_text_label"
+              android:text="@string/theater_phone" />
+    <TextView android:id="@+id/theater_phone"
+              style="@style/layout_text_body" />  
+	
+	  <View style="@style/layout_text_divider" />
+	  
+	  <TextView style="@style/layout_text_label"
+              android:text="@string/theater_link" />
+    <TextView android:id="@+id/theater_link"
+              style="@style/layout_text_body"
+              android:autoLink="all" />
+              
+    <View style="@style/layout_text_divider" />
+	</LinearLayout>
+
+</LinearLayout>

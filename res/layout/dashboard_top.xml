@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           style="@style/dasboard_bar">
+        <ImageView android:id="@+id/dashboard_bar_logo"
+                   style="@style/dasboard_bar_logo"
+                   android:onClick="onClickHome"  />
+		      
+		    <View style="@style/dasboard_bar_spring" />
+		      
+        <ImageButton android:id="@+id/search_button"
+		        style="@style/search_button"
+		        android:onClick="onClickSearch"  />
+</LinearLayout>

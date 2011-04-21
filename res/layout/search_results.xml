@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/layout_main">
+
+<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+
+<ListView
+  android:id="@+id/search_list"
+  style="@style/list_main_view" />
+
+ <TextView
+   android:id="@+id/no_data_title"
+   style="@style/list_main_no_data" />
+</LinearLayout>
