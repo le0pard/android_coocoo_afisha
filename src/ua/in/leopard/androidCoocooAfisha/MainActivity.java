@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public abstract class MainActivity extends Activity {
 	private String GOOGLE_ANALITYC_CODE = "UA-7068020-8";
+	private int GOOGLE_ANALITYC_TIMEOUT = 300;
 	public GoogleAnalyticsTracker tracker;
 
 	/**
@@ -32,7 +33,7 @@ public abstract class MainActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    // Start the tracker in manual dispatch mode...
 	    tracker = GoogleAnalyticsTracker.getInstance();
-	    tracker.start(GOOGLE_ANALITYC_CODE, this);
+	    tracker.start(GOOGLE_ANALITYC_CODE, GOOGLE_ANALITYC_TIMEOUT, this);
 	}
 	
 	
