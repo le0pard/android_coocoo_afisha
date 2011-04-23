@@ -53,6 +53,9 @@ public abstract class MainActivity extends Activity {
 	}
 	
 	public void goHome(Context context) {
+		//track
+		tracker.trackPageView("/home_button_top");
+		//work
 	    final Intent intent = new Intent(context, androidCoocooAfisha.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    context.startActivity(intent);
@@ -80,6 +83,9 @@ public abstract class MainActivity extends Activity {
 	}
 
 	public void onClickSearch(View v){
+		//track
+		tracker.trackPageView("/search_button_top");
+		//work
 		onSearchRequested();
 	}
 	
