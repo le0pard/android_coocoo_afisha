@@ -150,6 +150,11 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		TheaterAdapter s_adapter = (TheaterAdapter)parent.getAdapter();
 		TheaterDB theater_obj = (TheaterDB)s_adapter.getItem(position);
+		//track info
+		tracker.setCustomVar(1, "Cinema Selected", theater_obj.getTitle());
+		tracker.trackPageView("/cinema_selected_on_film");
+		tracker.dispatch();
+		//work
 		Intent intent = new Intent(this, Theater.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("theater_id", theater_obj.getId());

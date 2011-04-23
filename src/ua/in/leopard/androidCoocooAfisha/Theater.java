@@ -114,6 +114,11 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		SeanceAdapter s_adapter = (SeanceAdapter)parent.getAdapter();
 		CinemaDB cinema_obj = (CinemaDB)s_adapter.getItem(position);
+		//track info
+		tracker.setCustomVar(1, "Film Selected", cinema_obj.getTitle());
+		tracker.trackPageView("/film_selected_on_cinema");
+		tracker.dispatch();
+		//work
 		Intent intent = new Intent(this, Cinema.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("cinema_id", cinema_obj.getId());
