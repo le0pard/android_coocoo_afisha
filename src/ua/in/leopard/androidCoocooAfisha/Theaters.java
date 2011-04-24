@@ -44,6 +44,7 @@ public class Theaters extends MainActivity implements OnItemClickListener {
 		//track info
 		tracker.setCustomVar(1, "Cinema Selected", theater_object.getTitle());
 		tracker.trackPageView("/cinema_selected");
+		tracker.dispatch();
 		//work
 		Intent intent = new Intent(this, Theater.class);
 		Bundle bundle = new Bundle();

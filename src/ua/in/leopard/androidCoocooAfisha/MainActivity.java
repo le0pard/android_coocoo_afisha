@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 public abstract class MainActivity extends Activity {
 	private String GOOGLE_ANALITYC_CODE = "UA-7068020-8";
-	private int GOOGLE_ANALITYC_TIMEOUT = 300;
 	public GoogleAnalyticsTracker tracker;
 
 	/**
@@ -33,7 +32,7 @@ public abstract class MainActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    // Start the tracker in manual dispatch mode...
 	    tracker = GoogleAnalyticsTracker.getInstance();
-	    tracker.start(GOOGLE_ANALITYC_CODE, GOOGLE_ANALITYC_TIMEOUT, this);
+	    tracker.start(GOOGLE_ANALITYC_CODE, this);
 	}
 	
 	
@@ -55,6 +54,7 @@ public abstract class MainActivity extends Activity {
 	public void goHome(Context context) {
 		//track
 		tracker.trackPageView("/home_button_top");
+		tracker.dispatch();
 		//work
 	    final Intent intent = new Intent(context, androidCoocooAfisha.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -85,6 +85,7 @@ public abstract class MainActivity extends Activity {
 	public void onClickSearch(View v){
 		//track
 		tracker.trackPageView("/search_button_top");
+		tracker.dispatch();
 		//work
 		onSearchRequested();
 	}
