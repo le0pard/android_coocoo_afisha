@@ -40,6 +40,10 @@ public class Cinemas extends MainActivity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		CinemaDB cinema_object = (CinemaDB)adapter.getItem(position);
+		//track info
+		tracker.setCustomVar(1, "Film Selected", cinema_object.getTitle());
+		tracker.trackPageView("/film_selected");
+		//work
 		Intent intent = new Intent(this, Cinema.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("cinema_id", cinema_object.getId());

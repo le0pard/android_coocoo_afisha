@@ -134,12 +134,15 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         } else {
 			switch (v.getId()) {
 			  case R.id.cinemas_button:
+				 tracker.trackPageView("/films_button");
 				 startActivity(new Intent(this, Cinemas.class));
 		         break;
 			  case R.id.theaters_button:
+				 tracker.trackPageView("/cinemas_button");
 				 startActivity(new Intent(this, Theaters.class));
 		         break;
 			  case R.id.theaters_map_button:
+				 tracker.trackPageView("/map_button");
 				 startActivity(new Intent(this, TheatersMap.class));
 		         break;
 			  case R.id.update_button:
@@ -164,9 +167,11 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
    public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
       	case R.id.settings:
+      	 tracker.trackPageView("/settings_button");
          startActivity(new Intent(this, EditPreferences.class));
          return true;
       	case R.id.about_button:
+      	 tracker.trackPageView("/about_button");
       	 startActivity(new Intent(this, About.class));
       	return true;
       	default:
