@@ -1,5 +1,6 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 public class SearchAdapter extends BaseAdapter {
 	private Context context;
 	private List<SearchResDB> search_list;
+	private HashMap<Integer, SearchAdapterView> listSearchAdapterView = new HashMap<Integer, SearchAdapterView>();
 	
 	public SearchAdapter(Context context, List<SearchResDB> search_list){
 		this.context = context;
@@ -34,6 +36,9 @@ public class SearchAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		SearchResDB entry = search_list.get(position);
-		return new SearchAdapterView(context, entry);
+		if (null == listSearchAdapterView.get(position)){
+			listSearchAdapterView.put(position, new SearchAdapterView(context, entry));
+		}
+		return listSearchAdapterView.get(position);
 	}
 }

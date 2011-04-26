@@ -7,32 +7,33 @@ import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.net.http.AndroidHttpClient;
 
 public class JsonClient {
 	
 	public static JSONObject getData(String url){
 		JSONObject return_data = null;
-		HttpClient httpclient = new DefaultHttpClient();
+		HttpClient client = AndroidHttpClient.newInstance("Android");
         HttpGet httpget = new HttpGet(url);
         httpget.setHeader("Accept", "application/json");
         httpget.setHeader("Content-type", "application/json");
         
         HttpResponse response;
         try {
-            response = httpclient.execute(httpget);
-            // Examine the response status
-            //Log.i("JsonClient",response.getStatusLine().toString());
- 
-            // Get hold of the response entity
-            HttpEntity entity = response.getEntity();
-            // If the response does not enclose an entity, there is no need
-            // to worry about connection release
+        	response = client.execute(httpget);
+            final int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode != HttpStatus.SC_OK) {
+                return null;
+            }
+
+            final HttpEntity entity = response.getEntity();
  
             if (entity != null) {
                 // A Simple JSON Response Read
@@ -45,17 +46,16 @@ public class JsonClient {
             }
 
         } catch (ClientProtocolException e) {
-            //e.printStackTrace();
-            //Log.v("JsonClient","ClientProtocolException");
+        	httpget.abort();
         } catch (IOException e) {
-            //e.printStackTrace();
-            //Log.v("JsonClient","IOException");
+        	httpget.abort();
         } catch (JSONException e) {
-            //e.printStackTrace();
+        	//e.printStackTrace();
             //Log.v("JsonClient","JSONException");
         } catch (Exception e) { 
-        	//e.printStackTrace();
-        	//Log.v("JsonClient","Exception");
+        	httpget.abort();
+        } finally {
+            ((AndroidHttpClient) client).close();
         }
         
         return return_data;

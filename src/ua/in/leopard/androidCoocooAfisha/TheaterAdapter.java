@@ -1,5 +1,6 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -11,6 +12,7 @@ public class TheaterAdapter extends BaseAdapter {
 	
 	private Context context;
 	private List<TheaterDB> theaters_list;
+	private HashMap<Integer, TheaterAdapterView> listTheaterAdapterView = new HashMap<Integer, TheaterAdapterView>();
 	
 	public TheaterAdapter(Context context, List<TheaterDB> theaters_list){
 		this.context = context;
@@ -35,7 +37,10 @@ public class TheaterAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		TheaterDB entry = theaters_list.get(position);
-		return new TheaterAdapterView(context, entry);
+		if (null == listTheaterAdapterView.get(position)){
+			listTheaterAdapterView.put(position, new TheaterAdapterView(context, entry));
+		}
+		return listTheaterAdapterView.get(position);
 	}
 
 }

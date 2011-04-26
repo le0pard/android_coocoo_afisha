@@ -117,16 +117,23 @@ public class CinemaDB {
 		return this.cached_poster;
 	}
 	
+	public Bitmap getCachedImg(){
+		Bitmap bitmap = null;
+		byte[] img_bytes = this.getCachedPoster();
+		BitmapFactory.Options opts = new BitmapFactory.Options();
+		
+		if (img_bytes != null){
+			bitmap = BitmapFactory.decodeByteArray(img_bytes, 0, img_bytes.length, opts);
+		}
+		return bitmap;
+	}
+	
 	public Bitmap getPosterImg(){
 		Bitmap bitmap = null;
 		if (this.getPoster() != ""){
-			byte[] img_bytes = this.getCachedPoster();
-			BitmapFactory.Options opts = new BitmapFactory.Options();
-			
-			if (img_bytes != null){
-				bitmap = BitmapFactory.decodeByteArray(img_bytes, 0, img_bytes.length, opts);
-			} else {
-			
+			bitmap = this.getCachedImg();
+			if (bitmap == null){
+				BitmapFactory.Options opts = new BitmapFactory.Options();
 				try{
 					URL newurl = new URL(this.getPosterUrl()); 
 					bitmap = BitmapFactory.decodeStream(newurl.openConnection().getInputStream(), null, opts);
@@ -140,7 +147,7 @@ public class CinemaDB {
 		return bitmap;
 	}
 	
-	private String getPosterUrl(){
+	public String getPosterUrl(){
 		return "http://coocoorooza.com/uploads/afisha_films/" + this.getPoster();
 	}
 	
