@@ -13,11 +13,12 @@ public class SeanceAdapter extends BaseAdapter {
 	
 	private Context context;
 	private List<CinemaDB> cinemas_list;
-	private final ImageDownloader imageDownloader = new ImageDownloader();
+	private final ImageDownloader imageDownloader;
 	
 	public SeanceAdapter(Context context, List<CinemaDB> cinemas_list){
 		this.context = context;
 		this.cinemas_list = cinemas_list;
+		this.imageDownloader = new ImageDownloader(this.context);
 	}
 	
 	@Override

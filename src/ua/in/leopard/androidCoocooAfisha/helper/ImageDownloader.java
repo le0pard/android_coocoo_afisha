@@ -17,9 +17,11 @@ import org.apache.http.client.methods.HttpGet;
 
 import ua.in.leopard.androidCoocooAfisha.R;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.http.AndroidHttpClient;
@@ -37,6 +39,11 @@ import android.widget.ImageView;
  */
 public class ImageDownloader {
     private static final String LOG_TAG = "ImageDownloader";
+    private final Context myContext;
+    
+    public ImageDownloader(Context myContext){
+    	this.myContext = myContext;
+    }
     
     /**
      * Download the specified image from the Internet and binds it to the provided ImageView. The
@@ -216,7 +223,12 @@ public class ImageDownloader {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             if (isCancelled()) {
-                bitmap = null;
+            	bitmap = null;
+            }
+            
+            if (null == bitmap){
+            	Drawable d = myContext.getResources().getDrawable(R.drawable.poster);
+            	bitmap = ((BitmapDrawable)d).getBitmap();
             }
 
             addBitmapToCache(url, bitmap);
@@ -227,11 +239,7 @@ public class ImageDownloader {
                 // Change bitmap only if this process is still associated with it
                 // Or if we don't use any bitmap to task association (NO_DOWNLOADED_DRAWABLE mode)
                 if (this == bitmapDownloaderTask) {
-                	if (bitmap != null){
-                		imageView.setImageBitmap(bitmap);
-                	} else {
-                		imageView.setImageResource(R.drawable.poster);
-                	}
+                	imageView.setImageBitmap(bitmap);
                 }
             }
         }

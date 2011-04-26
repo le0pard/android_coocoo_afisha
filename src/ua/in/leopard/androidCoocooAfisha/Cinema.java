@@ -53,7 +53,7 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
         			cinemaPoster.setImageResource(R.drawable.no_poster);
         		} else {
         			if (null == cinema_main.getCachedImg()){
-        				ImageDownloader imageDownloader = new ImageDownloader();
+        				ImageDownloader imageDownloader = new ImageDownloader(this);
             			imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
         			} else {
         				cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
