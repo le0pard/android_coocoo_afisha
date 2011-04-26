@@ -102,7 +102,9 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	            theatersItemizedOverlay.addOverlay(overlayitem);
         	}
         }
-        mapOverlays.add(theatersItemizedOverlay);
+        if (theaters.size() > 0){
+        	mapOverlays.add(theatersItemizedOverlay);
+        }
 	}
 	
 	private void initTwoButtonsBar(){

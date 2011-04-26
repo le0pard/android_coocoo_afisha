@@ -144,4 +144,8 @@
     
     <string name="search_hint">Поиск фильмов</string>
     <string name="search_result_label">Результат поиска:</string>
+    
+    <string name="offline_error_title">Нет Интернета</string>
+    <string name="offline_error_message">Без Интернета карта не работает!</string>
+    <string name="offline_error_button">Логично</string>
 </resources>

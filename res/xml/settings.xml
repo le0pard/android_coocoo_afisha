@@ -39,7 +39,8 @@
 	  <CheckBoxPreference
       android:key="cache_poster"
       android:title="@string/cache_poster_title"
-      android:summary="@string/cache_poster_summary" />
+      android:summary="@string/cache_poster_summary"
+      android:defaultValue="true" />
       
     <CheckBoxPreference
       android:key="no_poster"

@@ -1,7 +1,9 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
@@ -143,7 +145,18 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
 		         break;
 			  case R.id.theaters_map_button:
 				 tracker.trackPageView("/map_button");
-				 startActivity(new Intent(this, TheatersMap.class));
+				 if (isOnline()){
+					 startActivity(new Intent(this, TheatersMap.class));
+				 } else {
+					 new AlertDialog.Builder(this)
+						.setTitle(getString(R.string.offline_error_title))
+						.setMessage(getString(R.string.offline_error_message))
+						.setNeutralButton(getString(R.string.offline_error_button), new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dlg, int sumthin) {
+								// do nothing – it will close on its own
+							}
+						}).show();
+				 }
 		         break;
 			  case R.id.update_button:
 				 backgroudUpdater = new DataProgressDialog(this);

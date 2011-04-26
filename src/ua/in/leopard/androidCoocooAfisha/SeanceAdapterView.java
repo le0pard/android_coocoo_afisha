@@ -1,7 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class SeanceAdapterView extends LinearLayout {
 
-	public SeanceAdapterView(Context context, CinemaDB entry) {
+	public SeanceAdapterView(Context context, CinemaDB entry, ImageDownloader imageDownloader) {
 		super(context);
 		
 		this.setOrientation(VERTICAL);
@@ -22,11 +22,10 @@ public class SeanceAdapterView extends LinearLayout {
 		if (EditPreferences.isNoPosters(context)){
 			cinemaPoster.setImageResource(R.drawable.no_poster);
 		} else {
-			Bitmap poster = entry.getPosterImg();
-			if (poster != null){
-				cinemaPoster.setImageBitmap(poster);
+			if (null == entry.getCachedImg()){
+				imageDownloader.download(entry.getPosterUrl(), cinemaPoster);
 			} else {
-				cinemaPoster.setImageResource(R.drawable.poster);
+				cinemaPoster.setImageBitmap(entry.getCachedImg());
 			}
 		}
 		

@@ -2,6 +2,8 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ public class SeanceAdapter extends BaseAdapter {
 	
 	private Context context;
 	private List<CinemaDB> cinemas_list;
+	private final ImageDownloader imageDownloader = new ImageDownloader();
 	
 	public SeanceAdapter(Context context, List<CinemaDB> cinemas_list){
 		this.context = context;
@@ -35,7 +38,7 @@ public class SeanceAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		CinemaDB entry = cinemas_list.get(position);
-		return new SeanceAdapterView(context, entry);
+		return new SeanceAdapterView(context, entry, imageDownloader);
 	}
 
 }

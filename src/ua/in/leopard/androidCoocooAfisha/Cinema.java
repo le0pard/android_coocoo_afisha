@@ -2,8 +2,9 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -51,12 +52,13 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
         		if (EditPreferences.isNoPosters(this)){
         			cinemaPoster.setImageResource(R.drawable.no_poster);
         		} else {
-        			Bitmap poster = cinema_main.getPosterImg();
-            		if (poster != null){
-            			cinemaPoster.setImageBitmap(poster);
-            		} else {
-            			cinemaPoster.setImageResource(R.drawable.poster);
-            		}
+        			if (null == cinema_main.getCachedImg()){
+        				ImageDownloader imageDownloader = new ImageDownloader();
+            			imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
+        			} else {
+        				cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+        			}
+        			
         		}
         		
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);

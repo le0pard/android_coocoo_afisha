@@ -23,7 +23,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private static final String OPT_AUTO_UPD_TIME = "auto_update_every_time";
    private static final String OPT_AUTO_UPD_TIME_DEF = "1";
    private static final String OPT_CACHED_POSTER = "cache_poster";
-   private static final Boolean OPT_CACHED_POSTER_DEF = false;
+   private static final Boolean OPT_CACHED_POSTER_DEF = true;
    private static final String OPT_THEATERS_FILTER = "theaters_is_filter";
    private static final Boolean OPT_THEATERS_FILTER_DEF = false;
    private static final String OPT_NO_POSTER = "no_poster";
