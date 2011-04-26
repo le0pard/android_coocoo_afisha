@@ -38,7 +38,6 @@ import android.widget.ImageView;
  * A local cache of downloaded images is maintained internally to improve performance.
  */
 public class ImageDownloader {
-    private static final String LOG_TAG = "ImageDownloader";
     private final Context myContext;
     
     public ImageDownloader(Context myContext){
