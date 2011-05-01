@@ -32,6 +32,7 @@
 <activity android:name=".CinemaInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
 <activity android:name=".TheatersFilterDialog" android:theme="@android:style/Theme.Dialog"></activity>
 <activity android:name=".TheaterInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
+<activity android:name=".SeanceInfo" android:theme="@android:style/Theme.NoTitleBar"></activity>
 <activity android:name=".AboutMap" android:theme="@android:style/Theme.Dialog" android:icon="@drawable/icon" android:label="@string/theaters_map_hotkey_help"></activity>
 <activity android:name=".TheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theatersMapProcess"></activity>
 <activity android:name=".MainTheatersMap" android:theme="@android:style/Theme.NoTitleBar" android:process=":theaterMapProcess"></activity>
