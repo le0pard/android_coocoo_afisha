@@ -133,7 +133,7 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
 					button_one_text.setText(R.string.seance_theater);
 				}
 				ImageView button_img = (ImageView)two_buttons_bar_button_one.findViewById(R.id.two_buttons_button_image);
-				button_img.setImageResource(R.drawable.booking_button);
+				button_img.setImageResource(R.drawable.cinema_button);
 			}
 			View two_buttons_bar_button_second = two_buttons_bar.findViewById(R.id.two_buttons_bar_button_second);
 			if (two_buttons_bar_button_second != null){
@@ -143,7 +143,7 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
 					button_second_text.setText(R.string.seance_cinema);
 				}
 				ImageView button_img = (ImageView)two_buttons_bar_button_second.findViewById(R.id.two_buttons_button_image);
-				button_img.setImageResource(R.drawable.map_button);
+				button_img.setImageResource(R.drawable.movie_button);
 			}
 		}
 	}
