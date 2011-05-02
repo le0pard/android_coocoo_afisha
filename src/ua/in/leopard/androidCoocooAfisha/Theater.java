@@ -123,6 +123,11 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 		Bundle bundle = new Bundle();
 		bundle.putInt("cinema_id", cinema_obj.getId());
 		bundle.putInt("theater_id", theater_main.getId());
+		if (adapter_today == s_adapter){
+			bundle.putBoolean("is_today", true);
+		} else {
+			bundle.putBoolean("is_today", false);
+		}
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}

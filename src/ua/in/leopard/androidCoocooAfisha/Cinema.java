@@ -161,6 +161,11 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 		Bundle bundle = new Bundle();
 		bundle.putInt("cinema_id", cinema_main.getId());
 		bundle.putInt("theater_id", theater_obj.getId());
+		if (adapter_today == s_adapter){
+			bundle.putBoolean("is_today", true);
+		} else {
+			bundle.putBoolean("is_today", false);
+		}
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}

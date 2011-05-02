@@ -80,10 +80,15 @@
     <string name="seance_times">Время:</string>
     <string name="seance_prices">Цена:</string>
     
+    <string name="theater_name">Кинотеатр</string>
+    
     <string name="cinema_orig_title">В ориг:</string>
     <string name="cinema_year">Год:</string>
     <string name="cinema_casts">В ролях</string>
     <string name="cinema_description">Сюжет</string>
+    
+    <string name="seance_theater">Кинотеатр</string>
+    <string name="seance_cinema">Фильм</string>
     
     <string name="not_set">Не указано</string>
     

@@ -369,6 +369,12 @@
       <item name="android:paddingRight">3dip</item>
     </style>
     
+    <style name="center_content_box">
+      <item name="android:layout_width">fill_parent</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:gravity">center</item>
+    </style>
+    
     
     <style name="help_text_def">
       <item name="android:layout_width">wrap_content</item>
