@@ -22,10 +22,12 @@ public class SeanceAdapterView extends LinearLayout {
 		if (EditPreferences.isNoPosters(context)){
 			cinemaPoster.setImageResource(R.drawable.no_poster);
 		} else {
-			if (null == entry.getCachedImg()){
+			if (null != entry.getCachedImg()){
+				cinemaPoster.setImageBitmap(entry.getCachedImg());
+			} else if (!EditPreferences.isCachedPosters(context)) {
 				imageDownloader.download(entry.getPosterUrl(), cinemaPoster);
 			} else {
-				cinemaPoster.setImageBitmap(entry.getCachedImg());
+				cinemaPoster.setImageResource(R.drawable.poster);
 			}
 		}
 		

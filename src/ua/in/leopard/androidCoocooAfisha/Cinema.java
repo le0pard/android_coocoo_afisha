@@ -52,13 +52,14 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
         		if (EditPreferences.isNoPosters(this)){
         			cinemaPoster.setImageResource(R.drawable.no_poster);
         		} else {
-        			if (null == cinema_main.getCachedImg()){
-        				ImageDownloader imageDownloader = new ImageDownloader(this);
-            			imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
-        			} else {
+        			if (null != cinema_main.getCachedImg()){
         				cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+        			} else if (!EditPreferences.isCachedPosters(this)) {
+        				ImageDownloader imageDownloader = new ImageDownloader(this);
+        				imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
+        			} else {
+        				cinemaPoster.setImageResource(R.drawable.poster);
         			}
-        			
         		}
         		
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
