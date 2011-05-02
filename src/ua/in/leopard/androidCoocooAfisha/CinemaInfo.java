@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.widget.TextView;
 
-public class CinemaInfo extends MainActivity{
+public class CinemaInfo extends MainActivity {
 	   @Override
 	   protected void onCreate(Bundle savedInstanceState) {
 	      super.onCreate(savedInstanceState);

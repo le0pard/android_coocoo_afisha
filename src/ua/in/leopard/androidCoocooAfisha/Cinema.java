@@ -52,13 +52,14 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
         		if (EditPreferences.isNoPosters(this)){
         			cinemaPoster.setImageResource(R.drawable.no_poster);
         		} else {
-        			if (null == cinema_main.getCachedImg()){
-        				ImageDownloader imageDownloader = new ImageDownloader(this);
-            			imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
-        			} else {
+        			if (null != cinema_main.getCachedImg()){
         				cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+        			} else if (!EditPreferences.isCachedPosters(this)) {
+        				ImageDownloader imageDownloader = new ImageDownloader(this);
+        				imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
+        			} else {
+        				cinemaPoster.setImageResource(R.drawable.poster);
         			}
-        			
         		}
         		
         		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
@@ -157,9 +158,15 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 		tracker.trackPageView("/cinema_selected_on_film");
 		tracker.dispatch();
 		//work
-		Intent intent = new Intent(this, Theater.class);
+		Intent intent = new Intent(this, SeanceInfo.class);
 		Bundle bundle = new Bundle();
+		bundle.putInt("cinema_id", cinema_main.getId());
 		bundle.putInt("theater_id", theater_obj.getId());
+		if (adapter_tomorrow == s_adapter){
+			bundle.putBoolean("is_today", false);
+		} else {
+			bundle.putBoolean("is_today", true);
+		}
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}

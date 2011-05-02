@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+style="@style/layout_main">
+
+	<include android:id="@+id/dashboard_top" layout="@layout/dashboard_top" />
+	<include android:id="@+id/title_bar" layout="@layout/title_bar" />
+	<include android:id="@+id/two_buttons_bar" layout="@layout/two_buttons_bar" />
+
+    <LinearLayout style="@style/layout_cinema_box">
+      <LinearLayout style="@style/list_row_seanse_poster_box">  
+        <ImageView android:id="@+id/cinema_poster"
+                   style="@style/list_row_seanse_poster"/>
+      </LinearLayout>
+      
+      <LinearLayout style="@style/center_content_box">
+        <TableLayout style="@style/list_row_seanse_table">
+	      <TableRow style="@style/list_row_seanse_table_row">
+	        <TextView android:id="@+id/theater_name"
+	                  style="@style/list_row_seanse_trow" />
+	      </TableRow>
+	    <TableRow style="@style/list_row_seanse_table_row">
+	      <TextView style="@style/list_row_seanse_lrow"
+	            android:text="@string/seance_zal_title" />
+	      <TextView android:id="@+id/cinema_zal_title" 
+	                style="@style/list_row_seanse_rrow"  />
+	    </TableRow>
+	    <TableRow style="@style/list_row_seanse_table_row">
+	      <TextView style="@style/list_row_seanse_lrow"
+	            android:text="@string/seance_times" />
+	      <TextView android:id="@+id/cinema_times" 
+	                style="@style/list_row_seanse_rrow"  />
+	    </TableRow>
+	      <TableRow style="@style/list_row_seanse_table_row">
+	        <TextView style="@style/list_row_seanse_lrow"
+	            android:text="@string/seance_prices" />
+	      <TextView android:id="@+id/cinema_prices" 
+	                style="@style/list_row_seanse_rrow"  /> 
+	      </TableRow>
+	    </TableLayout>
+      </LinearLayout>
+    </LinearLayout>	
+    
+    <View style="@style/layout_text_divider" />
+	
+	<ScrollView style="@style/fill_all">
+	    <LinearLayout style="@style/layout_text_main">
+            
+            <TextView style="@style/layout_text_label"
+                      android:text="@string/cinema_orig_title" />
+            <TextView android:id="@+id/cinema_orig_title"
+                      style="@style/layout_text_body" />
+                      
+            <View style="@style/layout_text_divider" />
+	        
+	        <TextView style="@style/layout_text_label"
+	                  android:text="@string/cinema_year" />
+	        <TextView android:id="@+id/cinema_year"
+	                  style="@style/layout_text_body" />
+	                  
+	        <View style="@style/layout_text_divider" />
+	        
+	        <TextView style="@style/layout_text_label"
+	                  android:text="@string/cinema_casts" />
+	        <TextView android:id="@+id/cinema_casts"
+	                  style="@style/layout_text_body" />
+	      
+	        <View style="@style/layout_text_divider" />
+	        
+	        <TextView style="@style/layout_text_label"
+	                  android:text="@string/cinema_description" />
+	        <TextView android:id="@+id/cinema_description"
+	                  style="@style/layout_text_body" />  
+	      
+	        <View style="@style/layout_text_divider" />
+	   </LinearLayout>
+	</ScrollView>
+
+</LinearLayout>

@@ -20,7 +20,7 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 	private View tab_change_button;
 	private TabHost tabs;
 	private SeanceAdapter adapter_today, adapter_tomorrow;
-	private TheaterDB theater_main = null;
+	private TheaterDB theater_main;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -119,9 +119,15 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 		tracker.trackPageView("/film_selected_on_cinema");
 		tracker.dispatch();
 		//work
-		Intent intent = new Intent(this, Cinema.class);
+		Intent intent = new Intent(this, SeanceInfo.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("cinema_id", cinema_obj.getId());
+		bundle.putInt("theater_id", theater_main.getId());
+		if (adapter_tomorrow == s_adapter){
+			bundle.putBoolean("is_today", false);
+		} else {
+			bundle.putBoolean("is_today", true);
+		}
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}

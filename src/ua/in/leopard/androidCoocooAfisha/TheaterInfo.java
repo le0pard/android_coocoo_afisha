@@ -1,5 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -76,11 +78,22 @@ public class TheaterInfo extends MainActivity implements OnClickListener {
 				startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
 		        break;
 			case R.id.two_buttons_bar_button_second:
-				Intent intent_map = new Intent(this, MainTheatersMap.class);
-				Bundle bundle_map = new Bundle();
-				bundle_map.putInt("theater_id", theater_main.getId());
-				intent_map.putExtras(bundle_map);
-				startActivity(intent_map);
+				if (isOnline()){
+					Intent intent_map = new Intent(this, MainTheatersMap.class);
+					Bundle bundle_map = new Bundle();
+					bundle_map.putInt("theater_id", theater_main.getId());
+					intent_map.putExtras(bundle_map);
+					startActivity(intent_map);
+				} else {
+					new AlertDialog.Builder(this)
+					.setTitle(getString(R.string.offline_error_title))
+					.setMessage(getString(R.string.offline_error_message))
+					.setNeutralButton(getString(R.string.offline_error_button), new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dlg, int sumthin) {
+							// do nothing – it will close on its own
+						}
+					}).show();
+				}
 				break;
 		}
 	}
