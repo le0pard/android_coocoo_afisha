@@ -1,9 +1,15 @@
 package ua.in.leopard.androidCoocooAfisha;
 
 import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -160,4 +166,50 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
 	        break;
 	    }
 	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+      super.onCreateOptionsMenu(menu);
+      MenuInflater inflater = getMenuInflater();
+      inflater.inflate(R.menu.seance, menu);
+      return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+      switch (item.getItemId()) {
+      	case R.id.call_by_phone_button:
+      	 String toDial="tel:" + theater_main.getCallPhone();
+		 startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(toDial)));
+         return true;
+      	case R.id.theater_map_button:
+      	 if (isOnline()){
+			Intent intent_map = new Intent(this, MainTheatersMap.class);
+			Bundle bundle_map = new Bundle();
+			bundle_map.putInt("theater_id", theater_main.getId());
+			intent_map.putExtras(bundle_map);
+			startActivity(intent_map);
+		 } else {
+			new AlertDialog.Builder(this)
+			.setTitle(getString(R.string.offline_error_title))
+			.setMessage(getString(R.string.offline_error_message))
+			.setNeutralButton(getString(R.string.offline_error_button), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dlg, int sumthin) {
+					// do nothing – it will close on its own
+				}
+			}).show();
+		 }
+      	 return true;
+      	case R.id.seance_trailers_button:
+      	 //tracker.trackPageView("/about_button");
+      	 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://m.youtube.com/#/results?q=" + 
+      			 cinema_main.getTitle() + " " + getString(R.string.search_trailser_world)));
+      	 startActivity(browserIntent);
+      	 return true;
+      	default:
+	     return super.onOptionsItemSelected(item);
+      }
+	}
+	
 }

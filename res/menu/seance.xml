@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <item android:id="@+id/call_by_phone_button"
+      android:title="@string/theater_call_phone"
+      android:icon="@drawable/settings_menu_button" />
+   <item android:id="@+id/theater_map_button"
+      android:title="@string/theater_map_location"
+      android:icon="@drawable/settings_menu_button" />
+   <item android:id="@+id/seance_trailers_button"
+      android:title="@string/seance_trailers"
+      android:icon="@drawable/settings_menu_button" />
+</menu>

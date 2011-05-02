@@ -89,6 +89,8 @@
     
     <string name="seance_theater">Кинотеатр</string>
     <string name="seance_cinema">Фильм</string>
+    <string name="seance_trailers">Трейлеры</string>
+    <string name="search_trailser_world">трейлер</string>
     
     <string name="not_set">Не указано</string>
     
