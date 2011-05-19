@@ -35,11 +35,23 @@ public class TheaterInfo extends MainActivity implements OnClickListener {
         		initTwoButtonsBar();
         		
         		TextView theater_address = (TextView)findViewById(R.id.theater_address);
-        		theater_address.setText(Html.fromHtml(theater_main.getAddress()));
+        		if (theater_main.getAddress() != null && theater_main.getAddress().length() > 0){
+        			theater_address.setText(Html.fromHtml(theater_main.getAddress()));
+        		} else {
+        			theater_address.setText(R.string.not_set);
+        		}
         		TextView theater_phone = (TextView)findViewById(R.id.theater_phone);
-        		theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
+        		if (theater_main.getPhone() != null && theater_main.getPhone().length() > 0){
+        			theater_phone.setText(Html.fromHtml(theater_main.getPhone()));
+        		} else {
+        			theater_phone.setText(R.string.not_set);
+        		}
         		TextView theater_link = (TextView)findViewById(R.id.theater_link);
-        		theater_link.setText(theater_main.getLink());
+        		if (theater_main.getLink() != null && theater_main.getLink().length() > 0){
+        			theater_link.setText(theater_main.getLink());
+        		} else {
+        			theater_link.setText(R.string.not_set);
+        		}
         	}
         }
 	}
