@@ -9,9 +9,6 @@
    <item android:id="@+id/satellit_switch"
       android:title="@string/theaters_map_satellit"
       android:icon="@drawable/satellite_menu_button" />
-   <item android:id="@+id/streets_switch"
-      android:title="@string/theaters_map_streets"
-      android:icon="@drawable/direction_menu_button" />
    <item android:id="@+id/traffic_switch"
       android:title="@string/theaters_map_traffic"
       android:icon="@drawable/trafic_menu_button" />
