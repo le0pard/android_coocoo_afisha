@@ -43,19 +43,17 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         
         setTitle(Html.fromHtml(getString(R.string.theaters_map_city_title) + " " + EditPreferences.getCity(this)));
         
-        initMap();
-        initTwoButtonsBar();
-        initMapTheaters();
-        
         Bundle extras = getIntent().getExtras();
         int get_theater_id = 0;
         if(extras != null) {
         	get_theater_id = extras.getInt("theater_id", 0);
         }
         
-        if (get_theater_id != 0){
-        	moveToTheater(get_theater_id);
-        } else {
+        initMap();
+        initTwoButtonsBar();
+        initMapTheaters(get_theater_id);
+        
+        if (0 == get_theater_id){
         	moveToCityLocation();
         }
         
@@ -85,7 +83,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
         }
 	}
 	
-	private void initMapTheaters(){
+	private void initMapTheaters(int get_theater_id){
 		theatersItemizedOverlay = new TheatersItemizedOverlay(this,
         		getResources().getDrawable(R.drawable.theater_map),
         		getResources().getDrawable(R.drawable.theater_map_selected));
@@ -100,6 +98,11 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	            TheaterOverlayItem overlayitem = new TheaterOverlayItem(point, theater_row.getTitle(), theater_row.getAddress());
 	            overlayitem.setTheaterObj(theater_row);
 	            theatersItemizedOverlay.addOverlay(overlayitem);
+	            if (0 != get_theater_id){
+	            	if (get_theater_id == theater_row.getId()){
+	            		moveToTheater(overlayitem);
+	            	}
+	            }
         	}
         }
         if (theaters.size() > 0){
@@ -153,9 +156,8 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		}
 	}
 	
-	private void moveToTheater(int theater_id){
-		DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
-        TheaterDB theater = DatabaseHelperObject.getTheater(theater_id);
+	private void moveToTheater(TheaterOverlayItem theater_overlay){
+        TheaterDB theater = theater_overlay.getTheaterObj();
         if (theater != null){
         	if (theater.getLatitude() != null && theater.getLatitude().length() != 0 &&
         			theater.getLongitude() != null && theater.getLongitude().length() != 0){
@@ -164,6 +166,7 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	        	GeoPoint point = new GeoPoint((int)(latitude*1e6),(int)(longitude*1e6));
 	        	mapController.animateTo(point);
 	        	mapController.setZoom(16);
+	        	theatersItemizedOverlay.tapByTheaterOverlayItem(theater_overlay);
         	} else {
         		moveToCityLocation();
         	}
@@ -248,9 +251,6 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 		    case R.id.satellit_switch:
 		    	mapView.setSatellite(!mapView.isSatellite());
 		        return true;
-		    case R.id.streets_switch:
-		    	mapView.setStreetView(!mapView.isStreetView());
-		        return true;
 		    case R.id.traffic_switch:
 		    	mapView.setTraffic(!mapView.isTraffic());
 		        return true;
@@ -292,9 +292,6 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 				mapView.setSatellite(!mapView.isSatellite());
 		        return true;
 			case KeyEvent.KEYCODE_5:
-				mapView.setStreetView(!mapView.isStreetView());
-		        return true;
-			case KeyEvent.KEYCODE_6:
 				mapView.setTraffic(!mapView.isTraffic());
 		        return true;
 		}

@@ -50,6 +50,15 @@ public class TheatersItemizedOverlay extends ItemizedOverlay<TheaterOverlayItem>
 	    populate();
 	}
 	
+	public void tapByTheaterOverlayItem(TheaterOverlayItem item){
+		if (selected_item != null){
+			selected_item.setMarker(boundCenterBottom(marker));
+		}
+		item.setMarker(boundCenterBottom(selected_marker));
+		selected_item = item;
+		initInfoBlock(item);
+	}
+	
 	@Override
 	protected TheaterOverlayItem createItem(int i) {
 		return mOverlays.get(i);
@@ -64,12 +73,7 @@ public class TheatersItemizedOverlay extends ItemizedOverlay<TheaterOverlayItem>
 	@Override
 	protected boolean onTap(int index) {
 		TheaterOverlayItem item = mOverlays.get(index);
-		if (selected_item != null){
-			selected_item.setMarker(boundCenterBottom(marker));
-		}
-		item.setMarker(boundCenterBottom(selected_marker));
-		selected_item = item;
-		initInfoBlock(item);
+		tapByTheaterOverlayItem(item);
 		return true;
 	}
 	
