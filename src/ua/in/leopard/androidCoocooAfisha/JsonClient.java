@@ -11,19 +11,29 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.net.http.AndroidHttpClient;
 
 public class JsonClient {
+	static final int timeoutConnection = 2000;
+	static final int timeoutSocket = 3000;
 	
 	public static JSONObject getData(String url){
 		JSONObject return_data = null;
 		HttpClient client = AndroidHttpClient.newInstance("Android");
+		
         HttpGet httpget = new HttpGet(url);
         httpget.setHeader("Accept", "application/json");
         httpget.setHeader("Content-type", "application/json");
+        HttpParams httpParameters = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+        httpget.setParams(httpParameters);
         
         HttpResponse response;
         try {
@@ -38,9 +48,9 @@ public class JsonClient {
             if (entity != null) {
                 // A Simple JSON Response Read
                 InputStream instream = entity.getContent();
-                String result= convertStreamToString(instream);
+                String result = convertStreamToString(instream);
                 // A Simple JSONObject Creation
-                return_data=new JSONObject(result);
+                return_data = new JSONObject(result);
                 // Closing the input stream will trigger connection release
                 instream.close();
             }
