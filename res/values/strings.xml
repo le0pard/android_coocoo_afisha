@@ -119,8 +119,6 @@
     
     <string name="theaters_map_label">Карта кинотеатров</string>
     <string name="theaters_map_city_title">Кинотеатры города</string>
-    <!-- <string name="gmap_api">0Py1gbGPg9zGMsC6AhSurIZ30zwcb4hhpikMQYg</string> -->
-    <string name="gmap_api">0Py1gbGPg9zERSj9uJTe3ZNB8ebAs5O90M2UyZQ</string>
     <string name="theaters_map_me">Где я?</string>
     <string name="theaters_map_me_found_error">Координаты Вашего местаположения не определены</string>
     <string name="theaters_map_city">Город</string>
