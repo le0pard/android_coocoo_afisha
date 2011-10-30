@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+		<string-array name="cities">
+			<item>Київ</item>
+			<item>Біла церква</item>
+			<item>Бровари</item>
+			<item>Буча</item>
+			<item>Вінниця</item>
+			<item>Дніпропетровськ</item>
+			<item>Донецьк</item>
+			<item>Житомир</item>
+			<item>Запоріжжя</item>
+			<item>Івано-Франківськ</item>
+			<item>Ірпінь</item>
+			<item>Краматорськ</item>
+			<item>Кривий Ріг</item>
+			<item>Луганськ</item>
+			<item>Луцьк</item>
+			<item>Львів</item>
+			<item>Маріуполь</item>
+			<item>Миколаїв</item>
+			<item>Одеса</item>
+			<item>Полтава</item>
+			<item>Рівне</item>
+			<item>Севастополь</item>
+			<item>Сімферополь</item>
+			<item>Суми</item>
+			<item>Тернопіль</item>
+			<item>Ужгород</item>
+			<item>Харків</item>
+			<item>Хмельницький</item>
+			<item>Черкаси</item>
+			<item>Чернігів</item>
+			<item>Чернівці</item>
+			<item>Ялта</item>
+		</string-array>
+		<string-array name="cities_ids">
+			<item>1</item>
+			<item>2</item>
+			<item>3</item>
+			<item>4</item>
+			<item>5</item>
+			<item>6</item>
+			<item>7</item>
+			<item>8</item>
+			<item>9</item>
+			<item>10</item>
+			<item>11</item>
+      <item>12</item>
+      <item>13</item>
+      <item>32</item>
+      <item>14</item>
+      <item>15</item>
+      <item>16</item>
+      <item>17</item>
+      <item>18</item>
+      <item>19</item>
+      <item>20</item>
+      <item>21</item>
+      <item>22</item>
+      <item>23</item>
+      <item>24</item>
+      <item>33</item>
+      <item>25</item>
+      <item>30</item>
+      <item>26</item>
+      <item>27</item>
+      <item>28</item>
+      <item>29</item>
+		</string-array>
+		<string-array name="autoupdate_title">
+		  <item>Отключить</item>
+      <item>1 час</item>
+      <item>2 часа</item>
+      <item>4 часа</item>
+      <item>6 часов</item>
+      <item>12 часов</item>
+      <item>24 часа</item>
+    </string-array>
+    <string-array name="autoupdate_values">
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>4</item>
+      <item>6</item>
+      <item>12</item>
+      <item>24</item>
+    </string-array>
+    <string-array name="widget_time_title">
+      <item>30 секунд</item>
+      <item>60 секунд</item>
+      <item>90 секунд</item>
+      <item>120 секунд</item>
+      <item>150 секунд</item>
+      <item>180 секунд</item>
+    </string-array>
+    
+</resources>

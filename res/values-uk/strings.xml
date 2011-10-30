@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PopCornUA</string>
+    <string name="main_title">Афіша кінотеатрів</string>
+    <string name="current_city_title">Місто: </string>
+    
+    <string name="cinemas_label">Фільми</string>
+    <string name="theaters_label">Кінотеатри</string>
+    
+    <string name="cinemas_title">Список фільмів</string>
+    <string name="theaters_title">Список кінотеатрів</string>
+    
+    <string name="settings_label">Налаштування</string>
+    <string name="settings_shortcut">s</string>
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_for_afisha">Налаштування афіші</string>
+    <string name="settings_for_app">Налаштування програми</string>
+    <string name="cities_title">Вибрати місто</string>
+    <string name="cities_summary">Виберіть у списку</string>
+    <string name="cities_dialog">Виберіть місто</string>
+    <string name="cancel">Cкасувати</string>
+    <string name="settings_gps">Налаштування карти</string>
+    <string name="settings_gps_switch">Увмк пошук місця розташування</string>
+    <string name="settings_gps_switch_summary">Увімкнути пошук власного місця розташування на карті</string>
+    
+    <string name="theaters_is_filter_on">фільтр</string>
+    <string name="theaters_is_filter_title">Улюблені кінотеатри</string>
+    <string name="theaters_is_filter_summary">Показувати тільки вибрані кінотеатри</string>
+    
+    <string name="settings_additional">Додатково</string>
+    
+    <string name="clear_suggestions_title">Очищення історії</string>
+    <string name="clear_suggestions_summary">Очищення історії пошуку</string>
+    <string name="clear_suggestions_message">Очистити історію пошуку?</string>
+    <string name="clear_suggestions_yes">Так</string>
+    <string name="clear_suggestions_no">Ні</string>
+    
+    <string name="clear_db_title">Видалення даних</string>
+    <string name="clear_db_summary">Очищення бази даних</string>
+    <string name="clear_db_message">Очистити базу даних?</string>
+    <string name="clear_db_yes">Так</string>
+    <string name="clear_db_no">Ні</string>
+    
+    <string name="auto_update_title">Автооновлення</string>
+    <string name="auto_update_summary">Оновлення даних при запуску програми та через
+    заданий інтервал часу</string>
+    <string name="auto_update_every_time_title">Оновлювати дані з інтервалом</string>
+    <string name="auto_update_every_time_dialog">Оновлювати дані з інтервалом</string>
+    <string name="auto_update_every_time_summary">Оновлення даних з інтервалом часу</string>
+    
+    <string name="update_label">Оновити дані</string>
+    <string name="dialog_title">Оновлення даних</string>
+    <string name="dialog_message">Будь ласка, почекайте...</string>
+    <string name="dialog_message_theaters">Оновлення кінотеатрів...</string>
+    <string name="dialog_message_cinemas">Оновлення фільмів...</string>
+    <string name="dialog_message_cleardb">Видалення старих даних...</string>
+    <string name="dialog_message_indexdb">Індексування...</string>
+    <string name="database_clear_message"> База даних успішно очищена</string>
+    <string name="suggestions_clear_message">Історія пошуку успішно очищена</string>
+    
+    <string name="update_error_title">Помилка поновлення</string>
+    <string name="update_error_message">Перевірте налаштування підключення до Інтернету...</string>
+    <string name="update_error_button">Закрити</string>
+    
+    <string name="select_city_dialog">Будь ласка, виберіть місто в налаштуванні</string>
+    
+    <string name="autoupdate_service_start">Автооновлення запущено</string>
+    <string name="autoupdate_service_stop">Автооновлення зупиненому</string>
+    
+    <string name="more_info_text">Інформація</string>
+    
+    <string name="theater_address">Адреса:</string>
+    <string name="theater_link">Сайт:</string>
+    <string name="theater_phone">Телефони:</string>
+    <string name="theater_call_phone">Бронювання</string>
+    <string name="theater_map_location">Карта</string>
+    <string name="afisha_today">Сьогодні</string>
+    <string name="afisha_tomorrow">Завтра</string>
+    <string name="seance_zal_title">Зал:</string>
+    <string name="seance_times">Час:</string>
+    <string name="seance_prices">Ціна:</string>
+    
+    <string name="theater_name">Кінотеатр</string>
+    
+    <string name="cinema_orig_title">В ориг:</string>
+    <string name="cinema_year">Рік:</string>
+    <string name="cinema_casts">У ролях</string>
+    <string name="cinema_description">Сюжет</string>
+    
+    <string name="seance_theater">Кінотеатр</string>
+    <string name="seance_cinema">Фільм</string>
+    <string name="seance_trailers">Трейлери</string>
+    <string name="search_trailser_world">трейлер</string>
+    
+    <string name="not_set">Не вказано</string>
+    
+    <string name="map_seances_label">Афіша</string>
+    <string name="theaters_map_select_theater">Виберіть кінотеатр</string>
+    
+    <string name="cache_poster_title">Кешувати картинки</string>
+    <string name="cache_poster_summary">Зменшує використання трафіку, збільшує час оновлення</string>
+    
+    <string name="no_poster_title">Без картинок</string>
+    <string name="no_poster_summary">Режим без картинок (для економії трафіку)</string>
+    
+    <string name="about_label">Про програму</string>
+    <string name="about_title">Про програму</string>
+    <string name="about_text">
+      Дана програма надає афішу кінотеатрів Україні.
+      Дані беруться c сайту http://coocoorooza.com
+      Офіційна сторінка програми - http://popcornua.coocoorooza.com
+      За можливу невідповідність інформації дійсності автор даної програми
+      відповідальності не несе. Якщо ви знайшли помилку в даних програми (телефон, адреса, сеанси кінотеатру)
+      повідомте будь ласка за адресою popcornua.by.leo@gmail.com для швидкого виправлення.
+      Приємного використання!
+    </string>
+    
+    <string name="exit_label">Вихід</string>
+    
+    <string name="theaters_map_label">Карта кінотеатрів</string>
+    <string name="theaters_map_city_title">Кінотеатри міста</string>
+    <!-- <string name="gmap_api">0Py1gbGPg9zGMsC6AhSurIZ30zwcb4hhpikMQYg</string> -->
+    <string name="gmap_api">0Py1gbGPg9zERSj9uJTe3ZNB8ebAs5O90M2UyZQ</string>
+    <string name="theaters_map_me">Де я?</string>
+    <string name="theaters_map_me_found_error"> Координати Вашого місцезнаходження не визначені</string>
+    <string name="theaters_map_city">Місто</string>
+    <string name="theaters_map_city_syfix">, Україна</string>
+    <string name="theaters_map_city_found_error">Координати міста не визначені</string>
+    <string name="theaters_map_close_info">Cховати</string>
+    
+    <string name="gps_off_warning_title">Увага</string>
+    <string name="gps_off_warning"><![CDATA[GPS не увімкнений! Пошук місцезнаходження заблокований]]></string>
+    <string name="gps_off_warning_button">Добре</string>
+    
+    <string name="theaters_map_zoom_in">Збільшити</string>
+    <string name="theaters_map_zoom_out">Зменшити</string>
+    <string name="theaters_map_satellit">Супутник</string>
+    <string name="theaters_map_streets">Вулиці</string>
+    <string name="theaters_map_traffic">Трафік</string>
+    <string name="theaters_map_hotkey_help">Допомога</string>
+    <string name="about_map_text"><![CDATA[
+    <b>Клавіши управління карти:</b><br />
+    2 - Збільшити<br />
+    8 - Зменшити<br />
+    4 - Супутник<br />
+    5 - Трафік
+    ]]></string>
+      
+    <string name="no_data_maybe_update">Нічого не знайдено. Можливо потрібно оновити дані.</string>
+    
+    <string name="search_hint">Пошук фільмів</string>
+    <string name="search_result_label">Результат пошуку:</string>
+    
+    <string name="offline_error_title">Нема Інтернету</string>
+    <string name="offline_error_message">Без Інтернету карта не працює!</string>
+    <string name="offline_error_button">Логічно</string>
+</resources>
