@@ -10,6 +10,7 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 	private Context myContext;
 	private ProgressDialog pd;
 	private DataCollector dataCollectorObject;
+	private MainActivity updateView = null;
 	
 	
 	public DataProgressDialog(Context myContext) {
@@ -23,6 +24,10 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 	
 	public void closeView(){
 		this.pd.dismiss();
+	}
+	
+	public void addUpdateView(MainActivity activity){
+		this.updateView = activity;
 	}
 	
 	@Override
@@ -78,6 +83,10 @@ public class DataProgressDialog extends AsyncTask<Void, String, Void> {
 					// do nothing – it will close on its own
 				}
 			}).show();
+		} else {
+			if (this.updateView != null){
+				this.updateView.updateDataInView();
+			}
 		}
 	}
 
