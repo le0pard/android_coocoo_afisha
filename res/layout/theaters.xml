@@ -9,7 +9,13 @@ style="@style/layout_main">
   android:id="@+id/theaters_list"
   style="@style/list_main_view" />
 
- <TextView
+ <LinearLayout android:id="@+id/no_data_block" style="@style/no_data_block">
+  <TextView
    android:id="@+id/no_data_title"
    style="@style/list_main_no_data" />
+   <Button 
+   android:id="@+id/no_data_update_button"
+   style="@style/list_main_no_data_button" />
+ </LinearLayout>
+ 
 </LinearLayout>

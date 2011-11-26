@@ -90,6 +90,10 @@ public abstract class MainActivity extends Activity {
 		onSearchRequested();
 	}
 	
+	public void updateDataInView(){
+		// do nothing
+	}
+	
 	
 	/* check if is online */
 	public Boolean isOnline(){
