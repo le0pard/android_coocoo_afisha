@@ -3,11 +3,13 @@
            style="@style/dasboard_bar">
         <ImageView android:id="@+id/dashboard_bar_logo"
                    style="@style/dasboard_bar_logo"
+                   android:contentDescription="@string/logo"
                    android:onClick="onClickHome"  />
 		      
 		    <View style="@style/dasboard_bar_spring" />
 		      
         <ImageButton android:id="@+id/search_button"
 		        style="@style/search_button"
+		        android:contentDescription="@string/search"
 		        android:onClick="onClickSearch"  />
 </LinearLayout>

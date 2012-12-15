@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources xmlns:tools="https://schemas.android.com/tools" tools:ignore="TypographyDashes">
+  <!--Replace placeholder ID with your tracking ID-->
+  <string name="ga_trackingId" translatable="false">UA-7068020-8</string>
+
+  <!--Enable Activity tracking-->
+  <bool name="ga_autoActivityTracking">true</bool>
+  
+  <!-- The screen names that will appear in your reporting -->
+  <string name="ua.in.leopard.androidCoocooAfisha.androidCoocooAfisha" translatable="false">Home</string>
+  <string name="ua.in.leopard.androidCoocooAfisha.EditPreferences" translatable="false">Preferences</string>
+
+  <!--Enable automatic exception tracking-->
+  <bool name="ga_reportUncaughtExceptions">true</bool>
+  
+  <bool name="ga_debug">true</bool>
+</resources>

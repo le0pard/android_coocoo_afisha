@@ -2,6 +2,8 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ public class Theaters extends MainActivity implements OnClickListener, OnItemCli
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	private void restoreBackgroudUpdate(){
     	if (getLastNonConfigurationInstance() != null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
@@ -75,10 +78,6 @@ public class Theaters extends MainActivity implements OnClickListener, OnItemCli
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		TheaterDB theater_object = (TheaterDB)theaters_adapter.getItem(position);
-		//track info
-		tracker.setCustomVar(1, "Cinema Selected", theater_object.getTitle());
-		tracker.trackPageView("/cinema_selected");
-		tracker.dispatch();
 		//work
 		Intent intent = new Intent(this, Theater.class);
 		Bundle bundle = new Bundle();
@@ -99,6 +98,18 @@ public class Theaters extends MainActivity implements OnClickListener, OnItemCli
 	         break;         
 	      }
 		
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 
 }

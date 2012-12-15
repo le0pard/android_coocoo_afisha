@@ -1,5 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.os.Bundle;
 import android.text.Html;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ public class CinemaInfo extends MainActivity {
 	        	DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
 	        	CinemaDB cinema_main = DatabaseHelperObject.getCinema(cinema_id);
 	        	if (cinema_main != null){
-	        		setTitle(cinema_main.getTitle());
+	        		setTitle(Html.fromHtml(cinema_main.getTitle()));
 	        		
 	        		TextView cinema_orig_title = (TextView)findViewById(R.id.cinema_orig_title);
 	        		if (cinema_orig_title != null){
@@ -57,4 +59,16 @@ public class CinemaInfo extends MainActivity {
 	        	}
 	      }
 	   }
+	   
+		@Override
+		public void onStart() {
+			super.onStart();
+			EasyTracker.getInstance().activityStart(this); // Add this method.
+		}
+		  
+		@Override
+		public void onStop() {
+			super.onStop();
+		    EasyTracker.getInstance().activityStop(this); // Add this method.
+		}
 }

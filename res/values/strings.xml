@@ -4,6 +4,9 @@
     <string name="main_title">Афиша кинотеатров</string>
     <string name="current_city_title">Текущий город: </string>
     
+    <string name="logo">PopCornUA</string>
+    <string name="search">Search</string>
+    
     <string name="cinemas_label">Фильмы</string>
     <string name="theaters_label">Кинотеатры</string>
     
@@ -50,16 +53,16 @@
     
     <string name="update_label">Обновить данные</string>
     <string name="dialog_title">Обновление данных</string>
-    <string name="dialog_message">Пожалуйста, подождите...</string>
-    <string name="dialog_message_theaters">Обновление кинотеатров...</string>
-    <string name="dialog_message_cinemas">Обновление фильмов...</string>
-    <string name="dialog_message_cleardb">Удаление старых данных...</string>
-    <string name="dialog_message_indexdb">Индексирование...</string>
+    <string name="dialog_message">Пожалуйста, подождите &#8230;</string>
+    <string name="dialog_message_theaters">Обновление кинотеатров &#8230;</string>
+    <string name="dialog_message_cinemas">Обновление фильмов &#8230;</string>
+    <string name="dialog_message_cleardb">Удаление старых данных &#8230;</string>
+    <string name="dialog_message_indexdb">Индексирование &#8230;</string>
     <string name="database_clear_message">База данных успешно очищена</string>
     <string name="suggestions_clear_message">История поиска успешно очищена</string>
     
     <string name="update_error_title">Ошибка обновления</string>
-    <string name="update_error_message">Проверьте настройки подключения к Интернету...</string>
+    <string name="update_error_message">Сервер обновления лежит или к нему нет доступа &#8230;</string>
     <string name="update_error_button">Закрыть</string>
     
     <string name="select_city_dialog">Пожалуйста, выберите город для афиши в настройках</string>
@@ -107,7 +110,7 @@
     <string name="about_title">О программе</string>
     <string name="about_text">
       Данная программа предоставляет афишу кинотеатров Украины. 
-      Данные берутся c сайта http://coocoorooza.com 
+      Данные берутся c сайта http://kino-teatr.ua/
       Официальная страница программы - http://popcornua.coocoorooza.com 
       За возможное несоответствие информации действительности автор данной программы 
       ответственности не несет. Если вы нашли ошибку в данных программы (телефон, адрес, сеансы кинотеатра) 

@@ -2,7 +2,10 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
+import ua.in.leopard.androidCoocooAfisha.helper.PosterSetuper;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,8 +55,10 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
         		if (EditPreferences.isNoPosters(this)){
         			cinemaPoster.setImageResource(R.drawable.no_poster);
         		} else {
-        			if (null != cinema_main.getCachedImg()){
-        				cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+        			if (cinema_main.isHavePoster()){
+        				//cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+        				PosterSetuper backgroudTask = new PosterSetuper(this, cinema_main, cinemaPoster);
+        		    	backgroudTask.execute();
         			} else if (!EditPreferences.isCachedPosters(this)) {
         				ImageDownloader imageDownloader = new ImageDownloader(this);
         				imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
@@ -153,10 +158,6 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		TheaterAdapter s_adapter = (TheaterAdapter)parent.getAdapter();
 		TheaterDB theater_obj = (TheaterDB)s_adapter.getItem(position);
-		//track info
-		tracker.setCustomVar(1, "Cinema Selected", theater_obj.getTitle());
-		tracker.trackPageView("/cinema_selected_on_film");
-		tracker.dispatch();
 		//work
 		Intent intent = new Intent(this, SeanceInfo.class);
 		Bundle bundle = new Bundle();
@@ -190,6 +191,18 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 			startActivity(intent);
 	        break;
 	    }		
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 
 }

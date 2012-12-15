@@ -1,5 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,7 +26,7 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         @Override
         public void onReceive(Context context, Intent intent) {
         	if (isOnline()){
-	        	if(backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
+	        	if(backgroudUpdater != null && backgroudUpdater.getStatus() == AsyncTask.Status.PENDING) {
 					 backgroudUpdater.execute();
 				}
         	}
@@ -75,7 +77,8 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         dashboardLogo.setClickable(false);
     }
     
-    private void restoreBackgroudUpdate(){
+    @SuppressWarnings("deprecation")
+	private void restoreBackgroudUpdate(){
     	if (getLastNonConfigurationInstance() != null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
     		if(backgroudUpdater.getStatus() == AsyncTask.Status.RUNNING) {
@@ -83,6 +86,18 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     		}
     	}
     }
+    
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
+	}
     
     @Override
     public Object onRetainNonConfigurationInstance() {
@@ -116,8 +131,14 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
     @Override
     protected void onPause() {
        super.onPause();
-   	   if (EditPreferences.getAutoUpdate(this)){
-	   		unregisterReceiver(broadcastReceiver);
+   	   if (EditPreferences.getAutoUpdate(this) && broadcastReceiver != null){
+   		   	try {
+   		   		unregisterReceiver(broadcastReceiver);
+   		   	} catch (IllegalArgumentException e) {
+   		   		// no need to stop
+   		   	} catch (Exception e) {
+   		   		// no need to stop
+   		   	}
 	   		// no need to stop
 			//stopService(serviceIntent);
        }
@@ -136,18 +157,12 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         } else {
 			switch (v.getId()) {
 			  case R.id.cinemas_button:
-				 tracker.trackPageView("/films_button");
-				 tracker.dispatch();
 				 startActivity(new Intent(this, Cinemas.class));
 		         break;
 			  case R.id.theaters_button:
-				 tracker.trackPageView("/cinemas_button");
-				 tracker.dispatch();
 				 startActivity(new Intent(this, Theaters.class));
 		         break;
 			  case R.id.theaters_map_button:
-				 tracker.trackPageView("/map_button");
-				 tracker.dispatch();
 				 if (isOnline()){
 					 startActivity(new Intent(this, TheatersMap.class));
 				 } else {
@@ -183,15 +198,11 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
    public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
       	case R.id.settings:
-      	 tracker.trackPageView("/settings_button");
-      	 tracker.dispatch();
          startActivity(new Intent(this, EditPreferences.class));
          return true;
       	case R.id.about_button:
-      	 tracker.trackPageView("/about_button");
-      	 tracker.dispatch();
       	 startActivity(new Intent(this, About.class));
-      	return true;
+      	 return true;
       	default:
 	     return super.onOptionsItemSelected(item);
       }
