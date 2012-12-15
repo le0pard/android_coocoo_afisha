@@ -12,7 +12,7 @@ public class PosterSetuper extends AsyncTask<Void, String, Void> {
 	//private Context myContext;
 	private CinemaDB entry;
 	private final WeakReference<ImageView> image;
-	private Bitmap imageBitmap;
+	private Bitmap imageBitmap = null;
 	
 	public PosterSetuper(Context context, CinemaDB entry, ImageView image){
 		//this.myContext = context;
@@ -22,7 +22,9 @@ public class PosterSetuper extends AsyncTask<Void, String, Void> {
 	
 	@Override
 	protected Void doInBackground(Void... params) {
-		this.imageBitmap = entry.getCachedImg();
+		if (entry.isHavePoster()){
+			this.imageBitmap = entry.getCachedImg();
+		}
 		return null;
 	}
 	

@@ -17,7 +17,7 @@ public class SearchAdapterView extends LinearLayout {
 		View v = inflate(context, R.layout.cinema_row, null);
 		
 		TextView theaterTitle = (TextView)v.findViewById(R.id.cinema_title);
-		theaterTitle.setText(entry.getTitle());
+		theaterTitle.setText(Html.fromHtml(entry.getTitle()));
 		
 		TextView theaterAddress = (TextView)v.findViewById(R.id.cinema_orig_title);
 		theaterAddress.setText(Html.fromHtml(entry.getOrigTitle()));

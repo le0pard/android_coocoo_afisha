@@ -118,7 +118,7 @@ public class CinemaDB {
 	}
 	
 	public Boolean isHavePoster(){
-		return this.cached_poster.length > 0;
+		return (this.cached_poster != null && this.cached_poster.length > 0);
 	}
 	
 	public Bitmap getCachedImg(){
