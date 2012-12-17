@@ -37,7 +37,7 @@ public class SeanceAdapterView extends LinearLayout {
 		}
 		
 		TextView cinemaTitle = (TextView)v.findViewById(R.id.cinema_title);
-		cinemaTitle.setText(entry.getTitle());
+		cinemaTitle.setText(Html.fromHtml(entry.getTitle()));
 		
 		TextView origTitle = (TextView)v.findViewById(R.id.cinema_orig_title);
 		if (entry.getOrigTitle() != null && entry.getOrigTitle().length() > 0){
