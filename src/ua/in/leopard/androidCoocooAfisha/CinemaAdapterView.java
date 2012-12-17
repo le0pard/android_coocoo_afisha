@@ -1,11 +1,13 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+@SuppressLint("ViewConstructor")
 public class CinemaAdapterView extends LinearLayout {
 
 	public CinemaAdapterView(Context context, CinemaDB entry) {
@@ -17,7 +19,7 @@ public class CinemaAdapterView extends LinearLayout {
 		View v = inflate(context, R.layout.cinema_row, null);
 		
 		TextView theaterTitle = (TextView)v.findViewById(R.id.cinema_title);
-		theaterTitle.setText(entry.getTitle());
+		theaterTitle.setText(Html.fromHtml(entry.getTitle()));
 		
 		TextView theaterAddress = (TextView)v.findViewById(R.id.cinema_orig_title);
 		theaterAddress.setText(Html.fromHtml(entry.getOrigTitle()));

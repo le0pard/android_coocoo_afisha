@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -348,6 +349,18 @@ public class TheatersMap extends MapActivity implements OnClickListener {
 	{
 	    TextView main_title = (TextView)findViewById(R.id.main_title);
 	    if (main_title != null) main_title.setText(Html.fromHtml(title.toString()));
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 	
 }

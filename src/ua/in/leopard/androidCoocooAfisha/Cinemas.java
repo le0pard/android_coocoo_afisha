@@ -2,6 +2,8 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -74,10 +76,6 @@ public class Cinemas extends MainActivity implements OnClickListener, OnItemClic
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		CinemaDB cinema_object = (CinemaDB)adapter.getItem(position);
-		//track info
-		tracker.setCustomVar(1, "Film Selected", cinema_object.getTitle());
-		tracker.trackPageView("/film_selected");
-		tracker.dispatch();
 		//work
 		Intent intent = new Intent(this, Cinema.class);
 		Bundle bundle = new Bundle();
@@ -98,6 +96,18 @@ public class Cinemas extends MainActivity implements OnClickListener, OnItemClic
 	         break;         
 	      }
 		
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 
 }

@@ -1,5 +1,7 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -91,7 +93,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    	return(backgroudUpdater);
    }
    
-   @Override
+@Override
    protected void onResume() {
        super.onResume();
        // Set up a listener whenever a key changes            
@@ -103,7 +105,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
  	   }
    }
 
-   @Override
+@Override
    protected void onPause() {
        super.onPause();
        // Unregister the listener whenever a key changes            
@@ -171,7 +173,7 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   }
 	   /* auto updater */
 	   if (key.equals(OPT_AUTO_UPD)) {
-		   ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
+		ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
 		   stopService(new Intent(getApplicationContext(), DataUpdateService.class));
 		   if (sharedPreferences.getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF)){
 			   lp.setEnabled(true);
@@ -228,5 +230,17 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
 	   
 	   editor.commit();
    }
+   
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
+	}
    
 }

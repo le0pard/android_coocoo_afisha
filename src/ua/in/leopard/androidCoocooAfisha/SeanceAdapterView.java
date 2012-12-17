@@ -1,6 +1,8 @@
 package ua.in.leopard.androidCoocooAfisha;
 
 import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
+import ua.in.leopard.androidCoocooAfisha.helper.PosterSetuper;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+@SuppressLint("ViewConstructor")
 public class SeanceAdapterView extends LinearLayout {
 
 	public SeanceAdapterView(Context context, CinemaDB entry, ImageDownloader imageDownloader) {
@@ -22,8 +25,10 @@ public class SeanceAdapterView extends LinearLayout {
 		if (EditPreferences.isNoPosters(context)){
 			cinemaPoster.setImageResource(R.drawable.no_poster);
 		} else {
-			if (null != entry.getCachedImg()){
-				cinemaPoster.setImageBitmap(entry.getCachedImg());
+			if (entry.isHavePoster()){
+				//cinemaPoster.setImageBitmap(entry.getCachedImg());
+				PosterSetuper backgroudTask = new PosterSetuper(context, entry, cinemaPoster);
+		    	backgroudTask.execute();
 			} else if (!EditPreferences.isCachedPosters(context)) {
 				imageDownloader.download(entry.getPosterUrl(), cinemaPoster);
 			} else {
@@ -32,7 +37,7 @@ public class SeanceAdapterView extends LinearLayout {
 		}
 		
 		TextView cinemaTitle = (TextView)v.findViewById(R.id.cinema_title);
-		cinemaTitle.setText(entry.getTitle());
+		cinemaTitle.setText(Html.fromHtml(entry.getTitle()));
 		
 		TextView origTitle = (TextView)v.findViewById(R.id.cinema_orig_title);
 		if (entry.getOrigTitle() != null && entry.getOrigTitle().length() > 0){

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <!-- <string name="gmap_api">0Py1gbGPg9zGMsC6AhSurIZ30zwcb4hhpikMQYg</string> -->
-   <string name="gmap_api">0Py1gbGPg9zERSj9uJTe3ZNB8ebAs5O90M2UyZQ</string>
+   <!-- <string name="gmap_api" translatable="false">0Py1gbGPg9zGMsC6AhSurIZ30zwcb4hhpikMQYg</string> -->
+   <string name="gmap_api" translatable="false">0Py1gbGPg9zERSj9uJTe3ZNB8ebAs5O90M2UyZQ</string>
 </resources>

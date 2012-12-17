@@ -1,20 +1,16 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
 public abstract class MainActivity extends Activity {
-	private String GOOGLE_ANALITYC_CODE = "UA-7068020-8";
-	public GoogleAnalyticsTracker tracker;
 
 	/**
 	 * onCreate - called when the activity is first created.
@@ -26,15 +22,6 @@ public abstract class MainActivity extends Activity {
 	 * Always followed by onStart().
 	 *
 	 */
-
-	protected void onCreate(Bundle savedInstanceState) 
-	{
-	    super.onCreate(savedInstanceState);
-	    // Start the tracker in manual dispatch mode...
-	    tracker = GoogleAnalyticsTracker.getInstance();
-	    tracker.start(GOOGLE_ANALITYC_CODE, this);
-	}
-	
 	
 	/**
 	 */
@@ -52,9 +39,6 @@ public abstract class MainActivity extends Activity {
 	}
 	
 	public void goHome(Context context) {
-		//track
-		tracker.trackPageView("/home_button_top");
-		tracker.dispatch();
 		//work
 	    final Intent intent = new Intent(context, androidCoocooAfisha.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -83,9 +67,6 @@ public abstract class MainActivity extends Activity {
 	}
 
 	public void onClickSearch(View v){
-		//track
-		tracker.trackPageView("/search_button_top");
-		tracker.dispatch();
 		//work
 		onSearchRequested();
 	}
@@ -103,12 +84,5 @@ public abstract class MainActivity extends Activity {
 			return false;
 		}		
 		return true;
-	}
-	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	    // Stop the tracker when it is no longer needed.
-	    tracker.stop();
 	}
 }
