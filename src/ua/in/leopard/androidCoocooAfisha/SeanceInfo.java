@@ -87,8 +87,8 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
 		} else {
 			if (cinema_main.isHavePoster()){
 				//cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
-				PosterSetuper backgroudTask = new PosterSetuper(this, cinema_main, cinemaPoster);
-		    	backgroudTask.execute();
+				PosterSetuper posterSetuper = new PosterSetuper(this);
+				posterSetuper.setImage(cinema_main, cinemaPoster);
 			} else if (!EditPreferences.isCachedPosters(this)) {
 				ImageDownloader imageDownloader = new ImageDownloader(this);
     			imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);

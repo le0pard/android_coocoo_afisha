@@ -38,6 +38,7 @@ public class Theaters extends MainActivity implements OnClickListener, OnItemCli
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	private void restoreBackgroudUpdate(){
     	if (getLastNonConfigurationInstance() != null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();

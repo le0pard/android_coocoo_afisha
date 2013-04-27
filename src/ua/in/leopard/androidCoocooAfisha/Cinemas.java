@@ -37,6 +37,7 @@ public class Cinemas extends MainActivity implements OnClickListener, OnItemClic
         restoreBackgroudUpdate();
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void restoreBackgroudUpdate(){
     	if (getLastNonConfigurationInstance() != null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();

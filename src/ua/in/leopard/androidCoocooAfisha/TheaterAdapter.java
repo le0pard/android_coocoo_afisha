@@ -1,9 +1,9 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,7 +12,7 @@ public class TheaterAdapter extends BaseAdapter {
 	
 	private Context context;
 	private List<TheaterDB> theaters_list;
-	private HashMap<Integer, TheaterAdapterView> listTheaterAdapterView = new HashMap<Integer, TheaterAdapterView>();
+	private SparseArray<TheaterAdapterView> listTheaterAdapterView = new SparseArray<TheaterAdapterView>();
 	
 	public TheaterAdapter(Context context, List<TheaterDB> theaters_list){
 		this.context = context;

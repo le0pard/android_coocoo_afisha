@@ -77,6 +77,7 @@ public class androidCoocooAfisha extends MainActivity implements OnClickListener
         dashboardLogo.setClickable(false);
     }
     
+    @SuppressWarnings("deprecation")
 	private void restoreBackgroudUpdate(){
     	if (getLastNonConfigurationInstance() != null) {
     		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();

@@ -1,9 +1,9 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 public class SearchAdapter extends BaseAdapter {
 	private Context context;
 	private List<SearchResDB> search_list;
-	private HashMap<Integer, SearchAdapterView> listSearchAdapterView = new HashMap<Integer, SearchAdapterView>();
+	private SparseArray<SearchAdapterView> listSearchAdapterView = new SparseArray<SearchAdapterView>();
 	
 	public SearchAdapter(Context context, List<SearchResDB> search_list){
 		this.context = context;

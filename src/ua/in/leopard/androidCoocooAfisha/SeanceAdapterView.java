@@ -13,7 +13,7 @@ import android.widget.TextView;
 @SuppressLint("ViewConstructor")
 public class SeanceAdapterView extends LinearLayout {
 
-	public SeanceAdapterView(Context context, CinemaDB entry, ImageDownloader imageDownloader) {
+	public SeanceAdapterView(Context context, CinemaDB entry, ImageDownloader imageDownloader, PosterSetuper posterSetuper) {
 		super(context);
 		
 		this.setOrientation(VERTICAL);
@@ -27,8 +27,7 @@ public class SeanceAdapterView extends LinearLayout {
 		} else {
 			if (entry.isHavePoster()){
 				//cinemaPoster.setImageBitmap(entry.getCachedImg());
-				PosterSetuper backgroudTask = new PosterSetuper(context, entry, cinemaPoster);
-		    	backgroudTask.execute();
+				posterSetuper.setImage(entry, cinemaPoster);
 			} else if (!EditPreferences.isCachedPosters(context)) {
 				imageDownloader.download(entry.getPosterUrl(), cinemaPoster);
 			} else {
@@ -37,7 +36,7 @@ public class SeanceAdapterView extends LinearLayout {
 		}
 		
 		TextView cinemaTitle = (TextView)v.findViewById(R.id.cinema_title);
-		cinemaTitle.setText(Html.fromHtml(entry.getTitle()));
+		cinemaTitle.setText(entry.getTitle());
 		
 		TextView origTitle = (TextView)v.findViewById(R.id.cinema_orig_title);
 		if (entry.getOrigTitle() != null && entry.getOrigTitle().length() > 0){
