@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="ua.in.leopard.androidCoocooAfisha"
-      android:versionCode="39" android:versionName="2.2.3" 
+      android:versionCode="40" android:versionName="2.2.4" 
       android:installLocation="preferExternal">
     <supports-screens
 			android:largeScreens="true"
@@ -57,7 +57,7 @@
 		
 		
 		<!-- Used for install referrer tracking -->
-		<receiver android:name="com.google.analytics.tracking.android.AnalyticsReceiver" android:exported="true" android:permission="true">
+		<receiver android:name="com.google.analytics.tracking.android.AnalyticsReceiver" android:exported="true" android:permission="android.permission.INTERNET">
 		  <intent-filter>
 		    <action android:name="com.android.vending.INSTALL_REFERRER" />
 		  </intent-filter>
