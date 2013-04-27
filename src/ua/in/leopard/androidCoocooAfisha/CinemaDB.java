@@ -117,15 +117,17 @@ public class CinemaDB {
 		return this.cached_poster;
 	}
 	
+	public Boolean isHavePoster(){
+		return (this.cached_poster != null && this.cached_poster.length > 0);
+	}
+	
 	public Bitmap getCachedImg(){
-		Bitmap bitmap = null;
-		byte[] img_bytes = this.getCachedPoster();
-		BitmapFactory.Options opts = new BitmapFactory.Options();
-		
-		if (img_bytes != null){
-			bitmap = BitmapFactory.decodeByteArray(img_bytes, 0, img_bytes.length, opts);
+		if (isHavePoster()){
+			BitmapFactory.Options opts = new BitmapFactory.Options();
+			return BitmapFactory.decodeByteArray(this.getCachedPoster(), 0, this.getCachedPoster().length, opts);
+		} else {
+			return null;
 		}
-		return bitmap;
 	}
 	
 	public Bitmap getPosterImg(){

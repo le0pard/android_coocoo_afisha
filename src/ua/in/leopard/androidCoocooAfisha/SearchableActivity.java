@@ -2,6 +2,8 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import ua.in.leopard.androidCoocooAfisha.provider.SearchPopcornProvider;
 
 import android.app.SearchManager;
@@ -51,6 +53,18 @@ public class SearchableActivity extends MainActivity implements OnItemClickListe
 		bundle.putInt("cinema_id", search_object.getCinemaId());
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 
 }

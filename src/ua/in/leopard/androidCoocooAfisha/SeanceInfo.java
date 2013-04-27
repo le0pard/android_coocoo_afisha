@@ -1,6 +1,9 @@
 package ua.in.leopard.androidCoocooAfisha;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
+import ua.in.leopard.androidCoocooAfisha.helper.PosterSetuper;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -82,8 +85,10 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
 		if (EditPreferences.isNoPosters(this)){
 			cinemaPoster.setImageResource(R.drawable.no_poster);
 		} else {
-			if (null != cinema_main.getCachedImg()){
-				cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+			if (cinema_main.isHavePoster()){
+				//cinemaPoster.setImageBitmap(cinema_main.getCachedImg());
+				PosterSetuper posterSetuper = new PosterSetuper(this);
+				posterSetuper.setImage(cinema_main, cinemaPoster);
 			} else if (!EditPreferences.isCachedPosters(this)) {
 				ImageDownloader imageDownloader = new ImageDownloader(this);
     			imageDownloader.download(cinema_main.getPosterUrl(), cinemaPoster);
@@ -211,6 +216,19 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
       	default:
 	     return super.onOptionsItemSelected(item);
       }
+	}
+	
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 	
 }

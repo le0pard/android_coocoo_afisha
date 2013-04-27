@@ -2,6 +2,8 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -114,10 +116,6 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		SeanceAdapter s_adapter = (SeanceAdapter)parent.getAdapter();
 		CinemaDB cinema_obj = (CinemaDB)s_adapter.getItem(position);
-		//track info
-		tracker.setCustomVar(1, "Film Selected", cinema_obj.getTitle());
-		tracker.trackPageView("/film_selected_on_cinema");
-		tracker.dispatch();
 		//work
 		Intent intent = new Intent(this, SeanceInfo.class);
 		Bundle bundle = new Bundle();
@@ -151,5 +149,17 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 			tabButtonChanged();
 			break;
 	   }
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance().activityStart(this); // Add this method.
+	}
+	  
+	@Override
+	public void onStop() {
+		super.onStop();
+	    EasyTracker.getInstance().activityStop(this); // Add this method.
 	}
 }
