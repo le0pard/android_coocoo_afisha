@@ -1,13 +1,11 @@
 package ua.in.leopard.androidCoocooAfisha;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-@SuppressLint("ViewConstructor")
 public class CinemaAdapterView extends LinearLayout {
 
 	public CinemaAdapterView(Context context, CinemaDB entry) {

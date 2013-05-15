@@ -2,7 +2,6 @@ package ua.in.leopard.androidCoocooAfisha;
 
 import ua.in.leopard.androidCoocooAfisha.helper.ImageDownloader;
 import ua.in.leopard.androidCoocooAfisha.helper.PosterSetuper;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-@SuppressLint("ViewConstructor")
 public class SeanceAdapterView extends LinearLayout {
 
 	public SeanceAdapterView(Context context, CinemaDB entry, ImageDownloader imageDownloader, PosterSetuper posterSetuper) {
