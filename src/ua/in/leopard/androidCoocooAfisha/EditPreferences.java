@@ -44,7 +44,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
    private CheckBoxPreference checkbox_theaters_filter;
    private CheckBoxPreference checkbox_cached_poster;
 
-   @SuppressWarnings("deprecation")
 @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -77,7 +76,6 @@ public class EditPreferences extends PreferenceActivity implements OnSharedPrefe
       restoreBackgroudUpdate();
    }
    
-   @SuppressWarnings("deprecation")
 private void restoreBackgroudUpdate(){
    	if (getLastNonConfigurationInstance()!=null) {
    		backgroudUpdater = (DataProgressDialog)getLastNonConfigurationInstance();
@@ -95,7 +93,6 @@ private void restoreBackgroudUpdate(){
    	return(backgroudUpdater);
    }
    
-   @SuppressWarnings("deprecation")
 @Override
    protected void onResume() {
        super.onResume();
@@ -108,7 +105,6 @@ private void restoreBackgroudUpdate(){
  	   }
    }
 
-   @SuppressWarnings("deprecation")
 @Override
    protected void onPause() {
        super.onPause();
@@ -177,7 +173,6 @@ private void restoreBackgroudUpdate(){
 	   }
 	   /* auto updater */
 	   if (key.equals(OPT_AUTO_UPD)) {
-		   @SuppressWarnings("deprecation")
 		ListPreference lp = (ListPreference)findPreference(OPT_AUTO_UPD_TIME);
 		   stopService(new Intent(getApplicationContext(), DataUpdateService.class));
 		   if (sharedPreferences.getBoolean(OPT_AUTO_UPD, OPT_AUTO_UPD_DEF)){
