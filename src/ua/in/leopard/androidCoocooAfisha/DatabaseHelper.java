@@ -21,6 +21,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME="coocoo_afisha_db";
 	private final Context myContext;
 	
+	private static final String AFISHA_TABLE_EXT_ID_SELECT="afisha_id";
+	
 	private static final String AFISHA_TABLE="afisha";
 	private static final String AFISHA_TABLE_EXT_ID="id";
 	private static final String AFISHA_TABLE_CINEMA_ID="cinema_id";
@@ -416,11 +418,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public CinemaDB getCinemaWithAfisha(TheaterDB theater, int cinema_id, Boolean is_today){
+	public CinemaDB getCinemaWithAfisha(TheaterDB theater, int cinema_id, int afisha_id, Boolean is_today){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
 		if (!is_today){
 			currentDate.add(Calendar.DATE, 1);
 		}
@@ -435,6 +437,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_DESCRIPTION + " AS " + CINEMAS_TABLE_DESCRIPTION + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_CASTS + " AS " + CINEMAS_TABLE_CASTS + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER_IMAGE + " AS " + CINEMAS_TABLE_POSTER_IMAGE + "," + 
+				AFISHA_TABLE + "." + AFISHA_TABLE_EXT_ID + " AS " + AFISHA_TABLE_EXT_ID_SELECT + "," +
 				AFISHA_TABLE + "." + AFISHA_TABLE_ZAL + " AS " + AFISHA_TABLE_ZAL + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + "," + 
@@ -446,10 +449,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_EXT_ID + 
 				" WHERE " + AFISHA_TABLE + "." + AFISHA_TABLE_THEATER_ID + " = ? AND " + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_EXT_ID + " = ? AND " + 
+				AFISHA_TABLE + "." + AFISHA_TABLE_EXT_ID + " = ? AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + " <= ? AND " + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + " >= ? " + 
 				" LIMIT 1",
-				new String[] {Integer.toString(theater.getId()), Integer.toString(cinema_id), dateNow, dateNow});
+				new String[] {Integer.toString(theater.getId()), Integer.toString(cinema_id), Integer.toString(afisha_id), dateNow, dateNow});
 		
 		result.moveToFirst();
 		CinemaDB cinema_row = null;
@@ -463,6 +467,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 			);
+			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_EXT_ID_SELECT))){
+				cinema_row.setAfishaId(result.getInt(result.getColumnIndex(AFISHA_TABLE_EXT_ID_SELECT)));
+			}
 			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_ZAL))){
 				cinema_row.setZalTitle(result.getString(result.getColumnIndex(AFISHA_TABLE_ZAL)));
 			}
@@ -487,7 +494,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
 		if (!is_today){
 			currentDate.add(Calendar.DATE, 1);
 		}
@@ -503,6 +510,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_DESCRIPTION + " AS " + CINEMAS_TABLE_DESCRIPTION + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_CASTS + " AS " + CINEMAS_TABLE_CASTS + "," + 
 				CINEMAS_TABLE + "." + CINEMAS_TABLE_POSTER_IMAGE + " AS " + CINEMAS_TABLE_POSTER_IMAGE + "," + 
+				AFISHA_TABLE + "." + AFISHA_TABLE_EXT_ID + " AS " + AFISHA_TABLE_EXT_ID_SELECT + "," +
 				AFISHA_TABLE + "." + AFISHA_TABLE_ZAL + " AS " + AFISHA_TABLE_ZAL + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_BEGIN + "," + 
 				AFISHA_TABLE + "." + AFISHA_TABLE_DATA_END + "," + 
@@ -531,6 +539,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_DESCRIPTION)),
 				result.getString(result.getColumnIndex(CINEMAS_TABLE_CASTS))
 			);
+			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_EXT_ID_SELECT))){
+				cinema_row.setAfishaId(result.getInt(result.getColumnIndex(AFISHA_TABLE_EXT_ID_SELECT)));
+			}
 			if (!result.isNull(result.getColumnIndex(AFISHA_TABLE_ZAL))){
 				cinema_row.setZalTitle(result.getString(result.getColumnIndex(AFISHA_TABLE_ZAL)));
 			}
@@ -559,7 +570,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 		
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
 		if (!is_today){
 			currentDate.add(Calendar.DATE, 1);
 		}
@@ -617,7 +628,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public List<CinemaDB> getTodayCinemas(){
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
 		List<TheaterDB> theaters_list = this.getTheaters(false);
@@ -659,7 +670,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public List<CinemaDB> getTodayCinemasForWidget(){
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
 		List<TheaterDB> theaters_list = this.getTheaters(false);
@@ -797,7 +808,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public void clearOldData(){
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
 		String dateNow = iso8601Format.format(currentDate.getTime()) + " 00:00:00";
 		
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -836,7 +847,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	public List<SearchResDB> searchCinemas(String query){
-		query = query.toLowerCase();
+		query = query.toLowerCase(java.util.Locale.getDefault());
 		SQLiteDatabase db = this.getReadableDatabase();
 		List<SearchResDB> search_list = new ArrayList<SearchResDB>();
 		Cursor result = db.rawQuery("SELECT * " + 
@@ -872,7 +883,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				String title = result.getString(result.getColumnIndex(CINEMAS_TABLE_TITLE));
 				String orig_title = result.getString(result.getColumnIndex(CINEMAS_TABLE_OR_TITLE));
 
-				cv.put(FTS_SEARCH_KEY_WORD, title.toLowerCase() + " " + orig_title.toLowerCase());
+				cv.put(FTS_SEARCH_KEY_WORD, title.toLowerCase(java.util.Locale.getDefault()) + " " + orig_title.toLowerCase(java.util.Locale.getDefault()));
 
 				cv.put(FTS_SEARCH_TITLE, title);
 				cv.put(FTS_SEARCH_ORIG_TITLE, orig_title);

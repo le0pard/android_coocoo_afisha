@@ -120,6 +120,7 @@ public class Theater extends MainActivity implements OnItemClickListener,OnClick
 		Intent intent = new Intent(this, SeanceInfo.class);
 		Bundle bundle = new Bundle();
 		bundle.putInt("cinema_id", cinema_obj.getId());
+		bundle.putInt("afisha_id", cinema_obj.getAfishaId());
 		bundle.putInt("theater_id", theater_main.getId());
 		if (adapter_tomorrow == s_adapter){
 			bundle.putBoolean("is_today", false);

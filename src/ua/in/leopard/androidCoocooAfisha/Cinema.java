@@ -159,15 +159,9 @@ public class Cinema extends MainActivity implements OnClickListener, OnItemClick
 		TheaterAdapter s_adapter = (TheaterAdapter)parent.getAdapter();
 		TheaterDB theater_obj = (TheaterDB)s_adapter.getItem(position);
 		//work
-		Intent intent = new Intent(this, SeanceInfo.class);
+		Intent intent = new Intent(this, Theater.class);
 		Bundle bundle = new Bundle();
-		bundle.putInt("cinema_id", cinema_main.getId());
 		bundle.putInt("theater_id", theater_obj.getId());
-		if (adapter_tomorrow == s_adapter){
-			bundle.putBoolean("is_today", false);
-		} else {
-			bundle.putBoolean("is_today", true);
-		}
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}

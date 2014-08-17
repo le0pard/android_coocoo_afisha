@@ -22,6 +22,7 @@ public class CinemaDB {
 	private String description;
 	private String casts;
 	
+	private int afisha_id;
 	private String zal_title = null;
 	private String times = null;
 	private String prices = null;
@@ -198,5 +199,12 @@ public class CinemaDB {
 	}
 	public void setCasts(String casts) {
 		this.casts = casts;
+	}
+	
+	public int getAfishaId() {
+		return afisha_id;
+	}
+	public void setAfishaId(int afisha_id) {
+		this.afisha_id = afisha_id;
 	}
 }

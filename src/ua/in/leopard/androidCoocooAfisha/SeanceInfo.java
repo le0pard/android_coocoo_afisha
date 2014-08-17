@@ -30,17 +30,19 @@ public class SeanceInfo extends MainActivity implements OnClickListener {
       Bundle extras = getIntent().getExtras();
       int cinema_id = 0;
       int theater_id = 0;
+      int afisha_id = 0;
       if(extras != null) {
         cinema_id = extras.getInt("cinema_id", 0);
         theater_id = extras.getInt("theater_id", 0);
+        afisha_id = extras.getInt("afisha_id", 0);
       }
       
       
-      if (cinema_id != 0 && theater_id != 0){
+      if (cinema_id != 0 && theater_id != 0 && afisha_id != 0){
         	DatabaseHelper DatabaseHelperObject = new DatabaseHelper(this);
         	theater_main = DatabaseHelperObject.getTheater(theater_id);
         	if (null != theater_main){
-	        	cinema_main = DatabaseHelperObject.getCinemaWithAfisha(theater_main, cinema_id, extras.getBoolean("is_today", true));
+	        	cinema_main = DatabaseHelperObject.getCinemaWithAfisha(theater_main, cinema_id, afisha_id, extras.getBoolean("is_today", true));
 	        	if (null != cinema_main){
 	        		setTitle(cinema_main.getTitle());
 	        		
